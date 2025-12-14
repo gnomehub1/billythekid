@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Billy The Kid | WPAP Portfolio Gallery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;500;800&family=Righteous&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* WPAP PALETTE */
+    --w-yellow: #FFD700;
+    --w-magenta: #FF0055;
+    --w-cyan: #00F0FF;
+    --w-purple: #8A2BE2;
+    --w-orange: #FF5722;
+    --w-lime: #CCFF00;
+    --w-dark: #111111;
+    --w-white: #ffffff;
+
+    /* Dimensions */
+    --shadow-depth: 8px 8px 0px var(--w-dark);
+    --shadow-hover: 14px 14px 0px var(--w-dark);
+  }
+
+  body {
+    background-color: var(--w-yellow);
+    font-family: 'Kanit', sans-serif;
+    color: var(--w-dark);
+    margin: 0;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* --- WPAP BACKGROUND DECORATIONS (The Clean Set) --- */
+  .deco-shape {
+    position: fixed;
+    z-index: -1;
+    opacity: 0.05;
+    pointer-events: none;
+  }
+  
+  .shape-1 {
+    top: 0; right: 0;
+    width: 50vw; height: 50vh;
+    background: linear-gradient(135deg, var(--w-yellow), var(--w-orange));
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+  }
+  .shape-2 {
+    bottom: 10%; left: -10%;
+    width: 60vw; height: 60vh;
+    background: linear-gradient(45deg, var(--w-cyan), var(--w-purple));
+    clip-path: polygon(0 0, 0% 100%, 100% 50%);
+    transform: rotate(15deg);
+  }
+  .shape-3 {
+    top: 20%; left: 10%;
+    width: 20vw; height: 20vw;
+    background: var(--w-magenta);
+    clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+    opacity: 0.1;
+  }
+
+  /* --- HEADER --- */
+  header {
+    padding: 60px 20px 20px;
+    text-align: center;
+  }
+
+  /* Logo in Top-Left Corner */
+  .logo-corner {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 100;
+    width: 72px; /* 40% smaller than 120px */
+    height: auto;
+    filter: drop-shadow(4px 4px 0px #cc9900);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    text-decoration: none;
+  }
+
+  .logo-corner img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  @media (hover: hover) {
+    .logo-corner:hover {
+      transform: scale(1.05);
+      filter: drop-shadow(6px 6px 0px #b38600);
+    }
+  }
+
+  @media (hover: none) {
+    .logo-corner:active {
+      transform: scale(0.95);
+    }
+  }
+
+  h1 {
+    font-family: 'Righteous', cursive;
+    font-size: 5rem;
+    margin: 0;
+    text-transform: uppercase;
+    line-height: 0.9;
+    letter-spacing: -2px;
+    color: var(--w-dark);
+    /* Cyan & Magenta Shadows */
+    text-shadow: 4px 4px 0px var(--w-cyan), -2px -2px 0px var(--w-magenta);
+  }
+
+  /* Hero Image in Header */
+  .hero-container {
+    max-width: 765px; /* 15% smaller than 900px */
+    width: 90%;
+    margin: 0 auto 30px;
+    aspect-ratio: 16 / 9;
+    position: relative;
+    border: 4px solid var(--w-dark);
+    box-shadow: var(--shadow-depth);
+    overflow: hidden;
+    background: #e0e0e0;
+    transform: rotate(-1deg);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+  }
+
+  .hero-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .hero-container:hover {
+      transform: rotate(0deg) scale(1.03) translate(-5px, -5px);
+      box-shadow: var(--shadow-hover);
+    }
+    .hero-container:hover .hero-image {
+      transform: scale(1.05);
+      filter: contrast(105%);
+    }
+  }
+
+  @media (hover: none) or (pointer: coarse) {
+    .hero-container:active {
+      transform: rotate(0deg) scale(0.98);
+      transition: all 0.1s ease;
+    }
+  }
+
+  .subtitle {
+    display: inline-block;
+    background: var(--w-dark);
+    color: var(--w-white);
+    font-weight: 800;
+    padding: 8px 25px;
+    margin-top: 20px;
+    font-size: 1.2rem;
+    transform: rotate(-2deg);
+    border: 3px solid var(--w-yellow);
+  }
+
+  /* --- NAVIGATION FILTERS --- */
+  .nav-container {
+    text-align: center;
+    margin: 50px 0 30px;
+    padding: 0 20px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .nav-btn {
+    background: transparent;
+    border: 3px solid var(--w-dark);
+    font-family: 'Righteous', sans-serif;
+    font-size: 1rem;
+    padding: 10px 25px;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.2s;
+    background: var(--w-white);
+    box-shadow: 4px 4px 0px rgba(0,0,0,0.1);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none; /* Prevent text selection on mobile taps */
+  }
+
+  /* Desktop hover for navigation */
+  @media (hover: hover) {
+    .nav-btn:hover {
+      transform: translate(-3px, -3px);
+      box-shadow: 6px 6px 0px var(--w-dark);
+    }
+    .nav-btn:nth-child(1):hover { background: var(--w-dark); color: white; }
+    .nav-btn:nth-child(2):hover { background: var(--w-yellow); }
+    .nav-btn:nth-child(3):hover { background: var(--w-cyan); }
+    .nav-btn:nth-child(4):hover { background: var(--w-magenta); color: white; }
+    .nav-btn:nth-child(5):hover { background: var(--w-lime); }
+    .nav-btn:nth-child(6):hover { background: var(--w-purple); color: white; }
+  }
+
+  /* Active state (selected button) */
+  .nav-btn.active {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0px var(--w-dark);
+  }
+  .nav-btn:nth-child(1).active { background: var(--w-dark); color: white; }
+  .nav-btn:nth-child(2).active { background: var(--w-yellow); }
+  .nav-btn:nth-child(3).active { background: var(--w-cyan); }
+  .nav-btn:nth-child(4).active { background: var(--w-magenta); color: white; }
+  .nav-btn:nth-child(5).active { background: var(--w-lime); }
+  .nav-btn:nth-child(6).active { background: var(--w-purple); color: white; }
+
+  /* Mobile tap feedback */
+  @media (hover: none) {
+    .nav-btn:active {
+      transform: translate(1px, 1px);
+      box-shadow: 2px 2px 0px var(--w-dark);
+    }
+  }
+
+  /* --- GRID SYSTEM (RESTORED TO BIGGER SIZES) --- */
+  .gallery-container {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 40px; /* Increased padding */
+    display: grid;
+    /* CHANGED: 300px min-width instead of 280px */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* CHANGED: 300px base height instead of 280px */
+    grid-auto-rows: 300px; 
+    /* CHANGED: 40px gap instead of 30px */
+    gap: 40px;
+    grid-auto-flow: dense; 
+  }
+
+  .card-wide { grid-column: span 2; }
+  .card-tall { grid-row: span 2; }
+  .card-big  { grid-column: span 2; grid-row: span 2; } 
+
+  /* --- CARD STYLES --- */
+  .art-card {
+    background: #e0e0e0;
+    border: 4px solid var(--w-dark);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    /* Performance optimization for mobile animations */
+    will-change: transform;
+    -webkit-tap-highlight-color: transparent; /* Remove blue tap highlight on mobile */
+  }
+
+  .art-card.hidden { display: none; }
+
+  .art-card img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    filter: saturate(0.8) contrast(1.1);
+  }
+
+  /* Rotation Logic - Base rotation FIRST */
+  .art-card:nth-child(odd) { transform: rotate(-1.5deg); }
+  .art-card:nth-child(even) { transform: rotate(1deg); }
+
+  /* Shadows - All black now */
+  .art-card { box-shadow: var(--shadow-depth); }
+
+  /* Hover State - Defined AFTER base rotation to ensure it wins */
+  @media (hover: hover) and (pointer: fine) {
+    .art-card:hover {
+      transform: rotate(0deg) scale(1.03) translate(-5px, -5px) !important;
+      z-index: 10;
+      box-shadow: var(--shadow-hover);
+      border-color: var(--w-dark);
+    }
+    .art-card:hover img {
+      transform: scale(1.05);
+      filter: contrast(105%);
+    }
+  }
+
+  /* Touch/Tap State (Mobile) */
+  @media (hover: none) or (pointer: coarse) {
+    .art-card:active {
+      transform: rotate(0deg) scale(0.98) !important;
+      transition: all 0.1s ease;
+    }
+    .art-card:active img {
+      filter: saturate(1.2) contrast(1.2);
+    }
+  }
+
+  /* Tags */
+  .card-tag {
+    position: absolute; bottom: 0; right: 0;
+    padding: 5px 12px; font-weight: 800; font-size: 0.8rem;
+    text-transform: uppercase; z-index: 2;
+    border-top: 3px solid var(--w-dark); border-left: 3px solid var(--w-dark);
+    background: var(--w-white);
+  }
+
+  /* --- LIGHTBOX MODAL --- */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(17, 17, 17, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+    padding: 20px;
+  }
+
+  .modal-overlay.active {
+    display: flex;
+  }
+
+  .modal-box {
+    background: var(--w-white);
+    width: 100%;
+    max-width: 1200px;
+    border: 4px solid var(--w-dark);
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 3rem;
+    cursor: pointer;
+    z-index: 20;
+    line-height: 0.8;
+    color: var(--w-dark);
+    background: var(--w-white);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--w-dark);
+    transition: transform 0.2s;
+  }
+
+  .close-btn:hover {
+    transform: rotate(90deg);
+    background: var(--w-yellow);
+  }
+
+  .lightbox-visual {
+    background: var(--w-dark);
+    border-right: 4px solid var(--w-dark);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 40px;
+  }
+
+  .lightbox-visual img {
+    width: 100%;
+    border: 4px solid var(--w-dark);
+    box-shadow: var(--shadow-depth);
+  }
+
+  .lightbox-details {
+    padding: 40px;
+    overflow-y: auto;
+    background: var(--w-white);
+  }
+
+  .lightbox-details h2 {
+    font-family: 'Righteous', cursive;
+    font-size: 2.5rem;
+    margin: 15px 0;
+    text-transform: uppercase;
+  }
+
+  .lightbox-tag {
+    background: var(--w-dark);
+    color: var(--w-yellow);
+    padding: 5px 15px;
+    font-size: 0.85rem;
+    font-weight: 800;
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  .payment-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-top: 30px;
+  }
+
+  .want-button {
+    background: var(--w-dark);
+    color: var(--w-yellow);
+    border: 3px solid var(--w-dark);
+    padding: 15px 20px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    font-family: 'Righteous', cursive;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: var(--shadow-depth);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .want-button:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 12px 12px 0px var(--w-dark);
+    background: var(--w-yellow);
+    color: var(--w-dark);
+  }
+
+  .want-button:active {
+    transform: translate(0px, 0px);
+    box-shadow: 4px 4px 0px var(--w-dark);
+  }
+
+  .btn-mercadopago {
+    background: #009EE3;
+    border-color: var(--w-dark);
+    color: var(--w-white);
+  }
+
+  .btn-mercadopago:hover {
+    background: var(--w-yellow);
+    color: var(--w-dark);
+  }
+
+  .btn-paypal {
+    background: #0070BA;
+    border-color: var(--w-dark);
+    color: var(--w-white);
+  }
+
+  .btn-paypal:hover {
+    background: var(--w-yellow);
+    color: var(--w-dark);
+  }
+
+  /* Instagram Icon */
+  .social-links {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+  }
+
+  .ig-link {
+    display: block;
+    width: 50px;
+    height: 50px;
+    background: var(--w-dark);
+    border: 3px solid var(--w-dark);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-depth);
+    text-decoration: none;
+  }
+
+  .ig-link:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0px var(--w-dark);
+    background: var(--w-yellow);
+  }
+
+  .ig-link svg {
+    width: 28px;
+    height: 28px;
+    fill: var(--w-white);
+    transition: fill 0.3s ease;
+  }
+
+  .ig-link:hover svg {
+    fill: var(--w-dark);
+  }
+
+  /* --- RESPONSIVE --- */
+
+  /* Tablets and smaller desktops */
+  @media (max-width: 1024px) {
+    .gallery-container {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 30px;
+      padding: 30px 20px;
+    }
+    .card-big { grid-column: span 2; grid-row: span 2; }
+  }
+
+  /* Large phones (landscape) and small tablets */
+  @media (max-width: 768px) {
+    .logo-corner {
+      width: 48px; /* 40% smaller than 80px */
+      top: 15px;
+      left: 15px;
+      filter: drop-shadow(3px 3px 0px #cc9900);
+    }
+
+    .hero-container {
+      max-width: 595px; /* 15% smaller than 700px */
+      width: 95%;
+      box-shadow: var(--shadow-depth);
+    }
+
+    .modal-box {
+      grid-template-columns: 1fr;
+    }
+
+    .lightbox-visual {
+      border-right: none;
+      border-bottom: 4px solid var(--w-dark);
+      padding: 20px;
+    }
+
+    .want-button {
+      font-size: 1rem;
+      padding: 12px 25px;
+    }
+
+    .payment-buttons {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .social-links {
+      top: 15px;
+      right: 15px;
+    }
+
+    .ig-link {
+      width: 45px;
+      height: 45px;
+    }
+
+    .ig-link svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      text-shadow: 3px 3px 0px var(--w-cyan), -1px -1px 0px var(--w-magenta);
+    }
+
+    /* Better touch targets for navigation */
+    .nav-container { gap: 8px; padding: 0 15px; }
+    .nav-btn {
+      font-size: 0.85rem;
+      padding: 12px 18px; /* Increased for better touch */
+      min-height: 44px; /* iOS minimum touch target */
+    }
+
+    /* 2-column grid on larger phones */
+    .gallery-container {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 200px;
+      gap: 20px;
+      padding: 20px 15px;
+    }
+
+    /* Allow some variety in grid on tablets */
+    .card-wide { grid-column: span 2; }
+    .card-tall { grid-row: span 2; }
+    .card-big { grid-column: span 2; grid-row: span 2; }
+
+    /* Reduce rotation on mobile */
+    .art-card:nth-child(odd) { transform: rotate(-0.5deg); }
+    .art-card:nth-child(even) { transform: rotate(0.5deg); }
+
+    /* Reduce background shape opacity on mobile */
+    .deco-shape { opacity: 0.08; }
+  }
+
+  /* Small phones (portrait) */
+  @media (max-width: 480px) {
+    .logo-corner {
+      width: 36px; /* 40% smaller than 60px */
+      top: 10px;
+      left: 10px;
+      filter: drop-shadow(2px 2px 0px #cc9900);
+    }
+
+    .social-links {
+      top: 10px;
+      right: 10px;
+    }
+
+    .ig-link {
+      width: 40px;
+      height: 40px;
+    }
+
+    .ig-link svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .hero-container {
+      max-width: 425px; /* 15% smaller than 500px */
+      width: 95%;
+      box-shadow: var(--shadow-depth);
+    }
+
+    h1 { font-size: 2.2rem; }
+    .subtitle { font-size: 1rem; padding: 6px 20px; }
+
+    .nav-btn {
+      font-size: 0.75rem;
+      padding: 10px 15px;
+    }
+
+    /* Single column on very small screens */
+    .gallery-container {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 280px;
+      gap: 20px;
+      padding: 15px;
+    }
+
+    /* All cards same size on small phones */
+    .card-wide, .card-big, .card-tall {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
+    /* Remove rotation on small screens for cleaner look */
+    .art-card { transform: rotate(0deg) !important; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="deco-shape shape-1"></div>
+  <div class="deco-shape shape-2"></div>
+  <div class="deco-shape shape-3"></div>
+
+  <!-- Logo in top-left corner -->
+  <a href="#" class="logo-corner" onclick="filterGallery('all', document.querySelector('.nav-btn')); return false;">
+    <img src="Logo.png" alt="Billy The Kid">
+  </a>
+
+  <!-- Instagram Icon in top-right corner -->
+  <div class="social-links">
+    <a href="https://instagram.com/billythekid.co" target="_blank" class="ig-link" aria-label="Instagram">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+      </svg>
+    </a>
+  </div>
+
+  <header>
+    <div class="hero-container" onclick="openLightbox('hero.jpg', 'Featured Hero Piece', 'Featured Art')">
+      <img src="hero.jpg" alt="Billy The Kid Hero" class="hero-image">
+    </div>
+    <div class="subtitle">Artistry & Peripherals</div>
+  </header>
+
+  <div class="nav-container">
+    <button class="nav-btn active" onclick="filterGallery('all', this)">All Works</button>
+    <button class="nav-btn" onclick="filterGallery('gospel', this)">Gospel Rugs</button>
+    <button class="nav-btn" onclick="filterGallery('pet', this)">Pet Rugs</button>
+    <button class="nav-btn" onclick="filterGallery('keyboard', this)">Keyboard Rugs</button>
+    <button class="nav-btn" onclick="filterGallery('portrait', this)">Portrait Rugs</button>
+    <button class="nav-btn" onclick="filterGallery('wall', this)">Wall Rugs</button>
+  </div>
+
+  <div class="gallery-container">
+
+    <div class="art-card card-wide" data-cat="gospel" onclick="openLightbox('maingrid_1.jpg', 'Gospel Piece', 'Gospel Rugs')">
+      <img src="maingrid_1.jpg" alt="Gospel Piece">
+      <div class="card-tag">Gospel</div>
+    </div>
+
+    <div class="art-card card-tall" data-cat="portrait" onclick="openLightbox('maingrid_2.jpg', 'Portrait Art', 'Portrait Rugs')">
+      <img src="maingrid_2.jpg" alt="Portrait">
+      <div class="card-tag">Portrait</div>
+    </div>
+
+    <div class="art-card" data-cat="pet" onclick="openLightbox('maingrid_3.jpg', 'Pet Rug', 'Pet Rugs')">
+      <img src="maingrid_3.jpg" alt="Pet">
+      <div class="card-tag">Pet</div>
+    </div>
+
+    <div class="art-card" data-cat="keyboard" onclick="openLightbox('maingrid_4.jpg', 'Keyboard Rug', 'Keyboard Rugs')">
+      <img src="maingrid_4.jpg" alt="Keyboard">
+      <div class="card-tag">Keyboard</div>
+    </div>
+
+    <div class="art-card card-big" data-cat="wall" onclick="openLightbox('maingrid_5.jpg', 'Wall Art Piece', 'Wall Rugs')">
+      <img src="maingrid_5.jpg" alt="Wall Art">
+      <div class="card-tag">Wall Art</div>
+    </div>
+
+    <div class="art-card card-wide" data-cat="gospel" onclick="openLightbox('maingrid_6.jpg', 'Gospel Design', 'Gospel Rugs')">
+      <img src="maingrid_6.jpg" alt="Gospel">
+      <div class="card-tag">Gospel</div>
+    </div>
+
+    <div class="art-card" data-cat="pet" onclick="openLightbox('maingrid_7.jpg', 'Pet Portrait', 'Pet Rugs')">
+      <img src="maingrid_7.jpg" alt="Pet">
+      <div class="card-tag">Pet</div>
+    </div>
+
+    <div class="art-card card-tall" data-cat="wall" onclick="openLightbox('maingrid_8.jpg', 'Wall Rug', 'Wall Rugs')">
+      <img src="maingrid_8.jpg" alt="Wall">
+      <div class="card-tag">Wall</div>
+    </div>
+
+    <div class="art-card" data-cat="keyboard" onclick="openLightbox('maingrid_9.jpg', 'Keyboard Art', 'Keyboard Rugs')">
+      <img src="maingrid_9.jpg" alt="Keyboard">
+      <div class="card-tag">Keyboard</div>
+    </div>
+
+    <div class="art-card card-wide" data-cat="portrait" onclick="openLightbox('maingrid_10.jpg', 'Portrait Design', 'Portrait Rugs')">
+      <img src="maingrid_10.jpg" alt="Portrait">
+      <div class="card-tag">Portrait</div>
+    </div>
+
+    <div class="art-card" data-cat="gospel" onclick="openLightbox('maingrid_11.jpg', 'Gospel Art', 'Gospel Rugs')">
+      <img src="maingrid_11.jpg" alt="Gospel">
+      <div class="card-tag">Gospel</div>
+    </div>
+
+    <div class="art-card" data-cat="pet" onclick="openLightbox('maingrid_12.jpg', 'Pet Design', 'Pet Rugs')">
+      <img src="maingrid_12.jpg" alt="Pet">
+      <div class="card-tag">Pet</div>
+    </div>
+
+    <div class="art-card card-tall" data-cat="keyboard" onclick="openLightbox('maingrid_13.jpg', 'Keyboard Design', 'Keyboard Rugs')">
+      <img src="maingrid_13.jpg" alt="Keyboard">
+      <div class="card-tag">Keyboard</div>
+    </div>
+
+    <div class="art-card card-wide" data-cat="wall" onclick="openLightbox('maingrid_14.jpg', 'Wall Art', 'Wall Rugs')">
+      <img src="maingrid_14.jpg" alt="Wall">
+      <div class="card-tag">Wall</div>
+    </div>
+
+    <div class="art-card" data-cat="portrait" onclick="openLightbox('maingrid_15.jpg', 'Portrait Piece', 'Portrait Rugs')">
+      <img src="maingrid_15.jpg" alt="Portrait">
+      <div class="card-tag">Portrait</div>
+    </div>
+
+    <div class="art-card" data-cat="gospel" onclick="openLightbox('maingrid_16.jpg', 'Gospel Style', 'Gospel Rugs')">
+      <img src="maingrid_16.jpg" alt="Gospel">
+      <div class="card-tag">Gospel</div>
+    </div>
+
+    <div class="art-card card-tall" data-cat="pet" onclick="openLightbox('maingrid_17.jpg', 'Pet Art', 'Pet Rugs')">
+      <img src="maingrid_17.jpg" alt="Pet">
+      <div class="card-tag">Pet</div>
+    </div>
+
+    <div class="art-card card-wide" data-cat="keyboard" onclick="openLightbox('maingrid_18.jpg', 'Keyboard Piece', 'Keyboard Rugs')">
+      <img src="maingrid_18.jpg" alt="Keyboard">
+      <div class="card-tag">Keyboard</div>
+    </div>
+
+    <div class="art-card" data-cat="wall" onclick="openLightbox('maingrid_19.jpg', 'Wall Design', 'Wall Rugs')">
+      <img src="maingrid_19.jpg" alt="Wall">
+      <div class="card-tag">Wall</div>
+    </div>
+
+    <div class="art-card" data-cat="portrait" onclick="openLightbox('maingrid_20.jpg', 'Portrait Creation', 'Portrait Rugs')">
+      <img src="maingrid_20.jpg" alt="Portrait">
+      <div class="card-tag">Portrait</div>
+    </div>
+
+    <div class="art-card card-big" data-cat="gospel" onclick="openLightbox('maingrid_21.jpg', 'Gospel Masterpiece', 'Gospel Rugs')">
+      <img src="maingrid_21.jpg" alt="Gospel">
+      <div class="card-tag">Gospel</div>
+    </div>
+
+    <div class="art-card" data-cat="pet" onclick="openLightbox('maingrid_22.jpg', 'Pet Masterpiece', 'Pet Rugs')">
+      <img src="maingrid_22.jpg" alt="Pet">
+      <div class="card-tag">Pet</div>
+    </div>
+
+    <div class="art-card card-wide" data-cat="keyboard" onclick="openLightbox('maingrid_23.jpg', 'Keyboard Creation', 'Keyboard Rugs')">
+      <img src="maingrid_23.jpg" alt="Keyboard">
+      <div class="card-tag">Keyboard</div>
+    </div>
+
+    <div class="art-card" data-cat="wall" onclick="openLightbox('maingrid_24.jpg', 'Wall Piece', 'Wall Rugs')">
+      <img src="maingrid_24.jpg" alt="Wall">
+      <div class="card-tag">Wall</div>
+    </div>
+
+    <div class="art-card card-tall" data-cat="portrait" onclick="openLightbox('maingrid_25.jpg', 'Portrait Style', 'Portrait Rugs')">
+      <img src="maingrid_25.jpg" alt="Portrait">
+      <div class="card-tag">Portrait</div>
+    </div>
+
+    <div class="art-card" data-cat="gospel" onclick="openLightbox('maingrid_26.jpg', 'Gospel Vision', 'Gospel Rugs')">
+      <img src="maingrid_26.jpg" alt="Gospel">
+      <div class="card-tag">Gospel</div>
+    </div>
+
+    <div class="art-card card-wide" data-cat="pet" onclick="openLightbox('maingrid_27.jpg', 'Pet Creation', 'Pet Rugs')">
+      <img src="maingrid_27.jpg" alt="Pet">
+      <div class="card-tag">Pet</div>
+    </div>
+
+    <div class="art-card" data-cat="keyboard" onclick="openLightbox('maingrid_28.jpg', 'Keyboard Style', 'Keyboard Rugs')">
+      <img src="maingrid_28.jpg" alt="Keyboard">
+      <div class="card-tag">Keyboard</div>
+    </div>
+
+    <div class="art-card card-tall" data-cat="wall" onclick="openLightbox('maingrid_29.jpg', 'Wall Creation', 'Wall Rugs')">
+      <img src="maingrid_29.jpg" alt="Wall">
+      <div class="card-tag">Wall</div>
+    </div>
+
+    <div class="art-card" data-cat="portrait" onclick="openLightbox('maingrid_30.jpg', 'Portrait Vision', 'Portrait Rugs')">
+      <img src="maingrid_30.jpg" alt="Portrait">
+      <div class="card-tag">Portrait</div>
+    </div>
+
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="modal-overlay" id="lightboxModal">
+    <div class="modal-box">
+      <div class="close-btn" onclick="closeLightbox()">&times;</div>
+      <div class="lightbox-visual">
+        <img id="lightbox-image" src="" alt="Artwork Detail">
+      </div>
+      <div class="lightbox-details">
+        <span class="lightbox-tag" id="lightbox-tag">CUSTOM ART</span>
+        <h2 id="lightbox-title">Artwork Title</h2>
+        <p id="lightbox-description" style="line-height: 1.6; font-size: 1.1rem;">
+          Hand-crafted WPAP style artwork featuring vibrant colors and bold geometric patterns.
+        </p>
+        <div class="payment-buttons">
+          <a href="https://link.mercadopago.com.co/billythekidrugs" target="_blank" class="want-button btn-mercadopago">
+            🇨🇴 Mercado Pago
+          </a>
+          <a href="https://paypal.me/billythekidrugs" target="_blank" class="want-button btn-paypal">
+            🌍 PayPal
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+  const lightboxModal = document.getElementById('lightboxModal');
+  const lightboxImage = document.getElementById('lightbox-image');
+  const lightboxTitle = document.getElementById('lightbox-title');
+  const lightboxTag = document.getElementById('lightbox-tag');
+  const lightboxDescription = document.getElementById('lightbox-description');
+
+  function openLightbox(imageSrc, title, category) {
+    lightboxImage.src = imageSrc;
+    lightboxTitle.textContent = title;
+    lightboxTag.textContent = category.toUpperCase();
+    lightboxModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightboxModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close on outside click
+  window.onclick = function(event) {
+    if (event.target == lightboxModal) {
+      closeLightbox();
+    }
+  }
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+      closeLightbox();
+    }
+  });
+
+  function filterGallery(category, btnElement) {
+    const buttons = document.querySelectorAll('.nav-btn');
+    buttons.forEach(btn => btn.classList.remove('active'));
+    btnElement.classList.add('active');
+
+    const cards = document.querySelectorAll('.art-card');
+    cards.forEach(card => {
+      const cardCat = card.getAttribute('data-cat');
+      if (category === 'all' || cardCat === category) {
+        card.classList.remove('hidden');
+      } else {
+        card.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
