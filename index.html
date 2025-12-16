@@ -589,6 +589,90 @@
     fill: var(--w-dark);
   }
 
+  /* Mobile Toggle Button */
+  .mobile-toggle-btn {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--w-dark);
+    color: var(--w-yellow);
+    border: 3px solid var(--w-dark);
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    z-index: 201;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  .mobile-toggle-btn:active {
+    transform: translateX(-50%) scale(0.95);
+  }
+
+  /* Desktop Full-Screen Trigger Button */
+  .fullscreen-trigger {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(17, 17, 17, 0.8);
+    color: var(--w-yellow);
+    border: 2px solid var(--w-yellow);
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+  }
+
+  .lightbox-visual {
+    position: relative;
+  }
+
+  .lightbox-visual:hover .fullscreen-trigger {
+    opacity: 1;
+  }
+
+  /* Desktop Full-Screen Viewer */
+  .fullscreen-viewer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.98);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fullscreen-viewer.active {
+    display: flex;
+  }
+
+  .fullscreen-viewer img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 4px solid var(--w-yellow);
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+  }
+
+  .fullscreen-viewer .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--w-yellow);
+    color: var(--w-dark);
+  }
+
   /* Custom Pet Rug CTA */
   .pet-cta-container {
     position: relative;
@@ -804,6 +888,91 @@
 
     .lightbox-details {
       padding: 20px;
+    }
+
+    /* Mobile Toggle Button - Show on mobile */
+    .mobile-toggle-btn {
+      display: block;
+    }
+
+    /* Mobile State: Full-Screen Image Mode */
+    .modal-overlay.mobile-image-mode .lightbox-details {
+      display: none;
+    }
+
+    .modal-overlay.mobile-image-mode .modal-box {
+      max-height: 95vh;
+      background: var(--w-dark);
+    }
+
+    .modal-overlay.mobile-image-mode .lightbox-visual {
+      padding: 10px;
+      border: none;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.mobile-image-mode #lightbox-image {
+      max-height: 80vh;
+      max-width: 95vw;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Mobile State: Details Mode */
+    .modal-overlay.mobile-details-mode .lightbox-visual {
+      height: 40vh;
+      padding: 15px;
+      border-bottom: 4px solid var(--w-dark);
+    }
+
+    .modal-overlay.mobile-details-mode #lightbox-image {
+      max-height: 38vh;
+    }
+
+    .modal-overlay.mobile-details-mode .lightbox-details {
+      display: block;
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+    /* Smooth transitions between states */
+    .lightbox-visual,
+    .lightbox-details,
+    #lightbox-image {
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    /* Aspect-ratio specific sizing */
+    .modal-overlay.mobile-image-mode #lightbox-image.aspect-portrait {
+      max-height: 80vh;
+      max-width: 95vw;
+    }
+
+    .modal-overlay.mobile-image-mode #lightbox-image.aspect-landscape {
+      max-width: 95vw;
+      max-height: 55vh;
+      width: 95vw;
+    }
+
+    .modal-overlay.mobile-image-mode #lightbox-image.aspect-square {
+      max-width: 90vw;
+      max-height: 70vh;
+      width: 90vw;
+    }
+
+    /* Enable smooth zoom transforms */
+    .modal-overlay.mobile-image-mode #lightbox-image {
+      transform-origin: center center;
+      touch-action: none;
+    }
+
+    /* Disable transition during active zoom/pan */
+    .modal-overlay.mobile-image-mode #lightbox-image.zooming {
+      transition: none;
     }
 
     .want-button {
@@ -2371,6 +2540,7 @@
     <div class="modal-box">
       <div class="close-btn" onclick="closeLightbox()">&times;</div>
       <div class="lightbox-visual">
+        <button class="fullscreen-trigger" onclick="enterFullScreen(event)">🔍 View Full Screen</button>
         <img id="lightbox-image" src="" alt="Artwork Detail">
       </div>
       <div class="lightbox-details">
@@ -2446,6 +2616,17 @@
         </div>
       </div>
     </div>
+
+    <!-- Mobile Toggle Button -->
+    <button class="mobile-toggle-btn" id="mobileToggleBtn" onclick="toggleMobileView()">
+      <span id="toggleText">View Details ▼</span>
+    </button>
+  </div>
+
+  <!-- Desktop Full-Screen Image Viewer -->
+  <div class="fullscreen-viewer" id="fullscreenViewer" onclick="exitFullScreen()">
+    <button class="close-btn" onclick="exitFullScreen(); event.stopPropagation();">&times;</button>
+    <img id="fullscreen-image" src="" alt="Full Screen View" onclick="event.stopPropagation();">
   </div>
 
 <!-- ========== CONTACT US MODAL ========== -->
@@ -2532,10 +2713,252 @@
   const standardDetails = document.getElementById('standard-details');
   const keyboardDetails = document.getElementById('keyboard-details');
 
+  // Mobile state management
+  let isMobileImageView = true;
+
+  function isMobileViewport() {
+    return window.innerWidth <= 768;
+  }
+
+  function toggleMobileView() {
+    if (!isMobileViewport()) return;
+
+    const modal = document.getElementById('lightboxModal');
+    const toggleBtn = document.getElementById('mobileToggleBtn');
+    const toggleText = document.getElementById('toggleText');
+
+    isMobileImageView = !isMobileImageView;
+
+    if (isMobileImageView) {
+      modal.classList.remove('mobile-details-mode');
+      modal.classList.add('mobile-image-mode');
+      toggleText.textContent = 'View Details ▼';
+    } else {
+      modal.classList.remove('mobile-image-mode');
+      modal.classList.add('mobile-details-mode');
+      toggleText.textContent = 'View Full Image ▲';
+
+      // Reset zoom when switching to details mode
+      resetZoom();
+    }
+  }
+
+  // Touch zoom state
+  let zoomState = {
+    scale: 1,
+    translateX: 0,
+    translateY: 0,
+    isDragging: false,
+    lastTap: 0,
+    initialDistance: 0,
+    initialScale: 1,
+    dragStartX: 0,
+    dragStartY: 0,
+    aspectRatio: 'portrait'
+  };
+
+  // Detect and apply aspect ratio
+  function applyAspectRatioSizing(img) {
+    const ratio = img.naturalWidth / img.naturalHeight;
+
+    // Remove previous aspect classes
+    img.classList.remove('aspect-portrait', 'aspect-landscape', 'aspect-square');
+
+    // Detect and apply new aspect class
+    if (ratio < 0.75) {
+      zoomState.aspectRatio = 'portrait';
+      img.classList.add('aspect-portrait');
+    } else if (ratio > 1.33) {
+      zoomState.aspectRatio = 'landscape';
+      img.classList.add('aspect-landscape');
+    } else {
+      zoomState.aspectRatio = 'square';
+      img.classList.add('aspect-square');
+    }
+  }
+
+  // Apply transform to image
+  function applyZoomTransform() {
+    const img = document.getElementById('lightbox-image');
+    if (!img) return;
+
+    img.style.transform = `scale(${zoomState.scale}) translate(${zoomState.translateX}px, ${zoomState.translateY}px)`;
+  }
+
+  // Calculate distance between two touch points
+  function getTouchDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  // Get center point between two touches
+  function getTouchCenter(touches) {
+    return {
+      x: (touches[0].clientX + touches[1].clientX) / 2,
+      y: (touches[0].clientY + touches[1].clientY) / 2
+    };
+  }
+
+  // Reset zoom to initial state
+  function resetZoom() {
+    zoomState.scale = 1;
+    zoomState.translateX = 0;
+    zoomState.translateY = 0;
+    applyZoomTransform();
+  }
+
+  // Constrain pan within image boundaries
+  function constrainPan() {
+    const img = document.getElementById('lightbox-image');
+    if (!img) return;
+
+    const rect = img.getBoundingClientRect();
+    const maxTranslateX = (rect.width * (zoomState.scale - 1)) / 2;
+    const maxTranslateY = (rect.height * (zoomState.scale - 1)) / 2;
+
+    zoomState.translateX = Math.max(-maxTranslateX, Math.min(maxTranslateX, zoomState.translateX));
+    zoomState.translateY = Math.max(-maxTranslateY, Math.min(maxTranslateY, zoomState.translateY));
+  }
+
+  // Touch event handlers
+  function handleTouchStart(e) {
+    if (!isMobileViewport() || !isMobileImageView) return;
+
+    const img = document.getElementById('lightbox-image');
+    if (!img) return;
+
+    if (e.touches.length === 2) {
+      // Pinch zoom start
+      e.preventDefault();
+      img.classList.add('zooming');
+      zoomState.initialDistance = getTouchDistance(e.touches);
+      zoomState.initialScale = zoomState.scale;
+    } else if (e.touches.length === 1) {
+      // Check for double-tap
+      const now = Date.now();
+      const timeSinceLastTap = now - zoomState.lastTap;
+
+      if (timeSinceLastTap < 300 && timeSinceLastTap > 0) {
+        // Double-tap detected
+        e.preventDefault();
+        handleDoubleTap(e.touches[0]);
+        zoomState.lastTap = 0;
+      } else {
+        zoomState.lastTap = now;
+
+        // Start drag if zoomed
+        if (zoomState.scale > 1) {
+          zoomState.isDragging = true;
+          zoomState.dragStartX = e.touches[0].clientX - zoomState.translateX;
+          zoomState.dragStartY = e.touches[0].clientY - zoomState.translateY;
+          img.classList.add('zooming');
+        }
+      }
+    }
+  }
+
+  function handleTouchMove(e) {
+    if (!isMobileViewport() || !isMobileImageView) return;
+
+    const img = document.getElementById('lightbox-image');
+    if (!img) return;
+
+    if (e.touches.length === 2) {
+      // Pinch zoom
+      e.preventDefault();
+      const currentDistance = getTouchDistance(e.touches);
+      const scale = (currentDistance / zoomState.initialDistance) * zoomState.initialScale;
+
+      // Constrain zoom between 1x and 3x
+      zoomState.scale = Math.max(1, Math.min(3, scale));
+
+      applyZoomTransform();
+    } else if (e.touches.length === 1 && zoomState.isDragging) {
+      // Pan/drag
+      e.preventDefault();
+      zoomState.translateX = e.touches[0].clientX - zoomState.dragStartX;
+      zoomState.translateY = e.touches[0].clientY - zoomState.dragStartY;
+
+      constrainPan();
+      applyZoomTransform();
+    }
+  }
+
+  function handleTouchEnd(e) {
+    if (!isMobileViewport() || !isMobileImageView) return;
+
+    const img = document.getElementById('lightbox-image');
+    if (!img) return;
+
+    if (e.touches.length === 0) {
+      img.classList.remove('zooming');
+      zoomState.isDragging = false;
+
+      // Reset zoom if scale is very close to 1
+      if (zoomState.scale < 1.1) {
+        resetZoom();
+      }
+    }
+  }
+
+  function handleDoubleTap(touch) {
+    const img = document.getElementById('lightbox-image');
+    if (!img) return;
+
+    if (zoomState.scale === 1) {
+      // Zoom in to 2x at tap location
+      zoomState.scale = 2;
+
+      // Calculate translate to center on tap point
+      const rect = img.getBoundingClientRect();
+      const tapX = touch.clientX - rect.left;
+      const tapY = touch.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+
+      zoomState.translateX = (centerX - tapX) * 0.5;
+      zoomState.translateY = (centerY - tapY) * 0.5;
+
+      constrainPan();
+    } else {
+      // Zoom out to 1x
+      resetZoom();
+    }
+
+    applyZoomTransform();
+  }
+
+  // Initialize touch zoom on mobile image
+  function initializeTouchZoom() {
+    if (!isMobileViewport()) return;
+
+    const img = document.getElementById('lightbox-image');
+    if (!img) return;
+
+    // Remove existing listeners to avoid duplicates
+    img.removeEventListener('touchstart', handleTouchStart);
+    img.removeEventListener('touchmove', handleTouchMove);
+    img.removeEventListener('touchend', handleTouchEnd);
+
+    // Add touch event listeners
+    img.addEventListener('touchstart', handleTouchStart, { passive: false });
+    img.addEventListener('touchmove', handleTouchMove, { passive: false });
+    img.addEventListener('touchend', handleTouchEnd, { passive: false });
+  }
+
   function openLightbox(imageSrc, title, category, isHero = false) {
     lightboxImage.src = imageSrc;
     lightboxTitle.textContent = title;
     lightboxTag.textContent = category.toUpperCase();
+
+    // Wait for image to load, then detect aspect ratio and initialize zoom
+    lightboxImage.onload = function() {
+      if (isMobileViewport()) {
+        applyAspectRatioSizing(lightboxImage);
+        initializeTouchZoom();
+      }
+    };
 
     // Detect keyboard category
     const isKeyboard = category.toLowerCase().includes('keyboard');
@@ -2568,11 +2991,46 @@
 
     lightboxModal.classList.add('active');
     document.body.style.overflow = 'hidden';
+
+    // Set initial mobile state
+    if (isMobileViewport()) {
+      lightboxModal.classList.add('mobile-image-mode');
+      isMobileImageView = true;
+      document.getElementById('toggleText').textContent = 'View Details ▼';
+
+      // Reset zoom state
+      resetZoom();
+    } else {
+      lightboxModal.classList.remove('mobile-image-mode');
+      lightboxModal.classList.remove('mobile-details-mode');
+    }
   }
 
   function closeLightbox() {
     lightboxModal.classList.remove('active');
+    lightboxModal.classList.remove('mobile-image-mode');
+    lightboxModal.classList.remove('mobile-details-mode');
     document.body.style.overflow = '';
+
+    // Reset zoom state
+    resetZoom();
+  }
+
+  // Desktop full-screen viewer
+  function enterFullScreen(event) {
+    if (event) event.stopPropagation();
+
+    const lightboxImage = document.getElementById('lightbox-image');
+    const fullscreenViewer = document.getElementById('fullscreenViewer');
+    const fullscreenImage = document.getElementById('fullscreen-image');
+
+    fullscreenImage.src = lightboxImage.src;
+    fullscreenViewer.classList.add('active');
+  }
+
+  function exitFullScreen() {
+    const fullscreenViewer = document.getElementById('fullscreenViewer');
+    fullscreenViewer.classList.remove('active');
   }
 
   // Disable payment buttons
@@ -2737,6 +3195,17 @@
       faqItem.classList.add('active');
     }
   }
+
+  // Keyboard shortcuts for full-screen viewer
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const fullscreenViewer = document.getElementById('fullscreenViewer');
+      if (fullscreenViewer && fullscreenViewer.classList.contains('active')) {
+        exitFullScreen();
+        e.preventDefault();
+      }
+    }
+  });
 </script>
 
 <!-- ========== PROFESSIONAL FOOTER ========== -->
