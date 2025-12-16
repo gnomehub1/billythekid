@@ -2749,12 +2749,18 @@
     translateX: 0,
     translateY: 0,
     isDragging: false,
+    isPinching: false,
     lastTap: 0,
     initialDistance: 0,
     initialScale: 1,
-    dragStartX: 0,
-    dragStartY: 0,
-    aspectRatio: 'portrait'
+    initialTranslateX: 0,
+    initialTranslateY: 0,
+    touchStartX: 0,
+    touchStartY: 0,
+    pinchCenterX: 0,
+    pinchCenterY: 0,
+    aspectRatio: 'portrait',
+    hasMovedEnough: false
   };
 
   // Detect and apply aspect ratio
@@ -2782,7 +2788,8 @@
     const img = document.getElementById('lightbox-image');
     if (!img) return;
 
-    img.style.transform = `scale(${zoomState.scale}) translate(${zoomState.translateX}px, ${zoomState.translateY}px)`;
+    // Use translate before scale to avoid coordinate space issues
+    img.style.transform = `translate(${zoomState.translateX}px, ${zoomState.translateY}px) scale(${zoomState.scale})`;
   }
 
   // Calculate distance between two touch points
@@ -2813,10 +2820,25 @@
     const img = document.getElementById('lightbox-image');
     if (!img) return;
 
-    const rect = img.getBoundingClientRect();
-    const maxTranslateX = (rect.width * (zoomState.scale - 1)) / 2;
-    const maxTranslateY = (rect.height * (zoomState.scale - 1)) / 2;
+    if (zoomState.scale <= 1) {
+      zoomState.translateX = 0;
+      zoomState.translateY = 0;
+      return;
+    }
 
+    const container = img.parentElement;
+    const containerRect = container.getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect();
+
+    // Calculate how much the scaled image extends beyond its original size
+    const scaledWidth = imgRect.width * zoomState.scale;
+    const scaledHeight = imgRect.height * zoomState.scale;
+
+    // Maximum translation is half the difference between scaled size and original size
+    const maxTranslateX = (scaledWidth - imgRect.width) / 2;
+    const maxTranslateY = (scaledHeight - imgRect.height) / 2;
+
+    // Constrain within bounds
     zoomState.translateX = Math.max(-maxTranslateX, Math.min(maxTranslateX, zoomState.translateX));
     zoomState.translateY = Math.max(-maxTranslateY, Math.min(maxTranslateY, zoomState.translateY));
   }
@@ -2831,9 +2853,23 @@
     if (e.touches.length === 2) {
       // Pinch zoom start
       e.preventDefault();
+      zoomState.isPinching = true;
+      zoomState.isDragging = false;
+      zoomState.hasMovedEnough = false;
+
       img.classList.add('zooming');
+
+      // Store initial values
       zoomState.initialDistance = getTouchDistance(e.touches);
       zoomState.initialScale = zoomState.scale;
+      zoomState.initialTranslateX = zoomState.translateX;
+      zoomState.initialTranslateY = zoomState.translateY;
+
+      // Store pinch center point
+      const center = getTouchCenter(e.touches);
+      zoomState.pinchCenterX = center.x;
+      zoomState.pinchCenterY = center.y;
+
     } else if (e.touches.length === 1) {
       // Check for double-tap
       const now = Date.now();
@@ -2847,12 +2883,13 @@
       } else {
         zoomState.lastTap = now;
 
-        // Start drag if zoomed
+        // Prepare for potential drag if zoomed
         if (zoomState.scale > 1) {
-          zoomState.isDragging = true;
-          zoomState.dragStartX = e.touches[0].clientX - zoomState.translateX;
-          zoomState.dragStartY = e.touches[0].clientY - zoomState.translateY;
-          img.classList.add('zooming');
+          zoomState.touchStartX = e.touches[0].clientX;
+          zoomState.touchStartY = e.touches[0].clientY;
+          zoomState.initialTranslateX = zoomState.translateX;
+          zoomState.initialTranslateY = zoomState.translateY;
+          zoomState.hasMovedEnough = false;
         }
       }
     }
@@ -2864,21 +2901,52 @@
     const img = document.getElementById('lightbox-image');
     if (!img) return;
 
-    if (e.touches.length === 2) {
+    if (e.touches.length === 2 && zoomState.isPinching) {
       // Pinch zoom
       e.preventDefault();
+
       const currentDistance = getTouchDistance(e.touches);
-      const scale = (currentDistance / zoomState.initialDistance) * zoomState.initialScale;
+      const distanceChange = Math.abs(currentDistance - zoomState.initialDistance);
+
+      // Only start zooming after 10px of movement (less sensitive)
+      if (!zoomState.hasMovedEnough && distanceChange < 10) {
+        return;
+      }
+      zoomState.hasMovedEnough = true;
+
+      // Calculate new scale with damping for smoother feel
+      const rawScale = (currentDistance / zoomState.initialDistance) * zoomState.initialScale;
+      const damping = 0.85; // Damping factor (lower = less sensitive)
+      const targetScale = zoomState.initialScale + (rawScale - zoomState.initialScale) * damping;
 
       // Constrain zoom between 1x and 3x
-      zoomState.scale = Math.max(1, Math.min(3, scale));
+      zoomState.scale = Math.max(1, Math.min(3, targetScale));
 
+      // Keep position stable during zoom (don't apply pan constraints during pinch)
       applyZoomTransform();
-    } else if (e.touches.length === 1 && zoomState.isDragging) {
+
+    } else if (e.touches.length === 1 && zoomState.scale > 1) {
       // Pan/drag
+      const deltaX = e.touches[0].clientX - zoomState.touchStartX;
+      const deltaY = e.touches[0].clientY - zoomState.touchStartY;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      // Only start dragging after 5px of movement (less sensitive)
+      if (!zoomState.hasMovedEnough && distance < 5) {
+        return;
+      }
+
+      if (!zoomState.isDragging) {
+        zoomState.isDragging = true;
+        zoomState.hasMovedEnough = true;
+        img.classList.add('zooming');
+      }
+
       e.preventDefault();
-      zoomState.translateX = e.touches[0].clientX - zoomState.dragStartX;
-      zoomState.translateY = e.touches[0].clientY - zoomState.dragStartY;
+
+      // Calculate new position from initial position
+      zoomState.translateX = zoomState.initialTranslateX + deltaX;
+      zoomState.translateY = zoomState.initialTranslateY + deltaY;
 
       constrainPan();
       applyZoomTransform();
@@ -2894,11 +2962,25 @@
     if (e.touches.length === 0) {
       img.classList.remove('zooming');
       zoomState.isDragging = false;
+      zoomState.isPinching = false;
+      zoomState.hasMovedEnough = false;
+
+      // Apply final constraints to ensure image is within bounds
+      constrainPan();
+      applyZoomTransform();
 
       // Reset zoom if scale is very close to 1
       if (zoomState.scale < 1.1) {
         resetZoom();
       }
+    } else if (e.touches.length === 1 && zoomState.isPinching) {
+      // Transitioned from pinch to single touch
+      zoomState.isPinching = false;
+      zoomState.touchStartX = e.touches[0].clientX;
+      zoomState.touchStartY = e.touches[0].clientY;
+      zoomState.initialTranslateX = zoomState.translateX;
+      zoomState.initialTranslateY = zoomState.translateY;
+      zoomState.hasMovedEnough = false;
     }
   }
 
@@ -2917,8 +2999,9 @@
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      zoomState.translateX = (centerX - tapX) * 0.5;
-      zoomState.translateY = (centerY - tapY) * 0.5;
+      // Move the image so the tap point becomes centered
+      zoomState.translateX = (centerX - tapX);
+      zoomState.translateY = (centerY - tapY);
 
       constrainPan();
     } else {
