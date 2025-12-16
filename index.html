@@ -2994,15 +2994,24 @@
 
       // Calculate translate to center on tap point
       const rect = img.getBoundingClientRect();
-      const tapX = touch.clientX - rect.left;
-      const tapY = touch.clientY - rect.top;
-      const centerX = rect.width / 2;
-      const centerY = rect.height / 2;
 
-      zoomState.translateX = (centerX - tapX) * 0.5;
-      zoomState.translateY = (centerY - tapY) * 0.5;
+      // Safety check: ensure image has valid dimensions before calculating position
+      // This prevents zooming to corner when double-tapping before image fully loads
+      if (rect.width > 0 && rect.height > 0 && img.naturalWidth > 0) {
+        const tapX = touch.clientX - rect.left;
+        const tapY = touch.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
 
-      constrainPan();
+        zoomState.translateX = (centerX - tapX) * 0.5;
+        zoomState.translateY = (centerY - tapY) * 0.5;
+
+        constrainPan();
+      } else {
+        // Image not ready yet - just zoom to center without positioning
+        zoomState.translateX = 0;
+        zoomState.translateY = 0;
+      }
     } else {
       // Zoom out to 1x
       resetZoom();
