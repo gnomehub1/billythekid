@@ -2999,9 +2999,8 @@
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      // Move the image so the tap point becomes centered
-      zoomState.translateX = (centerX - tapX);
-      zoomState.translateY = (centerY - tapY);
+      zoomState.translateX = (centerX - tapX) * 0.5;
+      zoomState.translateY = (centerY - tapY) * 0.5;
 
       constrainPan();
     } else {
