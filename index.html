@@ -199,12 +199,9 @@
       transform: translate(-3px, -3px);
       box-shadow: 6px 6px 0px var(--w-dark);
     }
-    .nav-btn:nth-child(1):hover { background: var(--w-dark); color: white; }
-    .nav-btn:nth-child(2):hover { background: var(--w-yellow); }
-    .nav-btn:nth-child(3):hover { background: var(--w-cyan); }
-    .nav-btn:nth-child(4):hover { background: var(--w-magenta); color: white; }
-    .nav-btn:nth-child(5):hover { background: var(--w-lime); }
-    .nav-btn:nth-child(6):hover { background: var(--w-purple); color: white; }
+    .nav-btn:nth-child(1):hover { background: var(--w-yellow); }
+    .nav-btn:nth-child(2):hover { background: var(--w-cyan); }
+    .nav-btn:nth-child(3):hover { background: var(--w-lime); }
   }
 
   /* Active state (selected button) */
@@ -212,12 +209,9 @@
     transform: translate(-3px, -3px);
     box-shadow: 6px 6px 0px var(--w-dark);
   }
-  .nav-btn:nth-child(1).active { background: var(--w-dark); color: white; }
-  .nav-btn:nth-child(2).active { background: var(--w-yellow); }
-  .nav-btn:nth-child(3).active { background: var(--w-cyan); }
-  .nav-btn:nth-child(4).active { background: var(--w-magenta); color: white; }
-  .nav-btn:nth-child(5).active { background: var(--w-lime); }
-  .nav-btn:nth-child(6).active { background: var(--w-purple); color: white; }
+  .nav-btn:nth-child(1).active { background: var(--w-yellow); }
+  .nav-btn:nth-child(2).active { background: var(--w-cyan); }
+  .nav-btn:nth-child(3).active { background: var(--w-lime); }
 
   /* Mobile tap feedback */
   @media (hover: none) {
@@ -225,6 +219,24 @@
       transform: translate(1px, 1px);
       box-shadow: 2px 2px 0px var(--w-dark);
     }
+  }
+
+  /* --- CATEGORY SECTIONS --- */
+  .category-section {
+    display: none;
+  }
+
+  .category-section.active {
+    display: block;
+  }
+
+  .section-title {
+    text-align: center;
+    font-family: 'Righteous', cursive;
+    font-size: 2.5rem;
+    margin: 20px 0 30px;
+    text-transform: uppercase;
+    color: var(--w-dark);
   }
 
   /* --- GRID SYSTEM (RESTORED TO BIGGER SIZES) --- */
@@ -364,6 +376,77 @@
   .close-btn:hover {
     transform: rotate(90deg);
     background: var(--w-yellow);
+  }
+
+  /* ========== CONTACT FORM STYLING ========== */
+  .form-container {
+  padding: 50px;
+  background: var(--w-white);
+  max-width: 600px;
+  margin: 0 auto;           /* ← This centers the form */
+  border: 4px solid var(--w-dark);
+  }
+
+  .form-group { margin-bottom: 25px; }
+  label {
+    display: block; font-weight: bold; margin-bottom: 8px;
+    text-transform: uppercase; font-size: 0.9rem;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  textarea,
+  select {
+    width: 100%;
+    padding: 15px;
+    border: 3px solid var(--w-dark);
+    font-family: inherit;
+    font-size: 1rem;
+    background: #f0f0f0;
+    box-sizing: border-box;
+  }
+
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    background: white;
+    box-shadow: 5px 5px 0px var(--w-yellow);
+  }
+
+  .file-upload-wrapper {
+    border: 3px dashed var(--w-dark);
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    background: #f9f9f9;
+  }
+
+  .submit-btn {
+    background: var(--w-dark);
+    color: var(--w-yellow);
+    border: none;
+    padding: 20px;
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  .submit-btn:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0px var(--w-yellow);
   }
 
   .lightbox-visual {
@@ -506,6 +589,178 @@
     fill: var(--w-dark);
   }
 
+  /* Custom Pet Rug CTA */
+  .pet-cta-container {
+    position: relative;
+    max-width: 900px;
+    margin: 40px auto 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+  }
+
+  .pet-label-box {
+    background: var(--w-dark);
+    color: var(--w-yellow);
+    padding: 15px 25px;
+    font-family: 'Righteous', cursive;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    border: 3px solid var(--w-dark);
+    box-shadow: var(--shadow-depth);
+    transform: rotate(-2deg);
+    white-space: nowrap;
+  }
+
+  .curved-arrow {
+    width: 80px;
+    height: 60px;
+    fill: none;
+    stroke: var(--w-dark);
+    stroke-width: 3;
+    stroke-linecap: round;
+    transform: rotate(-10deg);
+  }
+
+  .pet-cta-btn {
+    background: var(--w-dark);
+    color: var(--w-yellow);
+    border: 3px solid var(--w-dark);
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    font-family: 'Righteous', cursive;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: var(--shadow-depth);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    text-decoration: none;
+    display: inline-block;
+    transform: rotate(1deg);
+  }
+
+  @media (hover: hover) {
+    .pet-cta-btn:hover {
+      transform: translate(-5px, -5px) rotate(0deg);
+      box-shadow: 12px 12px 0px var(--w-dark);
+      background: var(--w-yellow);
+      color: var(--w-dark);
+    }
+  }
+
+  .pet-cta-btn:active {
+    transform: translate(0px, 0px);
+    box-shadow: 4px 4px 0px var(--w-dark);
+  }
+
+  /* Sticky Note */
+  .sticky-note {
+    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+    border: 2px solid var(--w-dark);
+    padding: 20px;
+    margin-top: 25px;
+    transform: rotate(-1deg);
+    box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
+    position: relative;
+  }
+
+  .sticky-note::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 25px;
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid var(--w-dark);
+    border-bottom: none;
+    border-radius: 0 0 0 0;
+  }
+
+  .sticky-note h3 {
+    font-family: 'Righteous', cursive;
+    font-size: 1.1rem;
+    margin: 0 0 12px 0;
+    text-transform: uppercase;
+    color: var(--w-dark);
+    text-decoration: underline;
+    text-decoration-color: var(--w-dark);
+    text-decoration-thickness: 2px;
+  }
+
+  .sticky-note p {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    margin: 0;
+    color: var(--w-dark);
+    font-weight: 500;
+  }
+
+  .sticky-note p strong {
+    font-weight: 800;
+    color: var(--w-dark);
+  }
+
+  .sticky-note .blessing {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--w-dark);
+  }
+
+  /* Keyboard Lightbox Elements */
+  .keyboard-size-selector {
+    margin: 20px 0;
+    padding: 15px;
+    border: 3px solid var(--w-dark);
+    background: #f9f9f9;
+  }
+
+  .keyboard-size-selector h4 {
+    font-family: 'Righteous', cursive;
+    font-size: 1.1rem;
+    margin: 0 0 15px 0;
+    text-transform: uppercase;
+  }
+
+  .keyboard-size-selector label {
+    display: block;
+    padding: 10px;
+    margin: 8px 0;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .keyboard-size-selector label:hover {
+    background: var(--w-yellow);
+    border-color: var(--w-dark);
+  }
+
+  .keyboard-size-selector input[type="radio"] {
+    margin-right: 10px;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+  }
+
+  .keyboard-pricing {
+    margin: 15px 0;
+    padding: 15px;
+    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+    border: 2px solid var(--w-dark);
+  }
+
+  .keyboard-pricing p {
+    margin: 0;
+    font-size: 1rem;
+  }
+
   /* --- RESPONSIVE --- */
 
   /* Tablets and smaller desktops */
@@ -568,6 +823,42 @@
       height: 24px;
     }
 
+    .sticky-note {
+      padding: 15px;
+      font-size: 0.85rem;
+    }
+
+    .sticky-note h3 {
+      font-size: 1rem;
+    }
+
+    .sticky-note p {
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
+
+    .pet-cta-container {
+      flex-direction: column;
+      gap: 15px;
+      margin: 30px auto 20px;
+    }
+
+    .pet-label-box {
+      font-size: 0.95rem;
+      padding: 12px 20px;
+    }
+
+    .curved-arrow {
+      width: 60px;
+      height: 45px;
+      transform: rotate(90deg);
+    }
+
+    .pet-cta-btn {
+      font-size: 1rem;
+      padding: 12px 25px;
+    }
+
     h1 {
       font-size: 3rem;
       text-shadow: 3px 3px 0px var(--w-cyan), -1px -1px 0px var(--w-magenta);
@@ -600,6 +891,16 @@
 
     /* Reduce background shape opacity on mobile */
     .deco-shape { opacity: 0.08; }
+
+    .section-title {
+      font-size: 2rem;
+      margin: 15px 0 25px;
+    }
+
+    .keyboard-size-selector label {
+      font-size: 0.9rem;
+      padding: 8px;
+    }
   }
 
   /* Small phones (portrait) */
@@ -624,6 +925,47 @@
     .ig-link svg {
       width: 22px;
       height: 22px;
+    }
+
+    .sticky-note {
+      padding: 12px;
+      margin-top: 20px;
+      transform: rotate(-0.5deg);
+    }
+
+    .sticky-note h3 {
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+    }
+
+    .sticky-note p {
+      font-size: 0.8rem;
+      line-height: 1.5;
+    }
+
+    .sticky-note .blessing {
+      font-size: 0.9rem;
+      margin-top: 8px;
+    }
+
+    .pet-cta-container {
+      margin: 20px auto 15px;
+      gap: 10px;
+    }
+
+    .pet-label-box {
+      font-size: 0.85rem;
+      padding: 10px 15px;
+    }
+
+    .curved-arrow {
+      width: 50px;
+      height: 35px;
+    }
+
+    .pet-cta-btn {
+      font-size: 0.9rem;
+      padding: 10px 20px;
     }
 
     .hero-container {
@@ -656,6 +998,319 @@
 
     /* Remove rotation on small screens for cleaner look */
     .art-card { transform: rotate(0deg) !important; }
+
+    .section-title {
+      font-size: 1.7rem;
+      margin: 10px 0 20px;
+    }
+  }
+
+  /* ========== PROFESSIONAL FOOTER ========== */
+  .site-footer {
+    background-color: var(--w-dark);
+    color: var(--w-yellow);
+    border-top: 4px solid var(--w-yellow);
+    padding: 50px 0 30px;
+    margin-top: 100px;
+    font-family: 'Kanit', sans-serif;
+  }
+
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: grid;
+    grid-template-columns: 2fr 1.5fr 1.5fr;
+    gap: 40px;
+  }
+
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .footer-brand {
+    font-family: 'Righteous', cursive;
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--w-yellow);
+    letter-spacing: -1px;
+  }
+
+  .footer-tagline {
+    font-size: 1rem;
+    margin: 0;
+    color: var(--w-white);
+    font-weight: 300;
+    opacity: 0.9;
+  }
+
+  .footer-heading {
+    font-family: 'Righteous', cursive;
+    font-size: 1.1rem;
+    margin: 0 0 10px 0;
+    color: var(--w-yellow);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .footer-social {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-social-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--w-white);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+    padding: 5px 0;
+  }
+
+  .footer-social-link:hover {
+    color: var(--w-yellow);
+    transform: translateX(5px);
+  }
+
+  .footer-social-link svg {
+    flex-shrink: 0;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .footer-links li {
+    margin: 0;
+  }
+
+  .footer-links a {
+    color: var(--w-white);
+    text-decoration: none;
+    font-size: 1rem;
+    transition: all 0.3s;
+    display: inline-block;
+    position: relative;
+    padding-left: 15px;
+  }
+
+  .footer-links a:before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--w-yellow);
+    transition: transform 0.3s;
+  }
+
+  .footer-links a:hover {
+    color: var(--w-yellow);
+    transform: translateX(3px);
+  }
+
+  .footer-links a:hover:before {
+    transform: translateX(3px);
+  }
+
+  .footer-divider {
+    max-width: 1200px;
+    margin: 40px auto 25px;
+    padding: 0 40px;
+    height: 2px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      var(--w-yellow) 20%,
+      var(--w-yellow) 80%,
+      transparent
+    );
+  }
+
+  .footer-bottom {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+    text-align: center;
+  }
+
+  .footer-copyright,
+  .footer-credit {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    color: var(--w-white);
+    opacity: 0.8;
+  }
+
+  .footer-credit {
+    font-weight: 300;
+  }
+
+  /* Responsive Footer */
+  @media (max-width: 768px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+      gap: 30px;
+      padding: 0 20px;
+    }
+
+    .footer-divider {
+      margin: 30px auto 20px;
+      padding: 0 20px;
+    }
+
+    .footer-bottom {
+      padding: 0 20px;
+    }
+
+    .site-footer {
+      padding: 40px 0 25px;
+      margin-top: 60px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .site-footer {
+      padding: 30px 0 20px;
+      margin-top: 40px;
+    }
+
+    .footer-content {
+      padding: 0 15px;
+      gap: 25px;
+    }
+
+    .footer-brand {
+      font-size: 1.5rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.9rem;
+    }
+
+    .footer-heading {
+      font-size: 1rem;
+    }
+
+    .footer-social-link,
+    .footer-links a {
+      font-size: 0.9rem;
+    }
+
+    .footer-copyright,
+    .footer-credit {
+      font-size: 0.85rem;
+    }
+  }
+
+  /* ========== FAQ SECTION ========== */
+  .faq-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 40px;
+  }
+
+  .faq-item {
+    margin-bottom: 15px;
+    border: 3px solid var(--w-dark);
+    background: var(--w-white);
+    box-shadow: var(--shadow-depth);
+    transition: all 0.3s;
+  }
+
+  .faq-item:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 10px 10px 0px var(--w-dark);
+  }
+
+  .faq-question {
+    background: var(--w-dark);
+    color: var(--w-yellow);
+    padding: 20px 25px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: 800;
+    font-size: 1.1rem;
+    user-select: none;
+    transition: background 0.3s;
+  }
+
+  .faq-question:hover {
+    background: #222;
+  }
+
+  .faq-icon {
+    font-size: 0.9rem;
+    transition: transform 0.3s;
+    display: inline-block;
+    min-width: 15px;
+  }
+
+  .faq-item.active .faq-icon {
+    transform: rotate(90deg);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    background: var(--w-white);
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 500px;
+    border-top: 3px solid var(--w-yellow);
+  }
+
+  .faq-answer p {
+    padding: 25px;
+    margin: 0;
+    line-height: 1.8;
+    font-size: 1rem;
+  }
+
+  /* Responsive FAQ */
+  @media (max-width: 768px) {
+    .faq-container {
+      padding: 0 20px;
+    }
+
+    .faq-question {
+      padding: 15px 20px;
+      font-size: 1rem;
+    }
+
+    .faq-answer p {
+      padding: 20px;
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .faq-container {
+      padding: 0 15px;
+    }
+
+    .faq-question {
+      padding: 12px 15px;
+      font-size: 0.9rem;
+    }
+
+    .faq-answer p {
+      padding: 15px;
+      font-size: 0.85rem;
+      line-height: 1.6;
+    }
   }
 </style>
 </head>
@@ -666,7 +1321,7 @@
   <div class="deco-shape shape-3"></div>
 
   <!-- Logo in top-left corner -->
-  <a href="#" class="logo-corner" onclick="filterGallery('all', document.querySelector('.nav-btn')); return false;">
+  <a href="#" class="logo-corner" onclick="showSection('gospel', document.querySelector('.nav-btn')); return false;">
     <img src="Logo.png" alt="Billy The Kid">
   </a>
 
@@ -680,173 +1335,996 @@
   </div>
 
   <header>
-    <div class="hero-container" onclick="openLightbox('hero.jpg', 'Featured Hero Piece', 'Featured Art')">
+    <div class="hero-container" onclick="openLightbox('hero.jpg', 'Featured Pet Rug', 'Custom Pet Rugs', true)">
       <img src="hero.jpg" alt="Billy The Kid Hero" class="hero-image">
     </div>
-    <div class="subtitle">Artistry & Peripherals</div>
+
+    <!-- Custom Pet Rug CTA -->
+    <div class="pet-cta-container">
+      <div class="pet-label-box">Order Your Custom Pet Rug Here</div>
+      <svg class="curved-arrow" viewBox="0 0 100 80">
+        <path d="M 10 10 Q 50 40, 90 20" stroke-width="3"/>
+        <path d="M 90 20 L 80 15 M 90 20 L 85 28" stroke-width="3"/>
+      </svg>
+      <a href="pages/petsection.html" class="pet-cta-btn">Get Started ➔</a>
+    </div>
   </header>
 
   <div class="nav-container">
-    <button class="nav-btn active" onclick="filterGallery('all', this)">All Works</button>
-    <button class="nav-btn" onclick="filterGallery('gospel', this)">Gospel Rugs</button>
-    <button class="nav-btn" onclick="filterGallery('pet', this)">Pet Rugs</button>
-    <button class="nav-btn" onclick="filterGallery('keyboard', this)">Keyboard Rugs</button>
-    <button class="nav-btn" onclick="filterGallery('portrait', this)">Portrait Rugs</button>
-    <button class="nav-btn" onclick="filterGallery('wall', this)">Wall Rugs</button>
+    <button class="nav-btn active" onclick="showSection('gospel', this)">Gospel Rugs</button>
+    <button class="nav-btn" onclick="showSection('keyboard', this)">Keyboard Rugs</button>
+    <button class="nav-btn" onclick="showSection('wall', this)">Wall/Floor Rugs</button>
   </div>
 
-  <div class="gallery-container">
+  <!-- GOSPEL RUGS SECTION -->
+  <section id="gospel-section" class="category-section active">
+    <h2 class="section-title">Gospel Rugs</h2>
+    <div class="gallery-container">
 
-    <div class="art-card card-wide" data-cat="gospel" onclick="openLightbox('maingrid_1.jpg', 'Gospel Piece', 'Gospel Rugs')">
-      <img src="maingrid_1.jpg" alt="Gospel Piece">
-      <div class="card-tag">Gospel</div>
+      <div class="art-card card-wide" onclick="openLightbox('maingrid_1.jpg', 'Gospel Rug #1', 'Gospel Rugs')">
+        <img src="maingrid_1.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #1</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_2.jpg', 'Gospel Rug #2', 'Gospel Rugs')">
+        <img src="maingrid_2.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #2</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_3.jpg', 'Gospel Rug #3', 'Gospel Rugs')">
+        <img src="maingrid_3.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #3</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_4.jpg', 'Gospel Rug #4', 'Gospel Rugs')">
+        <img src="maingrid_4.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #4</div>
+      </div>
+
+      <div class="art-card card-big" onclick="openLightbox('maingrid_5.jpg', 'Gospel Rug #5', 'Gospel Rugs')">
+        <img src="maingrid_5.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #5</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('maingrid_6.jpg', 'Gospel Rug #6', 'Gospel Rugs')">
+        <img src="maingrid_6.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #6</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_7.jpg', 'Gospel Rug #7', 'Gospel Rugs')">
+        <img src="maingrid_7.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #7</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_8.jpg', 'Gospel Rug #8', 'Gospel Rugs')">
+        <img src="maingrid_8.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #8</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_9.jpg', 'Gospel Rug #9', 'Gospel Rugs')">
+        <img src="maingrid_9.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #9</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('maingrid_10.jpg', 'Gospel Rug #10', 'Gospel Rugs')">
+        <img src="maingrid_10.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #10</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_11.jpg', 'Gospel Rug #11', 'Gospel Rugs')">
+        <img src="maingrid_11.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #11</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_12.jpg', 'Gospel Rug #12', 'Gospel Rugs')">
+        <img src="maingrid_12.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #12</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_13.jpg', 'Gospel Rug #13', 'Gospel Rugs')">
+        <img src="maingrid_13.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #13</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('maingrid_14.jpg', 'Gospel Rug #14', 'Gospel Rugs')">
+        <img src="maingrid_14.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #14</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_15.jpg', 'Gospel Rug #15', 'Gospel Rugs')">
+        <img src="maingrid_15.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #15</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_16.jpg', 'Gospel Rug #16', 'Gospel Rugs')">
+        <img src="maingrid_16.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #16</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_17.jpg', 'Gospel Rug #17', 'Gospel Rugs')">
+        <img src="maingrid_17.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #17</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('maingrid_18.jpg', 'Gospel Rug #18', 'Gospel Rugs')">
+        <img src="maingrid_18.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #18</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_19.jpg', 'Gospel Rug #19', 'Gospel Rugs')">
+        <img src="maingrid_19.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #19</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_20.jpg', 'Gospel Rug #20', 'Gospel Rugs')">
+        <img src="maingrid_20.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #20</div>
+      </div>
+
+      <div class="art-card card-big" onclick="openLightbox('maingrid_21.jpg', 'Gospel Rug #21', 'Gospel Rugs')">
+        <img src="maingrid_21.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #21</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_22.jpg', 'Gospel Rug #22', 'Gospel Rugs')">
+        <img src="maingrid_22.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #22</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('maingrid_23.jpg', 'Gospel Rug #23', 'Gospel Rugs')">
+        <img src="maingrid_23.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #23</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_24.jpg', 'Gospel Rug #24', 'Gospel Rugs')">
+        <img src="maingrid_24.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #24</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_25.jpg', 'Gospel Rug #25', 'Gospel Rugs')">
+        <img src="maingrid_25.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #25</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_26.jpg', 'Gospel Rug #26', 'Gospel Rugs')">
+        <img src="maingrid_26.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #26</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('maingrid_27.jpg', 'Gospel Rug #27', 'Gospel Rugs')">
+        <img src="maingrid_27.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #27</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_28.jpg', 'Gospel Rug #28', 'Gospel Rugs')">
+        <img src="maingrid_28.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #28</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_29.jpg', 'Gospel Rug #29', 'Gospel Rugs')">
+        <img src="maingrid_29.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #29</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_30.jpg', 'Gospel Rug #30', 'Gospel Rugs')">
+        <img src="maingrid_30.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #30</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_31.jpg', 'Gospel Rug #31', 'Gospel Rugs')">
+        <img src="maingrid_31.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #31</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_32.jpg', 'Gospel Rug #32', 'Gospel Rugs')">
+        <img src="maingrid_32.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #32</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_33.jpg', 'Gospel Rug #33', 'Gospel Rugs')">
+        <img src="maingrid_33.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #33</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_34.jpg', 'Gospel Rug #34', 'Gospel Rugs')">
+        <img src="maingrid_34.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #34</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_35.jpg', 'Gospel Rug #35', 'Gospel Rugs')">
+        <img src="maingrid_35.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #35</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_36.jpg', 'Gospel Rug #36', 'Gospel Rugs')">
+        <img src="maingrid_36.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #36</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_37.jpg', 'Gospel Rug #37', 'Gospel Rugs')">
+        <img src="maingrid_37.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #37</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_38.jpg', 'Gospel Rug #38', 'Gospel Rugs')">
+        <img src="maingrid_38.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #38</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_39.jpg', 'Gospel Rug #39', 'Gospel Rugs')">
+        <img src="maingrid_39.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #39</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_40.jpg', 'Gospel Rug #40', 'Gospel Rugs')">
+        <img src="maingrid_40.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #40</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_41.jpg', 'Gospel Rug #41', 'Gospel Rugs')">
+        <img src="maingrid_41.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #41</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_42.jpg', 'Gospel Rug #42', 'Gospel Rugs')">
+        <img src="maingrid_42.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #42</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_43.jpg', 'Gospel Rug #43', 'Gospel Rugs')">
+        <img src="maingrid_43.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #43</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_44.jpg', 'Gospel Rug #44', 'Gospel Rugs')">
+        <img src="maingrid_44.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #44</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_45.jpg', 'Gospel Rug #45', 'Gospel Rugs')">
+        <img src="maingrid_45.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #45</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_46.jpg', 'Gospel Rug #46', 'Gospel Rugs')">
+        <img src="maingrid_46.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #46</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_47.jpg', 'Gospel Rug #47', 'Gospel Rugs')">
+        <img src="maingrid_47.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #47</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_48.jpg', 'Gospel Rug #48', 'Gospel Rugs')">
+        <img src="maingrid_48.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #48</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('maingrid_49.jpg', 'Gospel Rug #49', 'Gospel Rugs')">
+        <img src="maingrid_49.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #49</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('maingrid_50.jpg', 'Gospel Rug #50', 'Gospel Rugs')">
+        <img src="maingrid_50.jpg" alt="Gospel Rug">
+        <div class="card-tag">Gospel #50</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KEYBOARD RUGS SECTION -->
+  <section id="keyboard-section" class="category-section">
+    <h2 class="section-title">Keyboard Rugs</h2>
+    <div class="gallery-container">
+
+      <div class="art-card" onclick="openLightbox('key_1.jpg', 'Keyboard Rug #1', 'Keyboard Rugs')">
+        <img src="key_1.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #1</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_2.jpg', 'Keyboard Rug #2', 'Keyboard Rugs')">
+        <img src="key_2.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #2</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_3.jpg', 'Keyboard Rug #3', 'Keyboard Rugs')">
+        <img src="key_3.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #3</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_4.jpg', 'Keyboard Rug #4', 'Keyboard Rugs')">
+        <img src="key_4.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #4</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_5.jpg', 'Keyboard Rug #5', 'Keyboard Rugs')">
+        <img src="key_5.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #5</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_6.jpg', 'Keyboard Rug #6', 'Keyboard Rugs')">
+        <img src="key_6.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #6</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_7.jpg', 'Keyboard Rug #7', 'Keyboard Rugs')">
+        <img src="key_7.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #7</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_8.jpg', 'Keyboard Rug #8', 'Keyboard Rugs')">
+        <img src="key_8.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #8</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_9.jpg', 'Keyboard Rug #9', 'Keyboard Rugs')">
+        <img src="key_9.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #9</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_10.jpg', 'Keyboard Rug #10', 'Keyboard Rugs')">
+        <img src="key_10.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #10</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_11.jpg', 'Keyboard Rug #11', 'Keyboard Rugs')">
+        <img src="key_11.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #11</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_12.jpg', 'Keyboard Rug #12', 'Keyboard Rugs')">
+        <img src="key_12.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #12</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_13.jpg', 'Keyboard Rug #13', 'Keyboard Rugs')">
+        <img src="key_13.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #13</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_14.jpg', 'Keyboard Rug #14', 'Keyboard Rugs')">
+        <img src="key_14.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #14</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_15.jpg', 'Keyboard Rug #15', 'Keyboard Rugs')">
+        <img src="key_15.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #15</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_16.jpg', 'Keyboard Rug #16', 'Keyboard Rugs')">
+        <img src="key_16.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #16</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_17.jpg', 'Keyboard Rug #17', 'Keyboard Rugs')">
+        <img src="key_17.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #17</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_18.jpg', 'Keyboard Rug #18', 'Keyboard Rugs')">
+        <img src="key_18.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #18</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_19.jpg', 'Keyboard Rug #19', 'Keyboard Rugs')">
+        <img src="key_19.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #19</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_20.jpg', 'Keyboard Rug #20', 'Keyboard Rugs')">
+        <img src="key_20.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #20</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_21.jpg', 'Keyboard Rug #21', 'Keyboard Rugs')">
+        <img src="key_21.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #21</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_22.jpg', 'Keyboard Rug #22', 'Keyboard Rugs')">
+        <img src="key_22.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #22</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_23.jpg', 'Keyboard Rug #23', 'Keyboard Rugs')">
+        <img src="key_23.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #23</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_24.jpg', 'Keyboard Rug #24', 'Keyboard Rugs')">
+        <img src="key_24.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #24</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_25.jpg', 'Keyboard Rug #25', 'Keyboard Rugs')">
+        <img src="key_25.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #25</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_26.jpg', 'Keyboard Rug #26', 'Keyboard Rugs')">
+        <img src="key_26.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #26</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_27.jpg', 'Keyboard Rug #27', 'Keyboard Rugs')">
+        <img src="key_27.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #27</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_28.jpg', 'Keyboard Rug #28', 'Keyboard Rugs')">
+        <img src="key_28.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #28</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_29.jpg', 'Keyboard Rug #29', 'Keyboard Rugs')">
+        <img src="key_29.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #29</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_30.jpg', 'Keyboard Rug #30', 'Keyboard Rugs')">
+        <img src="key_30.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #30</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_31.jpg', 'Keyboard Rug #31', 'Keyboard Rugs')">
+        <img src="key_31.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #31</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_32.jpg', 'Keyboard Rug #32', 'Keyboard Rugs')">
+        <img src="key_32.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #32</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_33.jpg', 'Keyboard Rug #33', 'Keyboard Rugs')">
+        <img src="key_33.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #33</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_34.jpg', 'Keyboard Rug #34', 'Keyboard Rugs')">
+        <img src="key_34.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #34</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_35.jpg', 'Keyboard Rug #35', 'Keyboard Rugs')">
+        <img src="key_35.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #35</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_36.jpg', 'Keyboard Rug #36', 'Keyboard Rugs')">
+        <img src="key_36.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #36</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_37.jpg', 'Keyboard Rug #37', 'Keyboard Rugs')">
+        <img src="key_37.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #37</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_38.jpg', 'Keyboard Rug #38', 'Keyboard Rugs')">
+        <img src="key_38.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #38</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_39.jpg', 'Keyboard Rug #39', 'Keyboard Rugs')">
+        <img src="key_39.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #39</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_40.jpg', 'Keyboard Rug #40', 'Keyboard Rugs')">
+        <img src="key_40.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #40</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_41.jpg', 'Keyboard Rug #41', 'Keyboard Rugs')">
+        <img src="key_41.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #41</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_42.jpg', 'Keyboard Rug #42', 'Keyboard Rugs')">
+        <img src="key_42.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #42</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_43.jpg', 'Keyboard Rug #43', 'Keyboard Rugs')">
+        <img src="key_43.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #43</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_44.jpg', 'Keyboard Rug #44', 'Keyboard Rugs')">
+        <img src="key_44.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #44</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_45.jpg', 'Keyboard Rug #45', 'Keyboard Rugs')">
+        <img src="key_45.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #45</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_46.jpg', 'Keyboard Rug #46', 'Keyboard Rugs')">
+        <img src="key_46.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #46</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_47.jpg', 'Keyboard Rug #47', 'Keyboard Rugs')">
+        <img src="key_47.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #47</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_48.jpg', 'Keyboard Rug #48', 'Keyboard Rugs')">
+        <img src="key_48.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #48</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_49.jpg', 'Keyboard Rug #49', 'Keyboard Rugs')">
+        <img src="key_49.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #49</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_50.jpg', 'Keyboard Rug #50', 'Keyboard Rugs')">
+        <img src="key_50.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #50</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_51.jpg', 'Keyboard Rug #51', 'Keyboard Rugs')">
+        <img src="key_51.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #51</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_52.jpg', 'Keyboard Rug #52', 'Keyboard Rugs')">
+        <img src="key_52.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #52</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_53.jpg', 'Keyboard Rug #53', 'Keyboard Rugs')">
+        <img src="key_53.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #53</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_54.jpg', 'Keyboard Rug #54', 'Keyboard Rugs')">
+        <img src="key_54.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #54</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_55.jpg', 'Keyboard Rug #55', 'Keyboard Rugs')">
+        <img src="key_55.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #55</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_56.jpg', 'Keyboard Rug #56', 'Keyboard Rugs')">
+        <img src="key_56.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #56</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_57.jpg', 'Keyboard Rug #57', 'Keyboard Rugs')">
+        <img src="key_57.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #57</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_58.jpg', 'Keyboard Rug #58', 'Keyboard Rugs')">
+        <img src="key_58.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #58</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_59.jpg', 'Keyboard Rug #59', 'Keyboard Rugs')">
+        <img src="key_59.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #59</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_60.jpg', 'Keyboard Rug #60', 'Keyboard Rugs')">
+        <img src="key_60.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #60</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_61.jpg', 'Keyboard Rug #61', 'Keyboard Rugs')">
+        <img src="key_61.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #61</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_62.jpg', 'Keyboard Rug #62', 'Keyboard Rugs')">
+        <img src="key_62.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #62</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_63.jpg', 'Keyboard Rug #63', 'Keyboard Rugs')">
+        <img src="key_63.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #63</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_64.jpg', 'Keyboard Rug #64', 'Keyboard Rugs')">
+        <img src="key_64.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #64</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_65.jpg', 'Keyboard Rug #65', 'Keyboard Rugs')">
+        <img src="key_65.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #65</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_66.jpg', 'Keyboard Rug #66', 'Keyboard Rugs')">
+        <img src="key_66.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #66</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_67.jpg', 'Keyboard Rug #67', 'Keyboard Rugs')">
+        <img src="key_67.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #67</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_68.jpg', 'Keyboard Rug #68', 'Keyboard Rugs')">
+        <img src="key_68.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #68</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_69.jpg', 'Keyboard Rug #69', 'Keyboard Rugs')">
+        <img src="key_69.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #69</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('key_70.jpg', 'Keyboard Rug #70', 'Keyboard Rugs')">
+        <img src="key_70.jpg" alt="Keyboard Rug">
+        <div class="card-tag">Keyboard #70</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WALL/FLOOR RUGS SECTION -->
+  <section id="wall-section" class="category-section">
+    <h2 class="section-title">Wall/Floor Rugs</h2>
+    <div class="gallery-container">
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_1.jpg', 'Wall Rug #1', 'Wall/Floor Rugs')">
+        <img src="wall_1.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #1</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_2.jpg', 'Wall Rug #2', 'Wall/Floor Rugs')">
+        <img src="wall_2.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #2</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_3.jpg', 'Wall Rug #3', 'Wall/Floor Rugs')">
+        <img src="wall_3.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #3</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_4.jpg', 'Wall Rug #4', 'Wall/Floor Rugs')">
+        <img src="wall_4.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #4</div>
+      </div>
+
+      <div class="art-card card-big" onclick="openLightbox('wall_5.jpg', 'Wall Rug #5', 'Wall/Floor Rugs')">
+        <img src="wall_5.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #5</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_6.jpg', 'Wall Rug #6', 'Wall/Floor Rugs')">
+        <img src="wall_6.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #6</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_7.jpg', 'Wall Rug #7', 'Wall/Floor Rugs')">
+        <img src="wall_7.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #7</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_8.jpg', 'Wall Rug #8', 'Wall/Floor Rugs')">
+        <img src="wall_8.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #8</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_9.jpg', 'Wall Rug #9', 'Wall/Floor Rugs')">
+        <img src="wall_9.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #9</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_10.jpg', 'Wall Rug #10', 'Wall/Floor Rugs')">
+        <img src="wall_10.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #10</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_11.jpg', 'Wall Rug #11', 'Wall/Floor Rugs')">
+        <img src="wall_11.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #11</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_12.jpg', 'Wall Rug #12', 'Wall/Floor Rugs')">
+        <img src="wall_12.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #12</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_13.jpg', 'Wall Rug #13', 'Wall/Floor Rugs')">
+        <img src="wall_13.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #13</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_14.jpg', 'Wall Rug #14', 'Wall/Floor Rugs')">
+        <img src="wall_14.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #14</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_15.jpg', 'Wall Rug #15', 'Wall/Floor Rugs')">
+        <img src="wall_15.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #15</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_16.jpg', 'Wall Rug #16', 'Wall/Floor Rugs')">
+        <img src="wall_16.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #16</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_17.jpg', 'Wall Rug #17', 'Wall/Floor Rugs')">
+        <img src="wall_17.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #17</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_18.jpg', 'Wall Rug #18', 'Wall/Floor Rugs')">
+        <img src="wall_18.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #18</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_19.jpg', 'Wall Rug #19', 'Wall/Floor Rugs')">
+        <img src="wall_19.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #19</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_20.jpg', 'Wall Rug #20', 'Wall/Floor Rugs')">
+        <img src="wall_20.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #20</div>
+      </div>
+
+      <div class="art-card card-big" onclick="openLightbox('wall_21.jpg', 'Wall Rug #21', 'Wall/Floor Rugs')">
+        <img src="wall_21.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #21</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_22.jpg', 'Wall Rug #22', 'Wall/Floor Rugs')">
+        <img src="wall_22.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #22</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_23.jpg', 'Wall Rug #23', 'Wall/Floor Rugs')">
+        <img src="wall_23.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #23</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_24.jpg', 'Wall Rug #24', 'Wall/Floor Rugs')">
+        <img src="wall_24.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #24</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_25.jpg', 'Wall Rug #25', 'Wall/Floor Rugs')">
+        <img src="wall_25.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #25</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_26.jpg', 'Wall Rug #26', 'Wall/Floor Rugs')">
+        <img src="wall_26.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #26</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_27.jpg', 'Wall Rug #27', 'Wall/Floor Rugs')">
+        <img src="wall_27.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #27</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_28.jpg', 'Wall Rug #28', 'Wall/Floor Rugs')">
+        <img src="wall_28.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #28</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_29.jpg', 'Wall Rug #29', 'Wall/Floor Rugs')">
+        <img src="wall_29.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #29</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_30.jpg', 'Wall Rug #30', 'Wall/Floor Rugs')">
+        <img src="wall_30.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #30</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_31.jpg', 'Wall Rug #31', 'Wall/Floor Rugs')">
+        <img src="wall_31.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #31</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_32.jpg', 'Wall Rug #32', 'Wall/Floor Rugs')">
+        <img src="wall_32.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #32</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_33.jpg', 'Wall Rug #33', 'Wall/Floor Rugs')">
+        <img src="wall_33.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #33</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_34.jpg', 'Wall Rug #34', 'Wall/Floor Rugs')">
+        <img src="wall_34.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #34</div>
+      </div>
+
+      <div class="art-card card-big" onclick="openLightbox('wall_35.jpg', 'Wall Rug #35', 'Wall/Floor Rugs')">
+        <img src="wall_35.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #35</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_36.jpg', 'Wall Rug #36', 'Wall/Floor Rugs')">
+        <img src="wall_36.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #36</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_37.jpg', 'Wall Rug #37', 'Wall/Floor Rugs')">
+        <img src="wall_37.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #37</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_38.jpg', 'Wall Rug #38', 'Wall/Floor Rugs')">
+        <img src="wall_38.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #38</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_39.jpg', 'Wall Rug #39', 'Wall/Floor Rugs')">
+        <img src="wall_39.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #39</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_40.jpg', 'Wall Rug #40', 'Wall/Floor Rugs')">
+        <img src="wall_40.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #40</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_41.jpg', 'Wall Rug #41', 'Wall/Floor Rugs')">
+        <img src="wall_41.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #41</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_42.jpg', 'Wall Rug #42', 'Wall/Floor Rugs')">
+        <img src="wall_42.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #42</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_43.jpg', 'Wall Rug #43', 'Wall/Floor Rugs')">
+        <img src="wall_43.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #43</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_44.jpg', 'Wall Rug #44', 'Wall/Floor Rugs')">
+        <img src="wall_44.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #44</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_45.jpg', 'Wall Rug #45', 'Wall/Floor Rugs')">
+        <img src="wall_45.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #45</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_46.jpg', 'Wall Rug #46', 'Wall/Floor Rugs')">
+        <img src="wall_46.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #46</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_47.jpg', 'Wall Rug #47', 'Wall/Floor Rugs')">
+        <img src="wall_47.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #47</div>
+      </div>
+
+      <div class="art-card card-wide" onclick="openLightbox('wall_48.jpg', 'Wall Rug #48', 'Wall/Floor Rugs')">
+        <img src="wall_48.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #48</div>
+      </div>
+
+      <div class="art-card" onclick="openLightbox('wall_49.jpg', 'Wall Rug #49', 'Wall/Floor Rugs')">
+        <img src="wall_49.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #49</div>
+      </div>
+
+      <div class="art-card card-tall" onclick="openLightbox('wall_50.jpg', 'Wall Rug #50', 'Wall/Floor Rugs')">
+        <img src="wall_50.jpg" alt="Wall Rug">
+        <div class="card-tag">Wall #50</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== FAQ SECTION ========== -->
+  <div style="margin: 80px 0 60px;">
+    <div class="section-divider" style="max-width: 1200px; margin: 60px auto 30px; padding: 0 40px; display: flex; align-items: center; gap: 20px;">
+      <div style="height: 4px; background: var(--w-dark); flex-grow: 1;"></div>
+      <div class="section-title" style="background: var(--w-dark); color: var(--w-yellow); padding: 10px 20px; font-size: 1.5rem; font-weight: bold; text-transform: uppercase; transform: rotate(1deg); white-space: nowrap;">Frequently Asked Questions</div>
+      <div style="height: 4px; background: var(--w-dark); flex-grow: 1;"></div>
     </div>
 
-    <div class="art-card card-tall" data-cat="portrait" onclick="openLightbox('maingrid_2.jpg', 'Portrait Art', 'Portrait Rugs')">
-      <img src="maingrid_2.jpg" alt="Portrait">
-      <div class="card-tag">Portrait</div>
-    </div>
+    <div class="faq-container">
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-icon">▶</span>
+          <span>How long does shipping take?</span>
+        </div>
+        <div class="faq-answer">
+          <p>Rugs typically take 1-2 weeks to create and ship, depending on availability. We always try to deliver ASAP! Shipping within Colombia is FREE, and international shipping times vary by location.</p>
+        </div>
+      </div>
 
-    <div class="art-card" data-cat="pet" onclick="openLightbox('maingrid_3.jpg', 'Pet Rug', 'Pet Rugs')">
-      <img src="maingrid_3.jpg" alt="Pet">
-      <div class="card-tag">Pet</div>
-    </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-icon">▶</span>
+          <span>Can I customize my rug design?</span>
+        </div>
+        <div class="faq-answer">
+          <p>Absolutely! For custom pet rugs, visit our <a href="pages/petsection.html" style="color: var(--w-dark); text-decoration: underline; font-weight: 800;">Pet Section</a> and upload your photo for a FREE digital proposal within 24 hours. For other custom designs, use our Contact form to discuss your vision.</p>
+        </div>
+      </div>
 
-    <div class="art-card" data-cat="keyboard" onclick="openLightbox('maingrid_4.jpg', 'Keyboard Rug', 'Keyboard Rugs')">
-      <img src="maingrid_4.jpg" alt="Keyboard">
-      <div class="card-tag">Keyboard</div>
-    </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-icon">▶</span>
+          <span>What payment methods do you accept?</span>
+        </div>
+        <div class="faq-answer">
+          <p>We accept payments through Mercado Pago (Colombia) and PayPal (International). Colombian customers can also use Nequi for convenient local payments.</p>
+        </div>
+      </div>
 
-    <div class="art-card card-big" data-cat="wall" onclick="openLightbox('maingrid_5.jpg', 'Wall Art Piece', 'Wall Rugs')">
-      <img src="maingrid_5.jpg" alt="Wall Art">
-      <div class="card-tag">Wall Art</div>
-    </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-icon">▶</span>
+          <span>How do I care for my rug?</span>
+        </div>
+        <div class="faq-answer">
+          <p>Use a vacuum or wet wipes for regular cleaning. DO NOT use a washing machine or expose to direct sunlight. With proper care, your rug will last for years. All rugs include a 1-year warranty!</p>
+        </div>
+      </div>
 
-    <div class="art-card card-wide" data-cat="gospel" onclick="openLightbox('maingrid_6.jpg', 'Gospel Design', 'Gospel Rugs')">
-      <img src="maingrid_6.jpg" alt="Gospel">
-      <div class="card-tag">Gospel</div>
-    </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-icon">▶</span>
+          <span>What are international shipping costs?</span>
+        </div>
+        <div class="faq-answer">
+          <p>Colombia enjoys FREE shipping! For international orders:<br><br>
+          <strong>Gospel & Wall/Floor Rugs:</strong><br>
+          • Latin America & US: add $30 USD shipping fee<br>
+          • Europe & Australia: add $100 USD shipping fee<br><br>
+          <strong>Keyboard Rugs:</strong><br>
+          • Latin America & US: add $25 USD shipping fee<br>
+          • Europe & Australia: add $50 USD shipping fee</p>
+        </div>
+      </div>
 
-    <div class="art-card" data-cat="pet" onclick="openLightbox('maingrid_7.jpg', 'Pet Portrait', 'Pet Rugs')">
-      <img src="maingrid_7.jpg" alt="Pet">
-      <div class="card-tag">Pet</div>
-    </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-icon">▶</span>
+          <span>Do you offer refunds or exchanges?</span>
+        </div>
+        <div class="faq-answer">
+          <p>We stand behind our quality! If there's an issue with your rug, contact us within 7 days of delivery. All rugs come with a 1-year warranty covering manufacturing defects.</p>
+        </div>
+      </div>
 
-    <div class="art-card card-tall" data-cat="wall" onclick="openLightbox('maingrid_8.jpg', 'Wall Rug', 'Wall Rugs')">
-      <img src="maingrid_8.jpg" alt="Wall">
-      <div class="card-tag">Wall</div>
-    </div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-icon">▶</span>
+          <span>What makes WPAP rugs special?</span>
+        </div>
+        <div class="faq-answer">
+          <p>WPAP (Wedha's Pop Art Portrait) is a unique geometric art style featuring bold colors and angular patterns. Each rug is hand-tufted with premium acrylic yarn, featuring non-slip backing and carved 3D details for texture and depth.</p>
+        </div>
+      </div>
 
-    <div class="art-card" data-cat="keyboard" onclick="openLightbox('maingrid_9.jpg', 'Keyboard Art', 'Keyboard Rugs')">
-      <img src="maingrid_9.jpg" alt="Keyboard">
-      <div class="card-tag">Keyboard</div>
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span class="faq-icon">▶</span>
+          <span>Can I see a preview before ordering?</span>
+        </div>
+        <div class="faq-answer">
+          <p>Yes! For custom pet rugs, we provide a FREE digital mockup within 24 hours of submission. Once you approve the design, we require a deposit to begin crafting your masterpiece. For Gospel, Keyboard, or Wall/Floor rugs, what you see in our gallery is what you get!</p>
+        </div>
+      </div>
     </div>
-
-    <div class="art-card card-wide" data-cat="portrait" onclick="openLightbox('maingrid_10.jpg', 'Portrait Design', 'Portrait Rugs')">
-      <img src="maingrid_10.jpg" alt="Portrait">
-      <div class="card-tag">Portrait</div>
-    </div>
-
-    <div class="art-card" data-cat="gospel" onclick="openLightbox('maingrid_11.jpg', 'Gospel Art', 'Gospel Rugs')">
-      <img src="maingrid_11.jpg" alt="Gospel">
-      <div class="card-tag">Gospel</div>
-    </div>
-
-    <div class="art-card" data-cat="pet" onclick="openLightbox('maingrid_12.jpg', 'Pet Design', 'Pet Rugs')">
-      <img src="maingrid_12.jpg" alt="Pet">
-      <div class="card-tag">Pet</div>
-    </div>
-
-    <div class="art-card card-tall" data-cat="keyboard" onclick="openLightbox('maingrid_13.jpg', 'Keyboard Design', 'Keyboard Rugs')">
-      <img src="maingrid_13.jpg" alt="Keyboard">
-      <div class="card-tag">Keyboard</div>
-    </div>
-
-    <div class="art-card card-wide" data-cat="wall" onclick="openLightbox('maingrid_14.jpg', 'Wall Art', 'Wall Rugs')">
-      <img src="maingrid_14.jpg" alt="Wall">
-      <div class="card-tag">Wall</div>
-    </div>
-
-    <div class="art-card" data-cat="portrait" onclick="openLightbox('maingrid_15.jpg', 'Portrait Piece', 'Portrait Rugs')">
-      <img src="maingrid_15.jpg" alt="Portrait">
-      <div class="card-tag">Portrait</div>
-    </div>
-
-    <div class="art-card" data-cat="gospel" onclick="openLightbox('maingrid_16.jpg', 'Gospel Style', 'Gospel Rugs')">
-      <img src="maingrid_16.jpg" alt="Gospel">
-      <div class="card-tag">Gospel</div>
-    </div>
-
-    <div class="art-card card-tall" data-cat="pet" onclick="openLightbox('maingrid_17.jpg', 'Pet Art', 'Pet Rugs')">
-      <img src="maingrid_17.jpg" alt="Pet">
-      <div class="card-tag">Pet</div>
-    </div>
-
-    <div class="art-card card-wide" data-cat="keyboard" onclick="openLightbox('maingrid_18.jpg', 'Keyboard Piece', 'Keyboard Rugs')">
-      <img src="maingrid_18.jpg" alt="Keyboard">
-      <div class="card-tag">Keyboard</div>
-    </div>
-
-    <div class="art-card" data-cat="wall" onclick="openLightbox('maingrid_19.jpg', 'Wall Design', 'Wall Rugs')">
-      <img src="maingrid_19.jpg" alt="Wall">
-      <div class="card-tag">Wall</div>
-    </div>
-
-    <div class="art-card" data-cat="portrait" onclick="openLightbox('maingrid_20.jpg', 'Portrait Creation', 'Portrait Rugs')">
-      <img src="maingrid_20.jpg" alt="Portrait">
-      <div class="card-tag">Portrait</div>
-    </div>
-
-    <div class="art-card card-big" data-cat="gospel" onclick="openLightbox('maingrid_21.jpg', 'Gospel Masterpiece', 'Gospel Rugs')">
-      <img src="maingrid_21.jpg" alt="Gospel">
-      <div class="card-tag">Gospel</div>
-    </div>
-
-    <div class="art-card" data-cat="pet" onclick="openLightbox('maingrid_22.jpg', 'Pet Masterpiece', 'Pet Rugs')">
-      <img src="maingrid_22.jpg" alt="Pet">
-      <div class="card-tag">Pet</div>
-    </div>
-
-    <div class="art-card card-wide" data-cat="keyboard" onclick="openLightbox('maingrid_23.jpg', 'Keyboard Creation', 'Keyboard Rugs')">
-      <img src="maingrid_23.jpg" alt="Keyboard">
-      <div class="card-tag">Keyboard</div>
-    </div>
-
-    <div class="art-card" data-cat="wall" onclick="openLightbox('maingrid_24.jpg', 'Wall Piece', 'Wall Rugs')">
-      <img src="maingrid_24.jpg" alt="Wall">
-      <div class="card-tag">Wall</div>
-    </div>
-
-    <div class="art-card card-tall" data-cat="portrait" onclick="openLightbox('maingrid_25.jpg', 'Portrait Style', 'Portrait Rugs')">
-      <img src="maingrid_25.jpg" alt="Portrait">
-      <div class="card-tag">Portrait</div>
-    </div>
-
-    <div class="art-card" data-cat="gospel" onclick="openLightbox('maingrid_26.jpg', 'Gospel Vision', 'Gospel Rugs')">
-      <img src="maingrid_26.jpg" alt="Gospel">
-      <div class="card-tag">Gospel</div>
-    </div>
-
-    <div class="art-card card-wide" data-cat="pet" onclick="openLightbox('maingrid_27.jpg', 'Pet Creation', 'Pet Rugs')">
-      <img src="maingrid_27.jpg" alt="Pet">
-      <div class="card-tag">Pet</div>
-    </div>
-
-    <div class="art-card" data-cat="keyboard" onclick="openLightbox('maingrid_28.jpg', 'Keyboard Style', 'Keyboard Rugs')">
-      <img src="maingrid_28.jpg" alt="Keyboard">
-      <div class="card-tag">Keyboard</div>
-    </div>
-
-    <div class="art-card card-tall" data-cat="wall" onclick="openLightbox('maingrid_29.jpg', 'Wall Creation', 'Wall Rugs')">
-      <img src="maingrid_29.jpg" alt="Wall">
-      <div class="card-tag">Wall</div>
-    </div>
-
-    <div class="art-card" data-cat="portrait" onclick="openLightbox('maingrid_30.jpg', 'Portrait Vision', 'Portrait Rugs')">
-      <img src="maingrid_30.jpg" alt="Portrait">
-      <div class="card-tag">Portrait</div>
-    </div>
-
   </div>
 
   <!-- Lightbox Modal -->
@@ -862,7 +2340,31 @@
         <p id="lightbox-description" style="line-height: 1.6; font-size: 1.1rem;">
           Hand-crafted WPAP style artwork featuring vibrant colors and bold geometric patterns.
         </p>
-        <div class="payment-buttons">
+
+        <!-- Keyboard-Specific Options -->
+        <div id="keyboard-options" style="display: none;">
+          <div class="keyboard-size-selector">
+            <h4>Select Keyboard Size:</h4>
+            <label>
+              <input type="radio" name="kb-size" value="60" data-price="75">
+              60%-65% ($75 USD)
+            </label>
+            <label>
+              <input type="radio" name="kb-size" value="75" data-price="80">
+              75%-80% ($80 USD)
+            </label>
+            <label>
+              <input type="radio" name="kb-size" value="100" data-price="85">
+              100% ($85 USD)
+            </label>
+          </div>
+
+          <div class="keyboard-pricing" id="keyboard-pricing">
+            <p><strong>Select a size to see pricing</strong></p>
+          </div>
+        </div>
+
+        <div class="payment-buttons" id="payment-buttons">
           <a href="https://link.mercadopago.com.co/billythekidrugs" target="_blank" class="want-button btn-mercadopago">
             🇨🇴 Mercado Pago
           </a>
@@ -870,9 +2372,122 @@
             🌍 PayPal
           </a>
         </div>
+
+        <div class="payment-buttons" id="hero-buttons" style="display: none;">
+          <a href="pages/petsection.html" class="want-button btn-mercadopago">
+            Go to Pet Section
+          </a>
+          <button onclick="closeLightbox()" class="want-button btn-paypal" style="border: 3px solid var(--w-dark);">
+            Browse the rest of the Designs
+          </button>
+        </div>
+
+        <!-- Standard Rugs Details & Care (Gospel, Wall/Floor) -->
+        <div class="sticky-note" id="standard-details">
+          <h3>Details & Care</h3>
+          <p>
+            <strong>FREE</strong> shipping in Colombia (Nequi accepted)<br>
+            For Latin America & US add to the price <strong>$30 USD</strong> shipping fee<br>
+            For Europe & Australia add to the price <strong>$100 USD</strong> shipping fee<br><br>
+            Rugs can take <strong>1-2 weeks</strong> to be shipped depending on availability<br>
+            We will try to do it ASAP<br>
+            <strong>1-year warranty</strong> included<br><br>
+            Use Vacuum or wet wipes for cleaning.<br>
+            <strong>NO</strong> washing machine. <strong>NO</strong> direct sunlight.
+          </p>
+          <div class="blessing">God Bless!</div>
+        </div>
+
+        <!-- Keyboard Rugs Details & Care -->
+        <div class="sticky-note" id="keyboard-details" style="display: none;">
+          <h3>Details & Care</h3>
+          <p>
+            <strong>FREE</strong> shipping in Colombia (Nequi accepted)<br>
+            For Latin America & US add to the price <strong>$25 USD</strong> shipping fee<br>
+            For Europe & Australia add to the price <strong>$50 USD</strong> shipping fee<br><br>
+            Rugs can take <strong>1-2 weeks</strong> to be shipped depending on availability<br>
+            We will try to do it ASAP<br>
+            <strong>1-year warranty</strong> included<br><br>
+            Use Vacuum or wet wipes for cleaning.<br>
+            <strong>NO</strong> washing machine. <strong>NO</strong> direct sunlight.
+          </p>
+          <div class="blessing">God Bless!</div>
+        </div>
       </div>
     </div>
   </div>
+
+<!-- ========== CONTACT US MODAL ========== -->
+<div class="modal-overlay" id="contactModal">
+  <div class="modal-box" style="background: var(--w-yellow); padding: 40px 0; display: block; border: 4px solid var(--w-white);">
+    <div class="close-btn" onclick="closeContactModal()">&times;</div>
+    <div class="form-container">
+      <h2 style="text-align:center; font-size:2rem; margin-top:0; font-family: 'Righteous', cursive;">GET IN TOUCH</h2>
+      <p style="text-align:center; margin-bottom:30px; line-height: 1.6;">
+        Have questions about our rugs? Need help with an order? We're here to help!
+      </p>
+
+      <form action="https://formsubmit.co/gnomehub@gmail.com" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="_subject" value="Billy The Kid - Contact Form">
+        <input type="hidden" name="_captcha" value="false">
+
+        <div class="form-group">
+          <label>YOUR NAME</label>
+          <input type="text" name="name" required placeholder="Juan Pérez">
+        </div>
+
+        <div class="form-group">
+          <label>EMAIL ADDRESS</label>
+          <input type="email" name="email" required placeholder="juan@ejemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label>SUBJECT</label>
+          <select name="subject" required>
+            <option value="">-- Select a Reason --</option>
+            <option value="General Question">General Question</option>
+            <option value="Custom Design Request">Custom Design Request</option>
+            <option value="Shipping Inquiry">Shipping Inquiry</option>
+            <option value="Order Status">Order Status</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>MESSAGE</label>
+          <textarea name="message" rows="6" required placeholder="Cuéntanos cómo podemos ayudarte..." style="width: 100%; padding: 15px; border: 3px solid var(--w-dark); font-family: inherit; font-size: 1rem; background: #f0f0f0; box-sizing: border-box; resize: vertical; min-height: 120px;"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>ATTACH FILE (OPTIONAL)</label>
+          <div class="file-upload-wrapper">
+            <input type="file" name="attachment" accept="image/png, image/jpeg, image/jpg">
+          </div>
+          <small style="display:block; margin-top:5px; text-align:center; font-size: 0.9rem;">
+            Attach reference images for custom designs (optional)
+          </small>
+        </div>
+
+        <button type="submit" class="submit-btn">SEND MESSAGE</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ========== ABOUT COMING SOON MODAL ========== -->
+<div class="modal-overlay" id="aboutModal">
+  <div class="modal-box" style="background: var(--w-yellow); padding: 60px 40px; text-align: center; max-width: 500px; border: 4px solid var(--w-white);">
+    <div class="close-btn" onclick="closeAboutModal()">&times;</div>
+    <h2 style="font-family: 'Righteous', cursive; font-size: 2.5rem; margin: 0 0 20px 0; color: var(--w-dark);">COMING SOON</h2>
+    <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px; color: var(--w-dark);">
+      We're crafting an amazing About page to tell our story. Stay tuned!
+    </p>
+    <p style="font-size: 1rem; margin-bottom: 20px; color: var(--w-dark);">Follow us for updates:</p>
+    <a href="https://instagram.com/billythekid.co" target="_blank" class="want-button" style="display: inline-flex; text-decoration: none; align-items: center; justify-content: center; gap: 10px;">
+      📷 @billythekid.co
+    </a>
+  </div>
+</div>
 
 <script>
   const lightboxModal = document.getElementById('lightboxModal');
@@ -880,11 +2495,46 @@
   const lightboxTitle = document.getElementById('lightbox-title');
   const lightboxTag = document.getElementById('lightbox-tag');
   const lightboxDescription = document.getElementById('lightbox-description');
+  const paymentButtons = document.getElementById('payment-buttons');
+  const heroButtons = document.getElementById('hero-buttons');
+  const keyboardOptions = document.getElementById('keyboard-options');
+  const standardDetails = document.getElementById('standard-details');
+  const keyboardDetails = document.getElementById('keyboard-details');
 
-  function openLightbox(imageSrc, title, category) {
+  function openLightbox(imageSrc, title, category, isHero = false) {
     lightboxImage.src = imageSrc;
     lightboxTitle.textContent = title;
     lightboxTag.textContent = category.toUpperCase();
+
+    // Detect keyboard category
+    const isKeyboard = category.toLowerCase().includes('keyboard');
+
+    if (isHero) {
+      // Hero section logic
+      paymentButtons.style.display = 'none';
+      heroButtons.style.display = 'grid';
+      keyboardOptions.style.display = 'none';
+      standardDetails.style.display = 'block';
+      keyboardDetails.style.display = 'none';
+    } else if (isKeyboard) {
+      // Keyboard-specific lightbox
+      paymentButtons.style.display = 'grid';
+      heroButtons.style.display = 'none';
+      keyboardOptions.style.display = 'block';
+      standardDetails.style.display = 'none';
+      keyboardDetails.style.display = 'block';
+      disablePaymentButtons();
+      resetKeyboardOptions();
+    } else {
+      // Standard lightbox (Gospel, Wall/Floor)
+      paymentButtons.style.display = 'grid';
+      heroButtons.style.display = 'none';
+      keyboardOptions.style.display = 'none';
+      standardDetails.style.display = 'block';
+      keyboardDetails.style.display = 'none';
+      enablePaymentButtons();
+    }
+
     lightboxModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
@@ -893,6 +2543,68 @@
     lightboxModal.classList.remove('active');
     document.body.style.overflow = '';
   }
+
+  // Disable payment buttons
+  function disablePaymentButtons() {
+    const buttons = document.querySelectorAll('#payment-buttons .want-button');
+    buttons.forEach(btn => {
+      btn.classList.add('disabled');
+      btn.style.opacity = '0.5';
+      btn.style.cursor = 'not-allowed';
+      btn.style.pointerEvents = 'none';
+    });
+  }
+
+  // Enable payment buttons
+  function enablePaymentButtons() {
+    const buttons = document.querySelectorAll('#payment-buttons .want-button');
+    buttons.forEach(btn => {
+      btn.classList.remove('disabled');
+      btn.style.opacity = '1';
+      btn.style.cursor = 'pointer';
+      btn.style.pointerEvents = 'auto';
+    });
+  }
+
+  // Reset keyboard options
+  function resetKeyboardOptions() {
+    const radios = document.querySelectorAll('input[name="kb-size"]');
+    radios.forEach(radio => radio.checked = false);
+    document.getElementById('keyboard-pricing').innerHTML = '<p><strong>Select a size to see pricing</strong></p>';
+  }
+
+  // Update pricing display
+  function updatePricing(basePrice) {
+    const pricingDiv = document.getElementById('keyboard-pricing');
+    pricingDiv.innerHTML = `
+      <p style="line-height: 1.8;">
+        <strong>Price: $${basePrice} USD</strong><br>
+        + <strong>FREE</strong> shipping in Colombia (Nequi accepted)<br>
+        + <strong>$25 USD</strong> shipping fee (Latin America & US)<br>
+        + <strong>$50 USD</strong> shipping fee (Europe & Australia)
+      </p>
+    `;
+  }
+
+  // Handle size selection
+  document.querySelectorAll('input[name="kb-size"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      const price = this.dataset.price;
+      updatePricing(price);
+      enablePaymentButtons();
+    });
+  });
+
+  // Prevent clicks on disabled buttons with alert
+  document.querySelectorAll('#payment-buttons .want-button').forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      if (this.classList.contains('disabled')) {
+        e.preventDefault();
+        alert('Choose your keyboard size first');
+        return false;
+      }
+    });
+  });
 
   // Close on outside click
   window.onclick = function(event) {
@@ -908,22 +2620,139 @@
     }
   });
 
-  function filterGallery(category, btnElement) {
+  function showSection(sectionName, btnElement) {
+    // Update active button
     const buttons = document.querySelectorAll('.nav-btn');
     buttons.forEach(btn => btn.classList.remove('active'));
     btnElement.classList.add('active');
 
-    const cards = document.querySelectorAll('.art-card');
-    cards.forEach(card => {
-      const cardCat = card.getAttribute('data-cat');
-      if (category === 'all' || cardCat === category) {
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
-      }
+    // Hide all sections
+    const sections = document.querySelectorAll('.category-section');
+    sections.forEach(section => section.classList.remove('active'));
+
+    // Show selected section
+    const targetSection = document.getElementById(sectionName + '-section');
+    if (targetSection) {
+      targetSection.classList.add('active');
+    }
+  }
+
+  // ========== CONTACT MODAL FUNCTIONS ==========
+  const contactModal = document.getElementById('contactModal');
+
+  function openContactModal() {
+    contactModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeContactModal() {
+    contactModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close on outside click
+  window.addEventListener('click', function(event) {
+    if (event.target == contactModal) {
+      closeContactModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && contactModal.classList.contains('active')) {
+      closeContactModal();
+    }
+  });
+
+  // ========== ABOUT MODAL FUNCTIONS ==========
+  const aboutModal = document.getElementById('aboutModal');
+
+  function showAboutComingSoon() {
+    aboutModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeAboutModal() {
+    aboutModal.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  // Close on outside click
+  window.addEventListener('click', function(event) {
+    if (event.target == aboutModal) {
+      closeAboutModal();
+    }
+  });
+
+  // Close on Escape key
+  document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape' && aboutModal.classList.contains('active')) {
+      closeAboutModal();
+    }
+  });
+
+  // ========== FAQ TOGGLE FUNCTION ==========
+  function toggleFaq(element) {
+    const faqItem = element.parentElement;
+    const wasActive = faqItem.classList.contains('active');
+
+    // Close all FAQ items
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.classList.remove('active');
     });
+
+    // Open clicked item if it wasn't already active
+    if (!wasActive) {
+      faqItem.classList.add('active');
+    }
   }
 </script>
+
+<!-- ========== PROFESSIONAL FOOTER ========== -->
+<!-- KEEP IDENTICAL WITH petsection.html (except bilingual attributes) -->
+<footer class="site-footer">
+  <div class="footer-content">
+    <div class="footer-column">
+      <h3 class="footer-brand">BILLY THE KID</h3>
+      <p class="footer-tagline">Arte WPAP Hecho a Mano</p>
+    </div>
+
+    <div class="footer-column">
+      <h4 class="footer-heading">CONNECT</h4>
+      <div class="footer-social">
+        <a href="https://instagram.com/billythekid.co" target="_blank" class="footer-social-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+          <span>@billythekid.co</span>
+        </a>
+        <a href="https://linkedin.com/in/wsandoval2" target="_blank" class="footer-social-link">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+          </svg>
+          <span>wsandoval2</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="footer-column">
+      <h4 class="footer-heading">QUICK LINKS</h4>
+      <ul class="footer-links">
+        <li><a href="#" onclick="showAboutComingSoon(); return false;">About</a></li>
+        <li><a href="#" onclick="openContactModal(); return false;">Contact Us</a></li>
+        <li><a href="https://instagram.com/billythekid.co" target="_blank">Instagram</a></li>
+        <li><a href="https://linkedin.com/in/wsandoval2" target="_blank">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-divider"></div>
+
+  <div class="footer-bottom">
+    <p class="footer-copyright">© 2025 - Billythekid.co</p>
+    <p class="footer-credit">Crafted with LOVE by Serviam</p>
+  </div>
+</footer>
 
 </body>
 </html>
