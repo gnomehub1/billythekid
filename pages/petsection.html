@@ -400,6 +400,7 @@
     .ig-link {
       width: 45px;
       height: 45px;
+      box-shadow: 5px 5px 0px var(--ink-black);
     }
 
     .ig-link svg {
@@ -413,8 +414,19 @@
       font-size: 0.9rem;
     }
 
+    .modal-overlay {
+      padding: 10px;
+    }
+
+    .modal-box {
+      border-width: 3px;
+      max-width: calc(100vw - 20px);
+    }
+
     .lightbox-grid { grid-template-columns: 1fr; }
     .lightbox-visual { border-right: none; border-bottom: 4px solid var(--ink-black); }
+    .lightbox-details { padding: 20px; }
+    .details-block { padding: 10px; font-size: 0.85rem; }
     .form-container { padding: 20px; border: none; }
     h1 { font-size: 2.5rem; }
     .card-wide, .card-big, .card-tall { grid-column: span 1; grid-row: span 1; }
@@ -439,6 +451,7 @@
     .ig-link {
       width: 40px;
       height: 40px;
+      box-shadow: 3px 3px 0px var(--ink-black);
     }
 
     .ig-link svg {
@@ -450,6 +463,27 @@
       top: 70px;
       right: 10px;
       font-size: 0.85rem;
+    }
+
+    .modal-overlay {
+      padding: 10px;
+    }
+
+    .modal-box {
+      border-width: 2px;
+      max-width: calc(100vw - 20px);
+    }
+
+    .lightbox-details {
+      padding: 15px;
+    }
+
+    .close-btn {
+      top: 10px;
+      right: 10px;
+      font-size: 2.5rem;
+      width: 40px;
+      height: 40px;
     }
 
     h1 { font-size: 2rem; }
@@ -795,16 +829,12 @@
         </p>
 
         <div class="details-block">
-          <h4 data-es="Detalles y Cuidado" data-en="Details & Care">Details & Care</h4>
+          <h4 data-es="Tarifas de Envío:" data-en="Shipping Fees:">Shipping Fees:</h4>
           <p style="line-height: 1.7; margin: 0; font-size: 0.9rem;">
-            <strong data-es="GRATIS" data-en="FREE">FREE</strong> <span data-es="envío en Colombia (Nequi aceptado)" data-en="shipping in Colombia (Nequi accepted)">shipping in Colombia (Nequi accepted)</span><br>
-            <span data-es="Para América Latina y EE. UU. agregar al precio" data-en="For Latin America & US add to the price">For Latin America & US add to the price</span> <strong>$30 USD</strong> <span data-es="costo de envío" data-en="shipping fee">shipping fee</span><br>
-            <span data-es="Para Europa y Australia agregar al precio" data-en="For Europe & Australia add to the price">For Europe & Australia add to the price</span> <strong>$100 USD</strong> <span data-es="costo de envío" data-en="shipping fee">shipping fee</span><br><br>
-            <span data-es="Las alfombras pueden tardar" data-en="Rugs can take">Rugs can take</span> <strong>1-2 <span data-es="semanas" data-en="weeks">weeks</span></strong> <span data-es="en enviarse dependiendo de la disponibilidad" data-en="to be shipped depending on availability">to be shipped depending on availability</span><br>
-            <span data-es="Haremos lo mejor para enviarlo lo antes posible" data-en="We will try to do it ASAP">We will try to do it ASAP</span><br>
-            <strong data-es="Garantía de 1 año incluida" data-en="1-year warranty included">1-year warranty included</strong><br><br>
-            <span data-es="Use aspiradora o paños húmedos para limpiar." data-en="Use Vacuum or wet wipes for cleaning.">Use Vacuum or wet wipes for cleaning.</span><br>
-            <strong>NO</strong> <span data-es="lavadora. NO sol directo." data-en="washing machine. NO direct sunlight.">washing machine. NO direct sunlight.</span>
+            <strong data-es="GRATIS" data-en="FREE">FREE</strong> <span data-es="envío en Colombia" data-en="shipping in Colombia">shipping in Colombia</span><br>
+            <span data-es="América Latina y EE. UU." data-en="Latin America & US">Latin America & US</span> - <strong>$30 USD</strong><br>
+            <span data-es="Europa y Australia" data-en="Europe & Australia">Europe & Australia</span> - <strong>$80 USD</strong><br><br>
+            <span data-es="El envío puede tardar" data-en="Shipping can take">Shipping can take</span> <strong>1-2 <span data-es="semanas" data-en="weeks">weeks</span></strong>
           </p>
           <div style="text-align: center; margin-top: 15px; font-weight: 800; font-size: 1rem;" data-es="¡Que Dios te bendiga!" data-en="God Bless!">God Bless!</div>
         </div>
