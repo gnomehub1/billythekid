@@ -694,6 +694,209 @@
       font-size: 0.85rem;
     }
   }
+
+  /* ========== MOBILE & DESKTOP UX ENHANCEMENTS ========== */
+
+  /* Mobile CTA Button (Always Visible) */
+  .mobile-cta-btn {
+    display: none;
+    position: fixed;
+    bottom: 90px; /* Above toggle button */
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--electric-yellow);
+    color: var(--ink-black);
+    border: 3px solid var(--ink-black);
+    padding: 18px 35px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    z-index: 202; /* Above toggle button */
+    cursor: pointer;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+  }
+
+  .mobile-cta-btn:hover {
+    transform: translateX(-50%) translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Mobile Toggle Button */
+  .mobile-toggle-btn {
+    display: none;
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--ink-black);
+    color: white;
+    border: 2px solid var(--ink-black);
+    padding: 12px 25px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 6px;
+    z-index: 201;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+  }
+
+  /* Desktop Full-Screen Trigger */
+  .fullscreen-trigger {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: rgba(17, 17, 17, 0.8);
+    color: var(--electric-yellow);
+    border: 2px solid var(--electric-yellow);
+    padding: 10px 20px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border-radius: 6px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+  }
+
+  .lightbox-visual {
+    position: relative;
+  }
+
+  .lightbox-visual:hover .fullscreen-trigger {
+    opacity: 1;
+  }
+
+  /* Desktop Full-Screen Viewer */
+  .fullscreen-viewer {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.98);
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .fullscreen-viewer.active {
+    display: flex;
+  }
+
+  .fullscreen-viewer img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border: 4px solid var(--electric-yellow);
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    transform-origin: center center;
+    cursor: grab;
+  }
+
+  .fullscreen-viewer img.dragging {
+    cursor: grabbing;
+    transition: none;
+  }
+
+  .fullscreen-viewer .close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--electric-yellow);
+    color: var(--ink-black);
+  }
+
+  /* Mobile-Specific Styles */
+  @media (max-width: 768px) {
+    .mobile-cta-btn,
+    .mobile-toggle-btn {
+      display: block;
+    }
+
+    /* STATE 1: Full-Screen Image Mode */
+    .modal-overlay.mobile-image-mode .lightbox-details {
+      display: none;
+    }
+
+    .modal-overlay.mobile-image-mode .modal-box {
+      max-height: 95vh;
+    }
+
+    .modal-overlay.mobile-image-mode .lightbox-visual {
+      padding: 10px;
+      border: none;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-overlay.mobile-image-mode #lb-image {
+      max-height: 80vh;
+      max-width: 95vw;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* STATE 2: Details Mode */
+    .modal-overlay.mobile-details-mode .lightbox-visual {
+      height: 40vh;
+      padding: 15px;
+      border-bottom: 4px solid var(--ink-black);
+    }
+
+    .modal-overlay.mobile-details-mode #lb-image {
+      max-height: 38vh;
+    }
+
+    .modal-overlay.mobile-details-mode .lightbox-details {
+      display: block;
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+    /* Aspect-ratio specific sizing */
+    .modal-overlay.mobile-image-mode #lb-image.aspect-portrait {
+      max-height: 80vh;
+      max-width: 95vw;
+    }
+
+    .modal-overlay.mobile-image-mode #lb-image.aspect-landscape {
+      max-width: 95vw;
+      max-height: 55vh;
+      width: 95vw;
+    }
+
+    .modal-overlay.mobile-image-mode #lb-image.aspect-square {
+      max-width: 90vw;
+      max-height: 70vh;
+      width: 90vw;
+    }
+
+    /* Touch zoom support */
+    .modal-overlay.mobile-image-mode #lb-image {
+      transform-origin: center center;
+      touch-action: none;
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .modal-overlay.mobile-image-mode #lb-image.zooming {
+      transition: none;
+    }
+
+    /* Smooth transitions between states */
+    .lightbox-visual,
+    .lightbox-details,
+    #lb-image {
+      transition: all 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+  }
 </style>
 </head>
 
@@ -818,6 +1021,7 @@
     <div class="modal-box lightbox-grid">
       <div class="close-btn" onclick="closeModals()">&times;</div>
       <div class="lightbox-visual">
+        <button class="fullscreen-trigger" onclick="enterFullScreen(event)">🔍 View Full Screen</button>
         <img id="lb-image" src="" style="width:100%; border:3px solid var(--ink-black);">
       </div>
       <div class="lightbox-details">
@@ -846,6 +1050,22 @@
         </div>
       </div>
     </div>
+
+    <!-- Mobile View Toggle Button -->
+    <button class="mobile-toggle-btn" id="mobileToggleBtn" onclick="toggleMobileView()">
+      <span id="toggleText">View Details ▼</span>
+    </button>
+
+    <!-- Mobile CTA Button (Always Visible) -->
+    <button class="mobile-cta-btn" onclick="closeModals(); openFormModal();">
+      <span data-es="Quiero Una Así" data-en="I Want One Like This">I WANT ONE LIKE THIS</span>
+    </button>
+  </div>
+
+  <!-- Desktop Full-Screen Image Viewer -->
+  <div class="fullscreen-viewer" id="fullscreenViewer" onclick="exitFullScreen()">
+    <button class="close-btn" onclick="exitFullScreen(); event.stopPropagation();">&times;</button>
+    <img id="fullscreen-image" src="" alt="Full Screen View" onclick="event.stopPropagation();">
   </div>
 
   <div class="modal-overlay" id="formModal">
@@ -984,7 +1204,28 @@
 
   // --- MODALS ---
   function openLightbox(fileName) {
+    const lbImage = document.getElementById('lb-image');
     lbImage.src = fileName + '.png';
+
+    // Wait for image to load, then detect aspect ratio
+    lbImage.onload = function() {
+      if (isMobileViewport()) {
+        applyAspectRatioSizing(lbImage);
+        initializeTouchZoom();
+      }
+    };
+
+    // Set initial mobile state
+    if (isMobileViewport()) {
+      productModal.classList.add('mobile-image-mode');
+      isMobileImageView = true;
+      document.getElementById('toggleText').textContent = 'View Details ▼';
+      resetZoom();
+    } else {
+      productModal.classList.remove('mobile-image-mode');
+      productModal.classList.remove('mobile-details-mode');
+    }
+
     productModal.classList.add('active');
   }
 
@@ -995,10 +1236,13 @@
 
   function closeModals() {
     productModal.classList.remove('active');
+    productModal.classList.remove('mobile-image-mode');
+    productModal.classList.remove('mobile-details-mode');
     formModal.classList.remove('active');
     contactModal.classList.remove('active');
     aboutModal.classList.remove('active');
     document.body.style.overflow = '';
+    resetZoom();
   }
 
   // --- CONTACT MODAL ---
@@ -1039,6 +1283,486 @@
       if (aboutModal.classList.contains('active')) closeAboutModal();
       if (productModal.classList.contains('active') || formModal.classList.contains('active')) closeModals();
     }
+  });
+
+  // ========== MOBILE & DESKTOP UX ENHANCEMENTS ==========
+
+  // Mobile viewport detection
+  let isMobileImageView = true;
+
+  function isMobileViewport() {
+    return window.innerWidth <= 768;
+  }
+
+  function toggleMobileView() {
+    if (!isMobileViewport()) return;
+
+    const modal = document.getElementById('productModal');
+    const toggleText = document.getElementById('toggleText');
+
+    isMobileImageView = !isMobileImageView;
+
+    if (isMobileImageView) {
+      modal.classList.remove('mobile-details-mode');
+      modal.classList.add('mobile-image-mode');
+      toggleText.textContent = 'View Details ▼';
+    } else {
+      modal.classList.remove('mobile-image-mode');
+      modal.classList.add('mobile-details-mode');
+      toggleText.textContent = 'View Full Image ▲';
+      resetZoom();
+    }
+  }
+
+  // Mobile touch zoom state
+  let zoomState = {
+    scale: 1,
+    translateX: 0,
+    translateY: 0,
+    isDragging: false,
+    isPinching: false,
+    lastTap: 0,
+    initialDistance: 0,
+    initialScale: 1,
+    initialTranslateX: 0,
+    initialTranslateY: 0,
+    touchStartX: 0,
+    touchStartY: 0,
+    pinchCenterX: 0,
+    pinchCenterY: 0,
+    aspectRatio: 'portrait',
+    hasMovedEnough: false
+  };
+
+  function applyAspectRatioSizing(img) {
+    const ratio = img.naturalWidth / img.naturalHeight;
+    img.classList.remove('aspect-portrait', 'aspect-landscape', 'aspect-square');
+
+    if (ratio < 0.75) {
+      zoomState.aspectRatio = 'portrait';
+      img.classList.add('aspect-portrait');
+    } else if (ratio > 1.33) {
+      zoomState.aspectRatio = 'landscape';
+      img.classList.add('aspect-landscape');
+    } else {
+      zoomState.aspectRatio = 'square';
+      img.classList.add('aspect-square');
+    }
+  }
+
+  function applyZoomTransform() {
+    const img = document.getElementById('lb-image');
+    if (!img) return;
+    img.style.transform = `translate(${zoomState.translateX}px, ${zoomState.translateY}px) scale(${zoomState.scale})`;
+  }
+
+  function resetZoom() {
+    zoomState.scale = 1;
+    zoomState.translateX = 0;
+    zoomState.translateY = 0;
+    zoomState.isDragging = false;
+    zoomState.isPinching = false;
+    applyZoomTransform();
+  }
+
+  function getTouchDistance(touches) {
+    const dx = touches[0].clientX - touches[1].clientX;
+    const dy = touches[0].clientY - touches[1].clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+  }
+
+  function getTouchCenter(touches) {
+    return {
+      x: (touches[0].clientX + touches[1].clientX) / 2,
+      y: (touches[0].clientY + touches[1].clientY) / 2
+    };
+  }
+
+  function constrainPan() {
+    const img = document.getElementById('lb-image');
+    if (!img) return;
+
+    if (zoomState.scale <= 1) {
+      zoomState.translateX = 0;
+      zoomState.translateY = 0;
+      return;
+    }
+
+    const container = img.parentElement;
+    const imgRect = img.getBoundingClientRect();
+    const scaledWidth = imgRect.width * zoomState.scale;
+    const scaledHeight = imgRect.height * zoomState.scale;
+    const maxTranslateX = (scaledWidth - imgRect.width) / 2;
+    const maxTranslateY = (scaledHeight - imgRect.height) / 2;
+
+    zoomState.translateX = Math.max(-maxTranslateX, Math.min(maxTranslateX, zoomState.translateX));
+    zoomState.translateY = Math.max(-maxTranslateY, Math.min(maxTranslateY, zoomState.translateY));
+  }
+
+  // Touch event handlers
+  function handleTouchStart(e) {
+    if (!isMobileViewport() || !isMobileImageView) return;
+
+    const img = document.getElementById('lb-image');
+    if (!img) return;
+
+    if (e.touches.length === 2) {
+      // Pinch zoom start
+      e.preventDefault();
+      zoomState.isPinching = true;
+      zoomState.isDragging = false;
+      zoomState.hasMovedEnough = false;
+
+      img.classList.add('zooming');
+
+      // Store initial values
+      zoomState.initialDistance = getTouchDistance(e.touches);
+      zoomState.initialScale = zoomState.scale;
+      zoomState.initialTranslateX = zoomState.translateX;
+      zoomState.initialTranslateY = zoomState.translateY;
+
+      // Store pinch center point
+      const center = getTouchCenter(e.touches);
+      zoomState.pinchCenterX = center.x;
+      zoomState.pinchCenterY = center.y;
+
+    } else if (e.touches.length === 1) {
+      // Check for double-tap
+      const now = Date.now();
+      const timeSinceLastTap = now - zoomState.lastTap;
+
+      if (timeSinceLastTap < 300 && timeSinceLastTap > 0) {
+        // Double-tap detected
+        e.preventDefault();
+        handleDoubleTap(e.touches[0]);
+        zoomState.lastTap = 0;
+      } else {
+        zoomState.lastTap = now;
+
+        // Prepare for potential drag if zoomed
+        if (zoomState.scale > 1) {
+          zoomState.touchStartX = e.touches[0].clientX;
+          zoomState.touchStartY = e.touches[0].clientY;
+          zoomState.initialTranslateX = zoomState.translateX;
+          zoomState.initialTranslateY = zoomState.translateY;
+          zoomState.hasMovedEnough = false;
+        }
+      }
+    }
+  }
+
+  function handleTouchMove(e) {
+    if (!isMobileViewport() || !isMobileImageView) return;
+
+    const img = document.getElementById('lb-image');
+    if (!img) return;
+
+    if (e.touches.length === 2 && zoomState.isPinching) {
+      // Pinch zoom
+      e.preventDefault();
+
+      const currentDistance = getTouchDistance(e.touches);
+      const distanceChange = Math.abs(currentDistance - zoomState.initialDistance);
+
+      // Only start zooming after 10px of movement (less sensitive)
+      if (!zoomState.hasMovedEnough && distanceChange < 10) {
+        return;
+      }
+      zoomState.hasMovedEnough = true;
+
+      // Calculate new scale with damping for smoother feel
+      const rawScale = (currentDistance / zoomState.initialDistance) * zoomState.initialScale;
+      const damping = 0.85; // Damping factor (lower = less sensitive)
+      const targetScale = zoomState.initialScale + (rawScale - zoomState.initialScale) * damping;
+
+      // Constrain zoom between 1x and 3x
+      zoomState.scale = Math.max(1, Math.min(3, targetScale));
+
+      // Keep position stable during zoom (don't apply pan constraints during pinch)
+      applyZoomTransform();
+
+    } else if (e.touches.length === 1 && zoomState.scale > 1) {
+      // Pan/drag
+      const deltaX = e.touches[0].clientX - zoomState.touchStartX;
+      const deltaY = e.touches[0].clientY - zoomState.touchStartY;
+      const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+
+      // Only start dragging after 5px of movement (less sensitive)
+      if (!zoomState.hasMovedEnough && distance < 5) {
+        return;
+      }
+
+      if (!zoomState.isDragging) {
+        zoomState.isDragging = true;
+        zoomState.hasMovedEnough = true;
+        img.classList.add('zooming');
+      }
+
+      e.preventDefault();
+
+      // Calculate new position from initial position
+      zoomState.translateX = zoomState.initialTranslateX + deltaX;
+      zoomState.translateY = zoomState.initialTranslateY + deltaY;
+
+      constrainPan();
+      applyZoomTransform();
+    }
+  }
+
+  function handleTouchEnd(e) {
+    if (!isMobileViewport() || !isMobileImageView) return;
+
+    const img = document.getElementById('lb-image');
+    if (!img) return;
+
+    if (e.touches.length === 0) {
+      img.classList.remove('zooming');
+      zoomState.isDragging = false;
+      zoomState.isPinching = false;
+      zoomState.hasMovedEnough = false;
+
+      // Apply final constraints to ensure image is within bounds
+      constrainPan();
+      applyZoomTransform();
+
+      // Reset zoom if scale is very close to 1
+      if (zoomState.scale < 1.1) {
+        resetZoom();
+      }
+    } else if (e.touches.length === 1 && zoomState.isPinching) {
+      // Transitioned from pinch to single touch
+      zoomState.isPinching = false;
+      zoomState.touchStartX = e.touches[0].clientX;
+      zoomState.touchStartY = e.touches[0].clientY;
+      zoomState.initialTranslateX = zoomState.translateX;
+      zoomState.initialTranslateY = zoomState.translateY;
+      zoomState.hasMovedEnough = false;
+    }
+  }
+
+  function handleDoubleTap(touch) {
+    const img = document.getElementById('lb-image');
+    if (!img) return;
+
+    if (zoomState.scale === 1) {
+      // Zoom in to 2x at tap location
+      zoomState.scale = 2;
+
+      // Calculate translate to center on tap point
+      const rect = img.getBoundingClientRect();
+
+      // Safety check: ensure image has valid dimensions before calculating position
+      // This prevents zooming to corner when double-tapping before image fully loads
+      if (rect.width > 0 && rect.height > 0 && img.naturalWidth > 0) {
+        const tapX = touch.clientX - rect.left;
+        const tapY = touch.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        zoomState.translateX = (centerX - tapX) * 0.5;
+        zoomState.translateY = (centerY - tapY) * 0.5;
+
+        constrainPan();
+      } else {
+        // Image not ready yet - just zoom to center without positioning
+        zoomState.translateX = 0;
+        zoomState.translateY = 0;
+      }
+    } else {
+      // Zoom out to 1x
+      resetZoom();
+    }
+
+    applyZoomTransform();
+  }
+
+  // Initialize touch zoom on mobile image
+  function initializeTouchZoom() {
+    if (!isMobileViewport()) return;
+
+    const img = document.getElementById('lb-image');
+    if (!img) return;
+
+    // Remove existing listeners to avoid duplicates
+    img.removeEventListener('touchstart', handleTouchStart);
+    img.removeEventListener('touchmove', handleTouchMove);
+    img.removeEventListener('touchend', handleTouchEnd);
+
+    // Add touch event listeners
+    img.addEventListener('touchstart', handleTouchStart, { passive: false });
+    img.addEventListener('touchmove', handleTouchMove, { passive: false });
+    img.addEventListener('touchend', handleTouchEnd, { passive: false });
+  }
+
+  // Desktop full-screen zoom state
+  let fullscreenZoomState = {
+    scale: 1,
+    translateX: 0,
+    translateY: 0,
+    isDragging: false,
+    dragStartX: 0,
+    dragStartY: 0,
+    initialTranslateX: 0,
+    initialTranslateY: 0
+  };
+
+  // Apply transform to full-screen image
+  function applyFullscreenZoomTransform() {
+    const img = document.getElementById('fullscreen-image');
+    if (!img) return;
+
+    img.style.transform = `translate(${fullscreenZoomState.translateX}px, ${fullscreenZoomState.translateY}px) scale(${fullscreenZoomState.scale})`;
+  }
+
+  // Reset full-screen zoom to initial state
+  function resetFullscreenZoom() {
+    fullscreenZoomState.scale = 1;
+    fullscreenZoomState.translateX = 0;
+    fullscreenZoomState.translateY = 0;
+    fullscreenZoomState.isDragging = false;
+    applyFullscreenZoomTransform();
+  }
+
+  // Constrain pan within image boundaries for full-screen
+  function constrainFullscreenPan() {
+    const img = document.getElementById('fullscreen-image');
+    if (!img) return;
+
+    if (fullscreenZoomState.scale <= 1) {
+      fullscreenZoomState.translateX = 0;
+      fullscreenZoomState.translateY = 0;
+      return;
+    }
+
+    const container = img.parentElement;
+    const containerRect = container.getBoundingClientRect();
+    const imgRect = img.getBoundingClientRect();
+
+    const scaledWidth = imgRect.width * fullscreenZoomState.scale;
+    const scaledHeight = imgRect.height * fullscreenZoomState.scale;
+
+    const maxTranslateX = (scaledWidth - imgRect.width) / 2;
+    const maxTranslateY = (scaledHeight - imgRect.height) / 2;
+
+    fullscreenZoomState.translateX = Math.max(-maxTranslateX, Math.min(maxTranslateX, fullscreenZoomState.translateX));
+    fullscreenZoomState.translateY = Math.max(-maxTranslateY, Math.min(maxTranslateY, fullscreenZoomState.translateY));
+  }
+
+  // Mouse wheel zoom handler
+  function handleFullscreenWheel(e) {
+    e.preventDefault();
+
+    const delta = e.deltaY > 0 ? -0.1 : 0.1; // Scroll down = zoom out, scroll up = zoom in
+    fullscreenZoomState.scale = Math.max(1, Math.min(3, fullscreenZoomState.scale + delta));
+
+    constrainFullscreenPan();
+    applyFullscreenZoomTransform();
+  }
+
+  // Mouse down handler - start drag
+  function handleFullscreenMouseDown(e) {
+    if (fullscreenZoomState.scale > 1) {
+      e.preventDefault();
+      fullscreenZoomState.isDragging = true;
+      fullscreenZoomState.dragStartX = e.clientX;
+      fullscreenZoomState.dragStartY = e.clientY;
+      fullscreenZoomState.initialTranslateX = fullscreenZoomState.translateX;
+      fullscreenZoomState.initialTranslateY = fullscreenZoomState.translateY;
+
+      const img = document.getElementById('fullscreen-image');
+      if (img) img.classList.add('dragging');
+    }
+  }
+
+  // Mouse move handler - drag image
+  function handleFullscreenMouseMove(e) {
+    if (fullscreenZoomState.isDragging) {
+      e.preventDefault();
+
+      const deltaX = e.clientX - fullscreenZoomState.dragStartX;
+      const deltaY = e.clientY - fullscreenZoomState.dragStartY;
+
+      fullscreenZoomState.translateX = fullscreenZoomState.initialTranslateX + deltaX;
+      fullscreenZoomState.translateY = fullscreenZoomState.initialTranslateY + deltaY;
+
+      constrainFullscreenPan();
+      applyFullscreenZoomTransform();
+    }
+  }
+
+  // Mouse up handler - end drag
+  function handleFullscreenMouseUp(e) {
+    fullscreenZoomState.isDragging = false;
+    const img = document.getElementById('fullscreen-image');
+    if (img) img.classList.remove('dragging');
+  }
+
+  // Initialize full-screen zoom listeners
+  function initializeFullscreenZoom() {
+    const img = document.getElementById('fullscreen-image');
+    if (!img) return;
+
+    // Remove existing listeners to avoid duplicates
+    img.removeEventListener('wheel', handleFullscreenWheel);
+    img.removeEventListener('mousedown', handleFullscreenMouseDown);
+    window.removeEventListener('mousemove', handleFullscreenMouseMove);
+    window.removeEventListener('mouseup', handleFullscreenMouseUp);
+
+    // Add event listeners
+    img.addEventListener('wheel', handleFullscreenWheel, { passive: false });
+    img.addEventListener('mousedown', handleFullscreenMouseDown);
+    window.addEventListener('mousemove', handleFullscreenMouseMove);
+    window.addEventListener('mouseup', handleFullscreenMouseUp);
+  }
+
+  // Desktop full-screen viewer
+  function enterFullScreen(event) {
+    if (event) event.stopPropagation();
+
+    const lbImage = document.getElementById('lb-image');
+    const fullscreenViewer = document.getElementById('fullscreenViewer');
+    const fullscreenImage = document.getElementById('fullscreen-image');
+
+    fullscreenImage.src = lbImage.src;
+    fullscreenViewer.classList.add('active');
+
+    // Initialize zoom after image loads
+    fullscreenImage.onload = function() {
+      resetFullscreenZoom();
+      initializeFullscreenZoom();
+    };
+  }
+
+  function exitFullScreen() {
+    const fullscreenViewer = document.getElementById('fullscreenViewer');
+    fullscreenViewer.classList.remove('active');
+
+    // Reset zoom when exiting
+    resetFullscreenZoom();
+  }
+
+  // Keyboard shortcuts for full-screen viewer
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      const fullscreenViewer = document.getElementById('fullscreenViewer');
+      if (fullscreenViewer && fullscreenViewer.classList.contains('active')) {
+        exitFullScreen();
+        e.preventDefault();
+      }
+    }
+  });
+
+  // Double-click to enter full-screen on desktop
+  lbImage.addEventListener('dblclick', function(e) {
+    if (!isMobileViewport()) {
+      enterFullScreen();
+    }
+  });
+
+  // Double-click to exit full-screen
+  document.getElementById('fullscreen-image').addEventListener('dblclick', function(e) {
+    e.stopPropagation();
+    exitFullScreen();
   });
 
   // Initialize with stored preference or default to English
