@@ -694,8 +694,8 @@
     }
   }
 
-  /* Mobile Gallery Grid - Preserve Collage Aesthetic */
-  @media (max-width: 480px) {
+  /* Mobile Gallery Grid - Very Small Screens Only (320px and below) */
+  @media (max-width: 320px) {
     .gallery-container {
       grid-template-columns: repeat(2, 1fr); /* 2 columns - preserves collage aesthetic */
       grid-auto-rows: 150px; /* Smaller base size for mobile */
@@ -718,12 +718,6 @@
     .card-big {
       grid-column: span 2; /* Full width */
       grid-row: span 2; /* Double height - feature card */
-    }
-
-    /* Standard cards remain 1x1 */
-    .rug-card {
-      grid-column: span 1;
-      grid-row: span 1;
     }
 
     /* Maintain subtle rotations for playful aesthetic */
@@ -1013,10 +1007,10 @@
     <div class="rug-card card-wide" onclick="openLightbox('hero_floor_1')">
       <img src="hero_floor_1.png" alt="Wide Floor Rug"> <div class="card-tag">FLOOR / SHAPED</div>
     </div>
-    <div class="rug-card card-tall" onclick="openLightbox('hero_wall_1')">
+    <div class="rug-card card-big" onclick="openLightbox('hero_wall_1')">
       <img src="hero_wall_1.png" style="object-position: center;" alt="Wall Art"> <div class="card-tag">WALL / ART</div>
     </div>
-    <div class="rug-card" onclick="openLightbox('hero_floor_2')">
+    <div class="rug-card card-wide" onclick="openLightbox('hero_floor_2')">
        <img src="hero_floor_2.png" alt="Standard Rug"> <div class="card-tag">FLOOR</div>
     </div>
     <div class="rug-card card-big" onclick="openLightbox('hero_feature')">
@@ -1025,7 +1019,7 @@
     <div class="rug-card card-wide" onclick="openLightbox('hero_floor_3')">
        <img src="hero_floor_3.png" alt="Wide Floor Rug"> <div class="card-tag">FLOOR / SHAPED</div>
     </div>
-    <div class="rug-card" onclick="openLightbox('hero_floor_4')">
+    <div class="rug-card card-wide" onclick="openLightbox('hero_floor_4')">
       <img src="hero_floor_4.png" alt="Extra Rug">
       <div class="card-tag">FLOOR / SHAPED</div>
     </div>
@@ -1038,30 +1032,30 @@
   </div>
 
   <div class="gallery-container">
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_1')"><img src="gal_wall_1.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_1')"><img src="gal_wall_1.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
     <div class="rug-card card-wide" onclick="openLightbox('gal_floor_1')"><img src="gal_floor_1.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_2')"><img src="gal_wall_2.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_2')"><img src="gal_wall_2.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
     <div class="rug-card card-wide" onclick="openLightbox('gal_floor_2')"><img src="gal_floor_2.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_3')"><img src="gal_wall_3.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_4')"><img src="gal_wall_4.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_3')"><img src="gal_wall_3.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_4')"><img src="gal_wall_4.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
     <div class="rug-card card-wide" onclick="openLightbox('gal_floor_3')"><img src="gal_floor_3.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_5')"><img src="gal_wall_5.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_5')"><img src="gal_wall_5.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
     <div class="rug-card card-wide" onclick="openLightbox('gal_floor_4')"><img src="gal_floor_4.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_6')"><img src="gal_wall_6.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_6')"><img src="gal_wall_6.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
     <div class="rug-card card-wide" onclick="openLightbox('gal_floor_5')"><img src="gal_floor_5.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_7')"><img src="gal_wall_7.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_7')"><img src="gal_wall_7.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
     <div class="rug-card card-wide" onclick="openLightbox('gal_floor_6')"><img src="gal_floor_6.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_8')"><img src="gal_wall_8.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
-    <div class="rug-card" onclick="openLightbox('gal_floor_8')"><img src="gal_floor_8.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_9')"><img src="gal_wall_9.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_8')"><img src="gal_wall_8.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_8')"><img src="gal_floor_8.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_9')"><img src="gal_wall_9.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
     <div class="rug-card card-wide" onclick="openLightbox('gal_floor_7')"><img src="gal_floor_7.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card" onclick="openLightbox('gal_floor_9')"><img src="gal_floor_9.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_10')"><img src="gal_wall_10.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
-    <div class="rug-card" onclick="openLightbox('gal_floor_10')"><img src="gal_floor_10.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_11')"><img src="gal_wall_11.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
-    <div class="rug-card" onclick="openLightbox('gal_floor_11')"><img src="gal_floor_11.png"><div class="card-tag">FLOOR / SHAPED</div></div>
-    <div class="rug-card card-tall" onclick="openLightbox('gal_wall_12')"><img src="gal_wall_12.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
-    <div class="rug-card" onclick="openLightbox('gal_floor_12')"><img src="gal_floor_12.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_9')"><img src="gal_floor_9.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_10')"><img src="gal_wall_10.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_10')"><img src="gal_floor_10.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_11')"><img src="gal_wall_11.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_11')"><img src="gal_floor_11.png"><div class="card-tag">FLOOR / SHAPED</div></div>
+    <div class="rug-card card-big" onclick="openLightbox('gal_wall_12')"><img src="gal_wall_12.png" style="object-position: center;"><div class="card-tag">WALL / ART</div></div>
+    <div class="rug-card card-wide" onclick="openLightbox('gal_floor_12')"><img src="gal_floor_12.png"><div class="card-tag">FLOOR / SHAPED</div></div>
   </div>
 
    <div class="section-divider">
