@@ -1173,6 +1173,14 @@
     .card-tall { grid-row: span 2; }
     .card-big { grid-column: span 2; grid-row: span 2; }
 
+    /* Keyboard gallery: 1-column for better visibility (all same aspect ratio) */
+    #keyboard-gallery {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 280px;
+      gap: 25px;
+      padding: 25px 15px;
+    }
+
     /* Reduce rotation on mobile */
     .art-card:nth-child(odd) { transform: rotate(-0.5deg); }
     .art-card:nth-child(even) { transform: rotate(0.5deg); }
@@ -1197,8 +1205,8 @@
     }
   }
 
-  /* Small phones (portrait) */
-  @media (max-width: 480px) {
+  /* Very small phones (portrait) - 320px and below */
+  @media (max-width: 320px) {
     .logo-corner {
       width: 36px; /* 40% smaller than 60px */
       top: 10px;
@@ -1318,10 +1326,12 @@
       grid-row: span 2; /* Double height - feature card */
     }
 
-    /* Standard cards remain 1x1 */
-    .art-card {
-      grid-column: span 1;
-      grid-row: span 1;
+    /* Keyboard gallery: Keep 1-column on very small screens too */
+    #keyboard-gallery {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 250px;
+      gap: 20px;
+      padding: 15px;
     }
 
     /* Maintain subtle rotations for playful aesthetic */
@@ -1387,6 +1397,12 @@
     .card-tag {
       font-size: 0.6rem;
       padding: 2px 5px;
+    }
+
+    /* Keyboard gallery: Adjust sizing for 400px screens */
+    #keyboard-gallery {
+      grid-auto-rows: 230px;
+      gap: 15px;
     }
   }
 
@@ -2172,7 +2188,7 @@
   <!-- KEYBOARD RUGS SECTION -->
   <section id="keyboard-section" class="category-section">
     <h2 class="section-title">Keyboard Rugs</h2>
-    <div class="gallery-container">
+    <div class="gallery-container" id="keyboard-gallery">
 
       <div class="art-card" data-base-price="75" onclick="openLightbox('key_1.jpg', 'Keyboard Rug #1', 'Keyboard Rugs')">
         <img src="key_1.jpg" alt="Keyboard Rug">
@@ -3226,7 +3242,7 @@
 
   // Setup tap handler for image in mobile details mode
   function setupMobileImageTap() {
-    const image = document.getElementById('lb-image');
+    const image = document.getElementById('lightbox-image');
     if (!image) return;
 
     // Remove existing listener to avoid duplicates
@@ -3240,7 +3256,7 @@
 
   // Handle image tap to return to image-only view
   function handleMobileImageTap(e) {
-    const image = document.getElementById('lb-image');
+    const image = document.getElementById('lightbox-image');
 
     // Check current zoom level from transform
     const transform = image.style.transform || '';
@@ -3576,6 +3592,7 @@
       heroButtons.style.display = 'grid';
       keyboardOptions.style.display = 'none';
       rugSizeOptions.style.display = 'none';
+      currencySelector.style.display = 'none';  // Hide currency selector for hero
       keyboardPricing.style.display = 'none';
       rugPricing.style.display = 'none';
     } else if (isKeyboard) {
