@@ -429,7 +429,6 @@
     .details-block { padding: 10px; font-size: 0.85rem; }
     .form-container { padding: 20px; border: none; }
     h1 { font-size: 2.5rem; }
-    .card-wide, .card-big, .card-tall { grid-column: span 1; grid-row: span 1; }
     .section-divider { padding: 0 20px; }
     .process-container { grid-template-columns: 1fr; gap: 40px; }
     .deco-shape { opacity: 0.08; }
@@ -695,6 +694,80 @@
     }
   }
 
+  /* Mobile Gallery Grid - Preserve Collage Aesthetic */
+  @media (max-width: 480px) {
+    .gallery-container {
+      grid-template-columns: repeat(2, 1fr); /* 2 columns - preserves collage aesthetic */
+      grid-auto-rows: 150px; /* Smaller base size for mobile */
+      gap: 12px; /* Tighter gaps */
+      padding: 12px;
+      grid-auto-flow: dense; /* Optimize packing */
+    }
+
+    /* Preserve card variety on mobile */
+    .card-wide {
+      grid-column: span 2; /* Full width - landscape */
+      grid-row: span 1; /* Single height */
+    }
+
+    .card-tall {
+      grid-column: span 1; /* Single width */
+      grid-row: span 2; /* Double height - portrait */
+    }
+
+    .card-big {
+      grid-column: span 2; /* Full width */
+      grid-row: span 2; /* Double height - feature card */
+    }
+
+    /* Standard cards remain 1x1 */
+    .rug-card {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+
+    /* Maintain subtle rotations for playful aesthetic */
+    .rug-card:nth-child(odd) {
+      transform: rotate(-0.3deg); /* Very subtle left tilt */
+    }
+
+    .rug-card:nth-child(even) {
+      transform: rotate(0.3deg); /* Very subtle right tilt */
+    }
+
+    /* Tap effect preserved */
+    .rug-card:active {
+      transform: rotate(0deg) scale(0.98) !important;
+    }
+
+    /* Ensure images fit smaller cards */
+    .rug-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Card tag adjustments for smaller cards */
+    .card-tag {
+      font-size: 0.65rem;
+      padding: 3px 6px;
+    }
+  }
+
+  /* Very small screens - further optimization */
+  @media (max-width: 400px) {
+    .gallery-container {
+      grid-auto-rows: 130px; /* Even smaller base */
+      gap: 10px;
+      padding: 10px;
+    }
+
+    .card-tag {
+      font-size: 0.6rem;
+      padding: 2px 5px;
+    }
+  }
+
   /* ========== MOBILE & DESKTOP UX ENHANCEMENTS ========== */
 
   /* Mobile CTA Button (Always Visible) */
@@ -741,6 +814,11 @@
     cursor: pointer;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
+  }
+
+  /* Hide toggle button when in details mode - image tap will handle return */
+  .modal-overlay.mobile-details-mode .mobile-toggle-btn {
+    display: none !important;
   }
 
   /* Desktop Full-Screen Trigger */
@@ -1221,6 +1299,9 @@
       isMobileImageView = true;
       document.getElementById('toggleText').textContent = 'View Details ▼';
       resetZoom();
+
+      // Setup tap handler for image
+      setupMobileImageTap();
     } else {
       productModal.classList.remove('mobile-image-mode');
       productModal.classList.remove('mobile-details-mode');
@@ -1311,6 +1392,35 @@
       modal.classList.add('mobile-details-mode');
       toggleText.textContent = 'View Full Image ▲';
       resetZoom();
+    }
+  }
+
+  // Setup tap handler for image in mobile details mode
+  function setupMobileImageTap() {
+    const image = document.getElementById('lb-image');
+    if (!image) return;
+
+    // Remove existing listener to avoid duplicates
+    image.removeEventListener('click', handleMobileImageTap);
+
+    // Add click listener only if in mobile viewport
+    if (isMobileViewport()) {
+      image.addEventListener('click', handleMobileImageTap);
+    }
+  }
+
+  // Handle image tap to return to image-only view
+  function handleMobileImageTap(e) {
+    const image = document.getElementById('lb-image');
+
+    // Check current zoom level from transform
+    const transform = image.style.transform || '';
+    const scaleMatch = transform.match(/scale\(([^)]+)\)/);
+    const currentScale = scaleMatch ? parseFloat(scaleMatch[1]) : 1;
+
+    // Only toggle if not zoomed and in details mode
+    if (!isMobileImageView && isMobileViewport() && currentScale <= 1) {
+      toggleMobileView();
     }
   }
 
