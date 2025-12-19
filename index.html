@@ -999,7 +999,9 @@
     border: 3px solid var(--w-dark);
     box-shadow: var(--shadow-depth);
     transform: rotate(-2deg);
-    white-space: nowrap;
+    white-space: normal;
+    max-width: 90%;
+    text-align: center;
   }
 
   .curved-arrow {
@@ -3688,11 +3690,11 @@
           <label data-i18n="contact.subjectLabel">SUBJECT</label>
           <select name="subject" required>
             <option value="" data-i18n="contact.subjectPlaceholder">-- Select a Reason --</option>
-            <option value="General Question" data-i18n="contact.subjectOptions.0">General Question</option>
-            <option value="Custom Design Request" data-i18n="contact.subjectOptions.1">Custom Design Request</option>
-            <option value="Shipping Inquiry" data-i18n="contact.subjectOptions.2">Shipping Inquiry</option>
-            <option value="Order Status" data-i18n="contact.subjectOptions.3">Order Status</option>
-            <option value="Other" data-i18n="contact.subjectOptions.4">Other</option>
+            <option value="General Question" data-i18n="contact.subjectGeneral">General Question</option>
+            <option value="Custom Design Request" data-i18n="contact.subjectCustom">Custom Design Request</option>
+            <option value="Shipping Inquiry" data-i18n="contact.subjectShipping">Shipping Inquiry</option>
+            <option value="Order Status" data-i18n="contact.subjectStatus">Order Status</option>
+            <option value="Other" data-i18n="contact.subjectOther">Other</option>
           </select>
         </div>
 
