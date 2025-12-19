@@ -878,6 +878,98 @@
     transition: none;
   }
 
+  /* Carousel Arrow Buttons */
+  .carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 215, 0, 0.9);
+    color: var(--w-dark);
+    border: 3px solid var(--w-dark);
+    font-size: 3rem;
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    line-height: 1;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+
+  .carousel-arrow:hover {
+    background: var(--w-yellow);
+    transform: translateY(-50%) scale(1.1);
+  }
+
+  .carousel-arrow:active {
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  .carousel-prev {
+    left: 20px;
+  }
+
+  .carousel-next {
+    right: 20px;
+  }
+
+  /* Hide arrows when disabled */
+  .carousel-arrow.disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* Carousel Dot Indicators */
+  .carousel-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+  }
+
+  .carousel-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 2px solid var(--w-dark);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .carousel-dot.active {
+    background: var(--w-yellow);
+    transform: scale(1.3);
+  }
+
+  /* Mobile carousel adjustments */
+  @media (max-width: 768px) {
+    .carousel-arrow {
+      width: 50px;
+      height: 50px;
+      font-size: 2.5rem;
+    }
+
+    .carousel-prev {
+      left: 10px;
+    }
+
+    .carousel-next {
+      right: 10px;
+    }
+
+    /* Hide arrows in mobile-details-mode */
+    .modal-overlay.mobile-details-mode .carousel-arrow {
+      display: none;
+    }
+  }
+
   .fullscreen-viewer .close-btn {
     position: absolute;
     top: 20px;
@@ -3258,6 +3350,17 @@
       <div class="lightbox-visual">
         <button class="fullscreen-trigger" onclick="enterFullScreen(event)">🔍 View Full Screen</button>
         <img id="lightbox-image" src="" alt="Artwork Detail">
+
+        <!-- Carousel Navigation Arrows -->
+        <button class="carousel-arrow carousel-prev" onclick="navigateCarousel(-1)" style="display: none;">
+          ‹
+        </button>
+        <button class="carousel-arrow carousel-next" onclick="navigateCarousel(1)" style="display: none;">
+          ›
+        </button>
+
+        <!-- Carousel Dot Indicators -->
+        <div class="carousel-dots" id="carousel-dots" style="display: none;"></div>
       </div>
       <div class="lightbox-details">
         <span class="lightbox-tag" id="lightbox-tag">CUSTOM ART</span>
@@ -3566,6 +3669,13 @@
     isKeyboard: false
   };
 
+  // Carousel state
+  let carouselImages = [];      // Array of available image filenames
+  let currentImageIndex = 0;    // Current image being displayed
+  let isSwipeEnabled = true;    // Disable during zoom
+  let swipeStartX = 0;          // Touch start position
+  let swipeThreshold = 50;      // Minimum px to trigger swipe
+
   // History state tracking
   let lightboxHistoryState = false;
   let qrOverlayHistoryState = false;
@@ -3711,7 +3821,11 @@
     summaryContent.innerHTML = `
       <p style="margin: 10px 0;"><strong>Product:</strong> ${orderData.productName}</p>
       <p style="margin: 10px 0;"><strong>Size:</strong> ${orderData.sizeLabel}</p>
+      <p style="margin: 10px 0;"><strong>Price:</strong> ${formatCurrency(orderData.priceConverted, orderData.currency)}</p>
       <hr style="border: none; border-top: 2px solid var(--w-dark); margin: 15px 0;">
+      <p style="margin: 5px 0;">+ <strong>FREE</strong> shipping in Colombia (Nequi accepted)</p>
+      <p style="margin: 5px 0;">+ <strong>${formatCurrency(shipping1.price, orderData.currency)}</strong> shipping fee (Latin America & US)</p>
+      <p style="margin: 5px 0;">+ <strong>${formatCurrency(shipping2.price, orderData.currency)}</strong> shipping fee (Europe & Australia)</p>
     `;
   }
 
@@ -3918,6 +4032,14 @@
     const img = document.getElementById('lightbox-image');
     if (!img) return;
 
+    // Store swipe start position for carousel navigation
+    if (e.touches.length === 1 && zoomState.scale === 1) {
+      swipeStartX = e.touches[0].clientX;
+      isSwipeEnabled = true;
+    } else {
+      isSwipeEnabled = false;
+    }
+
     if (e.touches.length === 2) {
       // Pinch zoom start
       e.preventDefault();
@@ -4027,6 +4149,23 @@
     const img = document.getElementById('lightbox-image');
     if (!img) return;
 
+    // Check for swipe gesture (when not zoomed)
+    if (e.changedTouches.length === 1 && isSwipeEnabled && zoomState.scale === 1) {
+      const swipeEndX = e.changedTouches[0].clientX;
+      const swipeDelta = swipeEndX - swipeStartX;
+
+      if (Math.abs(swipeDelta) > swipeThreshold) {
+        if (swipeDelta > 0) {
+          // Swipe right = previous image
+          navigateCarousel(-1);
+        } else {
+          // Swipe left = next image
+          navigateCarousel(1);
+        }
+        return; // Prevent other touch handling
+      }
+    }
+
     if (e.touches.length === 0) {
       img.classList.remove('zooming');
       zoomState.isDragging = false;
@@ -4127,6 +4266,25 @@
         initializeTouchZoom();
       }
     };
+
+    // Initialize carousel
+    detectCarouselImages(imageSrc).then(images => {
+      carouselImages = images;
+      currentImageIndex = 0;
+      updateCarouselUI();
+
+      // Show arrows only if multiple images
+      const prevArrow = document.querySelector('.carousel-prev');
+      const nextArrow = document.querySelector('.carousel-next');
+
+      if (images.length > 1) {
+        if (prevArrow) prevArrow.style.display = 'block';
+        if (nextArrow) nextArrow.style.display = 'block';
+      } else {
+        if (prevArrow) prevArrow.style.display = 'none';
+        if (nextArrow) nextArrow.style.display = 'none';
+      }
+    });
 
     // Detect keyboard category
     const isKeyboard = category.toLowerCase().includes('keyboard');
@@ -4263,6 +4421,20 @@
     // Reset zoom state
     resetZoom();
 
+    // Reset carousel state
+    carouselImages = [];
+    currentImageIndex = 0;
+    isSwipeEnabled = true;
+
+    // Hide carousel arrows
+    const prevArrow = document.querySelector('.carousel-prev');
+    const nextArrow = document.querySelector('.carousel-next');
+    if (prevArrow) prevArrow.style.display = 'none';
+    if (nextArrow) nextArrow.style.display = 'none';
+
+    const dotsContainer = document.getElementById('carousel-dots');
+    if (dotsContainer) dotsContainer.style.display = 'none';
+
     // Reset step state
     currentStep = 1;
     maxStepReached = 1;
@@ -4328,6 +4500,146 @@
       // Reset history state flag
       qrOverlayHistoryState = false;
     }
+  }
+
+  // Detect available carousel images for current product
+  function detectCarouselImages(baseImageSrc) {
+    return new Promise((resolve) => {
+      const images = [baseImageSrc]; // Start with main image
+      const baseName = baseImageSrc.replace(/\.(jpg|jpeg|png|gif)$/i, ''); // Remove extension
+      const extension = baseImageSrc.match(/\.(jpg|jpeg|png|gif)$/i)[0]; // Get extension
+
+      let currentLetter = 'a';
+      let consecutiveFailures = 0;
+      const maxConsecutiveFailures = 2; // Stop after 2 missing in a row
+
+      // Try letters a-z
+      const checkNextImage = () => {
+        if (currentLetter > 'z' || consecutiveFailures >= maxConsecutiveFailures) {
+          resolve(images);
+          return;
+        }
+
+        const testSrc = baseName + currentLetter + extension;
+        const img = new Image();
+
+        img.onload = () => {
+          images.push(testSrc);
+          consecutiveFailures = 0;
+          currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + 1);
+          checkNextImage();
+        };
+
+        img.onerror = () => {
+          consecutiveFailures++;
+          currentLetter = String.fromCharCode(currentLetter.charCodeAt(0) + 1);
+          checkNextImage();
+        };
+
+        img.src = testSrc;
+      };
+
+      checkNextImage();
+    });
+  }
+
+  // Navigate carousel (direction: -1 for prev, 1 for next)
+  function navigateCarousel(direction) {
+    // Don't navigate if zoomed on mobile
+    if (isMobileViewport() && zoomState.scale > 1) {
+      return;
+    }
+
+    // Don't navigate if no carousel images
+    if (carouselImages.length <= 1) {
+      return;
+    }
+
+    // Calculate new index with wrapping
+    currentImageIndex += direction;
+
+    if (currentImageIndex < 0) {
+      currentImageIndex = carouselImages.length - 1; // Wrap to last
+    } else if (currentImageIndex >= carouselImages.length) {
+      currentImageIndex = 0; // Wrap to first
+    }
+
+    // Update image
+    const newImageSrc = carouselImages[currentImageIndex];
+    lightboxImage.src = newImageSrc;
+
+    // Update fullscreen image too
+    const fullscreenImage = document.getElementById('fullscreen-image');
+    if (fullscreenImage) {
+      fullscreenImage.src = newImageSrc;
+    }
+
+    // Reset zoom state
+    resetZoom();
+
+    // Reapply aspect ratio on mobile
+    if (isMobileViewport()) {
+      lightboxImage.onload = function() {
+        applyAspectRatioSizing(lightboxImage);
+        initializeTouchZoom();
+      };
+    }
+
+    // Update UI
+    updateCarouselUI();
+  }
+
+  // Update carousel UI (arrows and dots)
+  function updateCarouselUI() {
+    const prevArrow = document.querySelector('.carousel-prev');
+    const nextArrow = document.querySelector('.carousel-next');
+
+    // Update arrow disabled states (if not wrapping)
+    // Currently allows wrapping, but can disable arrows at ends if desired
+
+    // Update dots
+    const dotsContainer = document.getElementById('carousel-dots');
+    if (!dotsContainer) return;
+
+    if (carouselImages.length > 1) {
+      dotsContainer.innerHTML = '';
+      carouselImages.forEach((img, index) => {
+        const dot = document.createElement('span');
+        dot.className = 'carousel-dot' + (index === currentImageIndex ? ' active' : '');
+        dot.onclick = () => jumpToImage(index);
+        dotsContainer.appendChild(dot);
+      });
+      dotsContainer.style.display = 'flex';
+    } else {
+      dotsContainer.style.display = 'none';
+    }
+  }
+
+  // Jump to specific image by index
+  function jumpToImage(index) {
+    if (index < 0 || index >= carouselImages.length) return;
+
+    const direction = index - currentImageIndex;
+    currentImageIndex = index;
+
+    // Update image
+    lightboxImage.src = carouselImages[currentImageIndex];
+
+    const fullscreenImage = document.getElementById('fullscreen-image');
+    if (fullscreenImage) {
+      fullscreenImage.src = carouselImages[currentImageIndex];
+    }
+
+    resetZoom();
+
+    if (isMobileViewport()) {
+      lightboxImage.onload = function() {
+        applyAspectRatioSizing(lightboxImage);
+        initializeTouchZoom();
+      };
+    }
+
+    updateCarouselUI();
   }
 
   // Desktop full-screen zoom state
@@ -4536,10 +4848,6 @@
 
     pricingDiv.innerHTML = `
       <p style="line-height: 1.8;">
-        <strong>Price: ${formatCurrency(keyboardPrice.price, selectedCurrency)}</strong><br>
-        + <strong>FREE</strong> shipping in Colombia (Nequi accepted)<br>
-        + <strong>${formatCurrency(shipping1.price, selectedCurrency)}</strong> shipping fee (Latin America & US)<br>
-        + <strong>${formatCurrency(shipping2.price, selectedCurrency)}</strong> shipping fee (Europe & Australia)<br><br>
         Shipping can take 1-2 weeks<br>
         <strong>God Bless!</strong>
       </p>
