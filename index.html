@@ -3711,14 +3711,7 @@
     summaryContent.innerHTML = `
       <p style="margin: 10px 0;"><strong>Product:</strong> ${orderData.productName}</p>
       <p style="margin: 10px 0;"><strong>Size:</strong> ${orderData.sizeLabel}</p>
-      <p style="margin: 10px 0;"><strong>Price:</strong> ${formatCurrency(orderData.priceConverted, orderData.currency)}</p>
       <hr style="border: none; border-top: 2px solid var(--w-dark); margin: 15px 0;">
-      <p style="margin: 5px 0;">+ <strong>FREE</strong> shipping in Colombia (Nequi accepted)</p>
-      <p style="margin: 5px 0;">+ <strong>${formatCurrency(shipping1.price, orderData.currency)}</strong> shipping fee (Latin America & US)</p>
-      <p style="margin: 5px 0;">+ <strong>${formatCurrency(shipping2.price, orderData.currency)}</strong> shipping fee (Europe & Australia)</p>
-      <hr style="border: none; border-top: 2px solid var(--w-dark); margin: 15px 0;">
-      <p style="margin: 10px 0; text-align: center;">Shipping can take 1-2 weeks</p>
-      <p style="margin: 10px 0 0 0; text-align: center; font-size: 1.1rem;"><strong>God Bless!</strong></p>
     `;
   }
 
