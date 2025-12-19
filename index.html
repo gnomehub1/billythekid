@@ -482,8 +482,8 @@
 
   .lightbox-details h2 {
     font-family: 'Righteous', cursive;
-    font-size: 2.5rem;
-    margin: 15px 0;
+    font-size: 1.8rem; /* Reduced from 2.5rem for better mobile UX */
+    margin: 10px 0; /* Reduced margin */
     text-transform: uppercase;
   }
 
@@ -495,6 +495,196 @@
     font-weight: 800;
     display: inline-block;
     margin-bottom: 10px;
+  }
+
+  /* Step Indicator Dots */
+  .step-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .step-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #ccc;
+    border: 2px solid var(--w-dark);
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .step-dot.active {
+    background: var(--w-dark);
+    transform: scale(1.3);
+  }
+
+  .step-dot.completed {
+    background: var(--w-yellow);
+  }
+
+  /* Step Container Animations */
+  .lightbox-step {
+    animation: fadeInSlide 0.4s cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  @keyframes fadeInSlide {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .lightbox-step h3 {
+    font-family: 'Righteous', cursive;
+    font-size: 1.3rem;
+    margin: 10px 0 20px 0;
+    color: var(--w-dark);
+    text-transform: uppercase;
+  }
+
+  /* Back Arrow Button */
+  .back-arrow {
+    background: transparent;
+    border: none;
+    color: var(--w-dark);
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Kanit', sans-serif;
+    cursor: pointer;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .back-arrow:hover {
+    color: var(--w-yellow);
+    transform: translateX(-5px);
+  }
+
+  /* Order Summary Box */
+  .order-summary {
+    background: #f9f9f9;
+    padding: 15px;
+    border: 3px solid var(--w-dark);
+    margin-bottom: 15px;
+    border-radius: 0;
+  }
+
+  .order-summary h4 {
+    font-family: 'Righteous', cursive;
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    color: var(--w-dark);
+  }
+
+  .order-summary p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Order Form Styles */
+  .order-form .form-group {
+    margin-bottom: 15px;
+  }
+
+  .order-form input[type="text"],
+  .order-form input[type="email"],
+  .order-form input[type="tel"],
+  .order-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 3px solid var(--w-dark);
+    font-family: inherit;
+    font-size: 0.95rem;
+    background: #f0f0f0;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+  }
+
+  .order-form input:focus,
+  .order-form textarea:focus {
+    outline: none;
+    border-color: var(--w-yellow);
+    background: #fff;
+  }
+
+  .order-form textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .order-form label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: var(--w-dark);
+  }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--w-dark);
+    color: var(--w-yellow);
+    border: 3px solid var(--w-dark);
+    padding: 15px;
+    font-size: 1rem;
+    font-weight: bold;
+    font-family: 'Righteous', cursive;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+  }
+
+  .submit-btn:hover {
+    background: var(--w-yellow);
+    color: var(--w-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  }
+
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* Form Success Message */
+  #form-success-message {
+    text-align: center;
+    padding: 20px;
+    background: #e8f5e9;
+    border: 3px solid #4caf50;
+    border-radius: 0;
+  }
+
+  #form-success-message h3 {
+    color: #2e7d32;
+    margin: 0 0 10px 0;
+    font-family: 'Righteous', cursive;
+    font-size: 1.3rem;
+  }
+
+  #form-success-message p {
+    margin: 0;
+    line-height: 1.6;
+    color: #1b5e20;
   }
 
   .payment-buttons {
@@ -998,6 +1188,49 @@
 
     .lightbox-details {
       padding: 20px;
+    }
+
+    .lightbox-details h2 {
+      font-size: 1.4rem; /* Even smaller on mobile */
+      margin: 8px 0;
+    }
+
+    .lightbox-step h3 {
+      font-size: 1.1rem;
+      margin: 8px 0 15px 0;
+    }
+
+    .step-indicator {
+      margin: 10px 0;
+      gap: 8px;
+    }
+
+    .step-dot {
+      width: 10px;
+      height: 10px;
+    }
+
+    .order-form .form-group {
+      margin-bottom: 12px;
+    }
+
+    .order-form input,
+    .order-form textarea {
+      padding: 10px;
+      font-size: 0.9rem;
+    }
+
+    .order-form label {
+      font-size: 0.8rem;
+    }
+
+    .order-summary {
+      padding: 12px;
+    }
+
+    .submit-btn {
+      padding: 12px;
+      font-size: 0.95rem;
     }
 
     /* Mobile Toggle Button - Show on mobile */
@@ -3029,88 +3262,173 @@
       <div class="lightbox-details">
         <span class="lightbox-tag" id="lightbox-tag">CUSTOM ART</span>
         <h2 id="lightbox-title">Artwork Title</h2>
-        <p id="lightbox-description" style="line-height: 1.6; font-size: 1.1rem;">
-          Hand-crafted WPAP style artwork featuring vibrant colors and bold geometric patterns.
-        </p>
 
-        <!-- Keyboard-Specific Options -->
-        <div id="keyboard-options" style="display: none;">
-          <div class="keyboard-size-selector">
-            <h4>Select Keyboard Size:</h4>
-            <label>
-              <input type="radio" name="kb-size" value="60" data-price="75">
-              60%-65% ($75 USD)
-            </label>
-            <label>
-              <input type="radio" name="kb-size" value="75" data-price="80">
-              75%-80% ($80 USD)
-            </label>
-            <label>
-              <input type="radio" name="kb-size" value="100" data-price="85">
-              100% ($85 USD)
-            </label>
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+          <span class="step-dot active" data-step="1"></span>
+          <span class="step-dot" data-step="2"></span>
+          <span class="step-dot" data-step="3"></span>
+          <span class="step-dot" data-step="4"></span>
+        </div>
+
+        <!-- STEP 1: Size Selection -->
+        <div class="lightbox-step" id="step-1">
+          <button class="back-arrow" onclick="goBackStep()" style="display: none;">← Back</button>
+          <p id="lightbox-description" style="line-height: 1.6; font-size: 1.1rem;">
+            Hand-crafted WPAP style artwork featuring vibrant colors and bold geometric patterns.
+          </p>
+
+          <!-- Keyboard-Specific Options -->
+          <div id="keyboard-options" style="display: none;">
+            <div class="keyboard-size-selector">
+              <h4>Select Keyboard Size:</h4>
+              <label>
+                <input type="radio" name="kb-size" value="60" data-price="75">
+                60%-65% ($75 USD)
+              </label>
+              <label>
+                <input type="radio" name="kb-size" value="75" data-price="80">
+                75%-80% ($80 USD)
+              </label>
+              <label>
+                <input type="radio" name="kb-size" value="100" data-price="85">
+                100% ($85 USD)
+              </label>
+            </div>
+          </div>
+
+          <!-- General Rug Size Options (Gospel & Wall Rugs) -->
+          <div id="rug-size-options" style="display: none;">
+            <div class="rug-size-selector">
+              <h4>Select Rug Size:</h4>
+              <label id="small-size-option">
+                <input type="radio" name="rug-size" value="small" data-price-multiplier="1">
+                Small - <span class="size-price">$XX USD</span>
+              </label>
+              <label>
+                <input type="radio" name="rug-size" value="medium" data-price-multiplier="1.5">
+                Medium - <span class="size-price">$XX USD</span>
+              </label>
+              <label>
+                <input type="radio" name="rug-size" value="large" data-price-multiplier="2">
+                Large - <span class="size-price">$XX USD</span>
+              </label>
+            </div>
           </div>
         </div>
 
-        <!-- General Rug Size Options (Gospel & Wall Rugs) -->
-        <div id="rug-size-options" style="display: none;">
-          <div class="rug-size-selector">
-            <h4>Select Rug Size:</h4>
-            <label id="small-size-option">
-              <input type="radio" name="rug-size" value="small" data-price-multiplier="1">
-              Small - <span class="size-price">$XX USD</span>
-            </label>
-            <label>
-              <input type="radio" name="rug-size" value="medium" data-price-multiplier="1.5">
-              Medium - <span class="size-price">$XX USD</span>
-            </label>
-            <label>
-              <input type="radio" name="rug-size" value="large" data-price-multiplier="2">
-              Large - <span class="size-price">$XX USD</span>
-            </label>
+        <!-- STEP 2: Currency Selection -->
+        <div class="lightbox-step" id="step-2" style="display: none;">
+          <button class="back-arrow" onclick="goBackStep()">← Back</button>
+          <h3>Select Your Currency</h3>
+
+          <!-- Currency Selector (Shared by Keyboards & Rugs) -->
+          <div class="currency-selector" id="currency-selector">
+            <h4>Select Currency:</h4>
+            <select id="currency-dropdown" name="currency-dropdown">
+              <option value="USD">USD - US Dollar ($)</option>
+              <option value="MXN">MXN - Mexican Peso ($)</option>
+              <option value="BRL">BRL - Brazilian Real (R$)</option>
+              <option value="ARS">ARS - Argentine Peso ($)</option>
+              <option value="COP">COP - Colombian Peso ($)</option>
+              <option value="CLP">CLP - Chilean Peso ($)</option>
+              <option value="PEN">PEN - Peruvian Sol (S/)</option>
+              <option value="GBP">GBP - British Pound (£)</option>
+              <option value="EUR">EUR - Euro (€)</option>
+            </select>
           </div>
         </div>
 
-        <!-- Currency Selector (Shared by Keyboards & Rugs) -->
-        <div class="currency-selector" id="currency-selector" style="display: none;">
-          <h4>Select Currency:</h4>
-          <select id="currency-dropdown" name="currency-dropdown">
-            <option value="USD">USD - US Dollar ($)</option>
-            <option value="MXN">MXN - Mexican Peso ($)</option>
-            <option value="BRL">BRL - Brazilian Real (R$)</option>
-            <option value="ARS">ARS - Argentine Peso ($)</option>
-            <option value="COP">COP - Colombian Peso ($)</option>
-            <option value="CLP">CLP - Chilean Peso ($)</option>
-            <option value="PEN">PEN - Peruvian Sol (S/)</option>
-            <option value="GBP">GBP - British Pound (£)</option>
-            <option value="EUR">EUR - Euro (€)</option>
-          </select>
+        <!-- STEP 3: Shipping Form -->
+        <div class="lightbox-step" id="step-3" style="display: none;">
+          <button class="back-arrow" onclick="goBackStep()">← Back</button>
+          <h3>Shipping Information</h3>
+
+          <form id="order-form" class="order-form">
+            <!-- FormSubmit config -->
+            <input type="hidden" name="_subject" value="Billy The Kid - New Order">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+
+            <!-- Auto-filled order data -->
+            <input type="hidden" name="Product" id="form-product">
+            <input type="hidden" name="Size" id="form-size">
+            <input type="hidden" name="Currency" id="form-currency">
+            <input type="hidden" name="Price" id="form-price">
+
+            <!-- Customer inputs -->
+            <div class="form-group">
+              <label>FULL NAME</label>
+              <input type="text" name="Customer_Name" required placeholder="Juan Pérez">
+            </div>
+
+            <div class="form-group">
+              <label>EMAIL ADDRESS</label>
+              <input type="email" name="Customer_Email" required placeholder="juan@ejemplo.com">
+            </div>
+
+            <div class="form-group">
+              <label>PHONE NUMBER</label>
+              <input type="tel" name="Phone" required placeholder="+57 300 123 4567">
+            </div>
+
+            <div class="form-group">
+              <label>SHIPPING ADDRESS</label>
+              <textarea name="Shipping_Address" rows="3" required placeholder="Calle 45 #23-10, Medellín, Antioquia, 050021, Colombia"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>SPECIAL INSTRUCTIONS (OPTIONAL)</label>
+              <textarea name="Special_Instructions" rows="2" placeholder="Please call before delivery"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">SUBMIT ORDER DETAILS</button>
+          </form>
+
+          <div id="form-success-message" style="display: none;">
+            <h3 style="color: var(--w-dark); text-align: center;">✓ Order Details Received!</h3>
+            <p style="text-align: center; margin: 10px 0;">Please proceed to payment below.</p>
+          </div>
         </div>
 
-        <div class="keyboard-pricing" id="keyboard-pricing" style="display: none;">
-          <p><strong>Select a size to see pricing</strong></p>
-        </div>
+        <!-- STEP 4: Payment -->
+        <div class="lightbox-step" id="step-4" style="display: none;">
+          <button class="back-arrow" onclick="goBackStep()">← Back</button>
+          <h3>Complete Your Order</h3>
 
-        <div class="rug-pricing" id="rug-pricing" style="display: none;">
-          <p><strong>Select a size to see pricing</strong></p>
-        </div>
+          <!-- Order summary -->
+          <div class="order-summary">
+            <h4 style="margin-top: 0; font-family: 'Righteous', cursive;">Order Summary</h4>
+            <p><strong>Product:</strong> <span id="summary-product"></span></p>
+            <p><strong>Size:</strong> <span id="summary-size"></span></p>
+            <p style="margin-bottom: 0;"><strong>Price:</strong> <span id="summary-currency"></span></p>
+          </div>
 
-        <div class="payment-buttons" id="payment-buttons">
-          <a href="https://link.mercadopago.com.co/billythekidrugs" target="_blank" class="want-button btn-mercadopago">
-            🌍 Mercado Pago
-          </a>
-          <a href="https://paypal.me/billythekidrugs" target="_blank" class="want-button btn-paypal">
-            🌍 PayPal
-          </a>
-        </div>
+          <div class="keyboard-pricing" id="keyboard-pricing" style="display: none;">
+            <p><strong>Select a size to see pricing</strong></p>
+          </div>
 
-        <div class="payment-buttons" id="hero-buttons" style="display: none;">
-          <a href="pages/petsection.html" class="want-button btn-mercadopago">
-            Go to Pet Section
-          </a>
-          <button onclick="closeLightbox()" class="want-button btn-paypal" style="border: 3px solid var(--w-dark);">
-            Browse the rest of the Designs
-          </button>
+          <div class="rug-pricing" id="rug-pricing" style="display: none;">
+            <p><strong>Select a size to see pricing</strong></p>
+          </div>
+
+          <div class="payment-buttons" id="payment-buttons">
+            <a href="https://link.mercadopago.com.co/billythekidrugs" target="_blank" class="want-button btn-mercadopago">
+              🌍 Mercado Pago
+            </a>
+            <a href="https://paypal.me/billythekidrugs" target="_blank" class="want-button btn-paypal">
+              🌍 PayPal
+            </a>
+          </div>
+
+          <div class="payment-buttons" id="hero-buttons" style="display: none;">
+            <a href="pages/petsection.html" class="want-button btn-mercadopago">
+              Go to Pet Section
+            </a>
+            <button onclick="closeLightbox()" class="want-button btn-paypal" style="border: 3px solid var(--w-dark);">
+              Browse the rest of the Designs
+            </button>
+          </div>
         </div>
 
       </div>
@@ -3213,6 +3531,20 @@
   // Mobile state management
   let isMobileImageView = true;
 
+  // Step navigation state
+  let currentStep = 1;
+  let maxStepReached = 1;
+  let orderData = {
+    productName: '',
+    category: '',
+    size: '',
+    sizeLabel: '',
+    currency: 'USD',
+    priceUSD: 0,
+    priceConverted: 0,
+    isKeyboard: false
+  };
+
   function isMobileViewport() {
     return window.innerWidth <= 768;
   }
@@ -3268,6 +3600,171 @@
       toggleMobileView();
     }
   }
+
+  // Step Navigation Functions
+  function showStep(stepNumber) {
+    // Hide all steps
+    document.querySelectorAll('.lightbox-step').forEach(step => {
+      step.style.display = 'none';
+    });
+
+    // Show target step
+    const targetStep = document.getElementById(`step-${stepNumber}`);
+    if (targetStep) {
+      targetStep.style.display = 'block';
+    }
+
+    // Update step indicator
+    document.querySelectorAll('.step-dot').forEach((dot, index) => {
+      const dotStep = index + 1;
+      dot.classList.remove('active', 'completed');
+
+      if (dotStep === stepNumber) {
+        dot.classList.add('active');
+      } else if (dotStep < stepNumber) {
+        dot.classList.add('completed');
+      }
+    });
+
+    // Update back arrow visibility
+    document.querySelectorAll('.back-arrow').forEach(arrow => {
+      arrow.style.display = stepNumber > 1 ? 'inline-flex' : 'none';
+    });
+
+    if (stepNumber > maxStepReached) {
+      maxStepReached = stepNumber;
+    }
+
+    currentStep = stepNumber;
+  }
+
+  function goBackStep() {
+    if (currentStep > 1) {
+      showStep(currentStep - 1);
+    }
+  }
+
+  function advanceToStep(stepNumber) {
+    showStep(stepNumber);
+
+    // Scroll to top of details panel
+    const detailsPanel = document.querySelector('.lightbox-details');
+    if (detailsPanel) {
+      detailsPanel.scrollTop = 0;
+    }
+  }
+
+  // Form Pre-fill Functions
+  function prefillOrderForm() {
+    const formProduct = document.getElementById('form-product');
+    const formSize = document.getElementById('form-size');
+    const formCurrency = document.getElementById('form-currency');
+    const formPrice = document.getElementById('form-price');
+
+    if (formProduct) formProduct.value = orderData.productName;
+    if (formSize) formSize.value = orderData.sizeLabel;
+    if (formCurrency) formCurrency.value = orderData.currency;
+
+    if (formPrice && exchangeRates[orderData.currency]) {
+      const currencyInfo = exchangeRates[orderData.currency];
+      const formattedPrice = `${currencyInfo.symbol}${orderData.priceConverted.toLocaleString('en-US')} ${currencyInfo.name}`;
+      formPrice.value = formattedPrice;
+    }
+  }
+
+  function populateOrderSummary() {
+    const summaryProduct = document.getElementById('summary-product');
+    const summarySize = document.getElementById('summary-size');
+    const summaryCurrency = document.getElementById('summary-currency');
+
+    if (summaryProduct) summaryProduct.textContent = orderData.productName;
+    if (summarySize) summarySize.textContent = orderData.sizeLabel;
+
+    if (summaryCurrency && exchangeRates[orderData.currency]) {
+      const currencyInfo = exchangeRates[orderData.currency];
+      const formattedPrice = `${currencyInfo.symbol}${orderData.priceConverted.toLocaleString('en-US')} ${currencyInfo.name}`;
+      summaryCurrency.textContent = formattedPrice;
+    }
+  }
+
+  function enablePaymentButtons() {
+    const paymentButtons = document.getElementById('payment-buttons');
+    if (paymentButtons) {
+      paymentButtons.style.display = 'grid';
+    }
+  }
+
+  // Initialize Order Form with AJAX Submission
+  function initializeOrderForm() {
+    const orderForm = document.getElementById('order-form');
+    if (!orderForm) return;
+
+    const submitButton = orderForm.querySelector('.submit-btn');
+    const successMessage = document.getElementById('form-success-message');
+
+    orderForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = 'SUBMITTING...';
+      }
+
+      const formData = new FormData(orderForm);
+
+      // Use FormSubmit AJAX endpoint (no redirect!)
+      fetch('https://formsubmit.co/ajax/gnomehub@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Form submitted successfully:', data);
+
+        // Show success message
+        orderForm.style.display = 'none';
+        if (successMessage) {
+          successMessage.style.display = 'block';
+        }
+
+        // Advance to payment step after 2 seconds
+        setTimeout(() => {
+          advanceToStep(4);
+          populateOrderSummary();
+          enablePaymentButtons();
+
+          // Show appropriate pricing section
+          const keyboardPricing = document.getElementById('keyboard-pricing');
+          const rugPricing = document.getElementById('rug-pricing');
+
+          if (orderData.isKeyboard && keyboardPricing) {
+            keyboardPricing.style.display = 'block';
+          } else if (!orderData.isKeyboard && rugPricing) {
+            rugPricing.style.display = 'block';
+          }
+        }, 2000);
+      })
+      .catch(error => {
+        console.error('Form submission error:', error);
+
+        if (submitButton) {
+          submitButton.disabled = false;
+          submitButton.textContent = 'SUBMIT ORDER DETAILS';
+        }
+
+        alert('Error submitting form. Please try again or contact gnomehub@gmail.com');
+      });
+    });
+  }
+
+  // Initialize form on page load
+  document.addEventListener('DOMContentLoaded', function() {
+    initializeOrderForm();
+  });
 
   // Touch zoom state
   let zoomState = {
@@ -3565,6 +4062,15 @@
   }
 
   function openLightbox(imageSrc, title, category, isHero = false, basePrice = null, cardType = 'standard') {
+    // Reset step state
+    currentStep = 1;
+    maxStepReached = 1;
+
+    // Store order data
+    orderData.productName = title;
+    orderData.category = category;
+    orderData.isKeyboard = category.toLowerCase().includes('keyboard');
+
     lightboxImage.src = imageSrc;
     lightboxTitle.textContent = title;
     lightboxTag.textContent = category.toUpperCase();
@@ -3647,6 +4153,9 @@
     lightboxModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
+    // Always show Step 1 initially
+    showStep(1);
+
     // Set initial mobile state
     if (isMobileViewport()) {
       lightboxModal.classList.add('mobile-image-mode');
@@ -3672,6 +4181,43 @@
 
     // Reset zoom state
     resetZoom();
+
+    // Reset step state
+    currentStep = 1;
+    maxStepReached = 1;
+    showStep(1);
+
+    // Reset order data
+    orderData = {
+      productName: '',
+      category: '',
+      size: '',
+      sizeLabel: '',
+      currency: 'USD',
+      priceUSD: 0,
+      priceConverted: 0,
+      isKeyboard: false
+    };
+
+    // Reset order form
+    const orderForm = document.getElementById('order-form');
+    if (orderForm) {
+      orderForm.reset();
+      orderForm.style.display = 'block';
+    }
+
+    // Hide success message
+    const successMessage = document.getElementById('form-success-message');
+    if (successMessage) {
+      successMessage.style.display = 'none';
+    }
+
+    // Reset submit button state
+    const submitButton = orderForm ? orderForm.querySelector('.submit-btn') : null;
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = 'SUBMIT ORDER DETAILS';
+    }
   }
 
   // Desktop full-screen zoom state
@@ -3893,9 +4439,17 @@
   // Handle size selection
   document.querySelectorAll('input[name="kb-size"]').forEach(radio => {
     radio.addEventListener('change', function() {
-      const price = this.dataset.price;
+      const price = parseFloat(this.dataset.price);
+
+      // Store selection in orderData
+      orderData.priceUSD = price;
+      orderData.size = this.value;
+      orderData.sizeLabel = this.closest('label').textContent.trim();
+
       updatePricing(price);
-      enablePaymentButtons();
+
+      // Advance to currency step
+      advanceToStep(2);
     });
   });
 
@@ -3977,9 +4531,17 @@
     // Re-attach event listeners after updating HTML
     document.querySelectorAll('input[name="rug-size"]').forEach(radio => {
       radio.addEventListener('change', function() {
-        const price = this.dataset.price;
+        const price = parseFloat(this.dataset.price);
+
+        // Store selection in orderData
+        orderData.priceUSD = price;
+        orderData.size = this.value;
+        orderData.sizeLabel = this.closest('label').textContent.trim();
+
         updateRugPricing(price);
-        enablePaymentButtons();
+
+        // Advance to currency step
+        advanceToStep(2);
       });
     });
   }
@@ -4032,11 +4594,17 @@
   // Handle currency selection (dropdown)
   document.addEventListener('change', function(e) {
     if (e.target.id === 'currency-dropdown') {
+      const selectedCurrency = e.target.value;
+
+      // Store currency in orderData
+      orderData.currency = selectedCurrency;
+
       // Re-update pricing with new currency for rugs
       const selectedRugSize = document.querySelector('input[name="rug-size"]:checked');
       if (selectedRugSize) {
         const price = selectedRugSize.dataset.price;
         updateRugPricing(price);
+        orderData.priceConverted = convertPrice(price, selectedCurrency).price;
       }
 
       // Re-update pricing with new currency for keyboards
@@ -4044,16 +4612,29 @@
       if (selectedKeyboardSize) {
         const price = selectedKeyboardSize.dataset.price;
         updatePricing(price);
+        orderData.priceConverted = convertPrice(price, selectedCurrency).price;
       }
+
+      // Pre-fill order form and advance to shipping step
+      prefillOrderForm();
+      advanceToStep(3);
     }
   });
 
   // Handle rug size selection
   document.querySelectorAll('input[name="rug-size"]').forEach(radio => {
     radio.addEventListener('change', function() {
-      const price = this.dataset.price;
+      const price = parseFloat(this.dataset.price);
+
+      // Store selection in orderData
+      orderData.priceUSD = price;
+      orderData.size = this.value;
+      orderData.sizeLabel = this.closest('label').textContent.trim();
+
       updateRugPricing(price);
-      enablePaymentButtons();
+
+      // Advance to currency step
+      advanceToStep(2);
     });
   });
 
