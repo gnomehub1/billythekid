@@ -3264,7 +3264,7 @@
         <h2 id="lightbox-title">Artwork Title</h2>
 
         <!-- Step Indicator -->
-        <div class="step-indicator">
+        <div class="step-indicator" id="step-indicator">
           <span class="step-dot active" data-step="1"></span>
           <span class="step-dot" data-step="2"></span>
           <span class="step-dot" data-step="3"></span>
@@ -3337,6 +3337,18 @@
               <option value="EUR">EUR - Euro (€)</option>
             </select>
           </div>
+
+          <!-- Price Preview -->
+          <div id="price-preview" style="display: none; margin-top: 20px; padding: 15px; background: #f9f9f9; border: 3px solid var(--w-dark); text-align: center;">
+            <p style="margin: 0; font-size: 1.1rem;"><strong>Estimated Price:</strong></p>
+            <p id="price-preview-amount" style="margin: 5px 0 0 0; font-size: 1.5rem; font-weight: bold; color: var(--w-dark);"></p>
+            <p style="margin: 8px 0 0 0; font-size: 0.85rem; color: #666;">(Shipping fees not included)</p>
+          </div>
+
+          <!-- Next Button -->
+          <button onclick="proceedToShipping()" class="next-btn" style="width: 100%; background: var(--w-dark); color: var(--w-yellow); border: 3px solid var(--w-dark); padding: 15px; font-size: 1rem; font-weight: bold; font-family: 'Righteous', cursive; cursor: pointer; text-transform: uppercase; margin-top: 20px;">
+            NEXT: SHIPPING INFO →
+          </button>
         </div>
 
         <!-- STEP 3: Shipping Form -->
@@ -3394,23 +3406,19 @@
         <!-- STEP 4: Payment -->
         <div class="lightbox-step" id="step-4" style="display: none;">
           <button class="back-arrow" onclick="goBackStep()">← Back</button>
-          <h3>Complete Your Order</h3>
+          <h3 id="step-4-title">Complete Your Order</h3>
 
-          <!-- Order summary -->
-          <div class="order-summary">
-            <h4 style="margin-top: 0; font-family: 'Righteous', cursive;">Order Summary</h4>
-            <p><strong>Product:</strong> <span id="summary-product"></span></p>
-            <p><strong>Size:</strong> <span id="summary-size"></span></p>
-            <p style="margin-bottom: 0;"><strong>Price:</strong> <span id="summary-currency"></span></p>
+          <!-- Combined Order Summary (Yellow Note) -->
+          <div id="combined-order-summary" style="background: var(--w-yellow); padding: 20px; border: 4px solid var(--w-dark); margin-bottom: 20px;">
+            <h4 style="margin-top: 0; font-family: 'Righteous', cursive; text-align: center; font-size: 1.3rem;">ORDER SUMMARY</h4>
+            <div id="summary-content" style="line-height: 1.8;">
+              <!-- Content will be populated by JavaScript -->
+            </div>
           </div>
 
-          <div class="keyboard-pricing" id="keyboard-pricing" style="display: none;">
-            <p><strong>Select a size to see pricing</strong></p>
-          </div>
-
-          <div class="rug-pricing" id="rug-pricing" style="display: none;">
-            <p><strong>Select a size to see pricing</strong></p>
-          </div>
+          <!-- Hidden pricing divs (kept for backwards compatibility with openLightbox function) -->
+          <div class="keyboard-pricing" id="keyboard-pricing" style="display: none;"></div>
+          <div class="rug-pricing" id="rug-pricing" style="display: none;"></div>
 
           <div class="payment-buttons" id="payment-buttons">
             <a href="https://link.mercadopago.com.co/billythekidrugs" target="_blank" class="want-button btn-mercadopago">
@@ -3419,6 +3427,9 @@
             <a href="https://paypal.me/billythekidrugs" target="_blank" class="want-button btn-paypal">
               🌍 PayPal
             </a>
+            <button onclick="openQROverlay(); event.preventDefault();" class="want-button" style="background: #00D632; color: white; border: 3px solid var(--w-dark); font-family: 'Righteous', cursive; font-size: 1.1rem;">
+              🇨🇴 NEQUI/BRE-B
+            </button>
           </div>
 
           <div class="payment-buttons" id="hero-buttons" style="display: none;">
@@ -3444,6 +3455,16 @@
   <div class="fullscreen-viewer" id="fullscreenViewer" onclick="exitFullScreen()">
     <button class="close-btn" onclick="exitFullScreen(); event.stopPropagation();">&times;</button>
     <img id="fullscreen-image" src="" alt="Full Screen View" onclick="event.stopPropagation();">
+  </div>
+
+  <!-- QR Code Overlay -->
+  <div class="fullscreen-viewer" id="qrOverlay" onclick="closeQROverlay()">
+    <button class="close-btn" onclick="closeQROverlay(); event.stopPropagation();">&times;</button>
+    <div onclick="event.stopPropagation();" style="text-align: center;">
+      <h2 style="color: var(--w-yellow); font-family: 'Righteous', cursive; margin-bottom: 20px; text-transform: uppercase;">Colombian Payment (NEQUI/BRE-B)</h2>
+      <img src="qr.jpg" alt="QR Code for NEQUI/BRE-B Payment" style="max-width: 90vw; max-height: 70vh; object-fit: contain; border: 4px solid var(--w-yellow); box-shadow: 0 0 50px rgba(255, 215, 0, 0.3);">
+      <p style="color: var(--w-yellow); margin-top: 20px; font-size: 1.1rem; max-width: 500px;">Scan this QR code with your NEQUI or BRE-B app to complete payment</p>
+    </div>
   </div>
 
 <!-- ========== CONTACT US MODAL ========== -->
@@ -3544,6 +3565,10 @@
     priceConverted: 0,
     isKeyboard: false
   };
+
+  // History state tracking
+  let lightboxHistoryState = false;
+  let qrOverlayHistoryState = false;
 
   function isMobileViewport() {
     return window.innerWidth <= 768;
@@ -3673,18 +3698,28 @@
   }
 
   function populateOrderSummary() {
-    const summaryProduct = document.getElementById('summary-product');
-    const summarySize = document.getElementById('summary-size');
-    const summaryCurrency = document.getElementById('summary-currency');
+    const summaryContent = document.getElementById('summary-content');
+    if (!summaryContent) return;
 
-    if (summaryProduct) summaryProduct.textContent = orderData.productName;
-    if (summarySize) summarySize.textContent = orderData.sizeLabel;
+    // Calculate shipping fees based on product type
+    const shipping1USD = orderData.isKeyboard ? 25 : 30; // Latin America & US
+    const shipping2USD = orderData.isKeyboard ? 50 : 80; // Europe & Australia
 
-    if (summaryCurrency && exchangeRates[orderData.currency]) {
-      const currencyInfo = exchangeRates[orderData.currency];
-      const formattedPrice = `${currencyInfo.symbol}${orderData.priceConverted.toLocaleString('en-US')} ${currencyInfo.name}`;
-      summaryCurrency.textContent = formattedPrice;
-    }
+    const shipping1 = convertPrice(shipping1USD, orderData.currency);
+    const shipping2 = convertPrice(shipping2USD, orderData.currency);
+
+    summaryContent.innerHTML = `
+      <p style="margin: 10px 0;"><strong>Product:</strong> ${orderData.productName}</p>
+      <p style="margin: 10px 0;"><strong>Size:</strong> ${orderData.sizeLabel}</p>
+      <p style="margin: 10px 0;"><strong>Price:</strong> ${formatCurrency(orderData.priceConverted, orderData.currency)}</p>
+      <hr style="border: none; border-top: 2px solid var(--w-dark); margin: 15px 0;">
+      <p style="margin: 5px 0;">+ <strong>FREE</strong> shipping in Colombia (Nequi accepted)</p>
+      <p style="margin: 5px 0;">+ <strong>${formatCurrency(shipping1.price, orderData.currency)}</strong> shipping fee (Latin America & US)</p>
+      <p style="margin: 5px 0;">+ <strong>${formatCurrency(shipping2.price, orderData.currency)}</strong> shipping fee (Europe & Australia)</p>
+      <hr style="border: none; border-top: 2px solid var(--w-dark); margin: 15px 0;">
+      <p style="margin: 10px 0; text-align: center;">Shipping can take 1-2 weeks</p>
+      <p style="margin: 10px 0 0 0; text-align: center; font-size: 1.1rem;"><strong>God Bless!</strong></p>
+    `;
   }
 
   function enablePaymentButtons() {
@@ -3734,18 +3769,8 @@
         // Advance to payment step after 2 seconds
         setTimeout(() => {
           advanceToStep(4);
-          populateOrderSummary();
+          populateOrderSummary(); // Populates the combined yellow order summary
           enablePaymentButtons();
-
-          // Show appropriate pricing section
-          const keyboardPricing = document.getElementById('keyboard-pricing');
-          const rugPricing = document.getElementById('rug-pricing');
-
-          if (orderData.isKeyboard && keyboardPricing) {
-            keyboardPricing.style.display = 'block';
-          } else if (!orderData.isKeyboard && rugPricing) {
-            rugPricing.style.display = 'block';
-          }
         }, 2000);
       })
       .catch(error => {
@@ -3764,6 +3789,33 @@
   // Initialize form on page load
   document.addEventListener('DOMContentLoaded', function() {
     initializeOrderForm();
+  });
+
+  // Handle browser back button
+  window.addEventListener('popstate', function(event) {
+    // If QR overlay is open, close it
+    const qrOverlay = document.getElementById('qrOverlay');
+    if (qrOverlay && qrOverlay.classList.contains('active')) {
+      closeQROverlay();
+      return;
+    }
+
+    // If lightbox is open
+    const lightbox = document.getElementById('lightboxModal');
+    if (lightbox && lightbox.classList.contains('active')) {
+      // If at a step > 1, go back one step
+      if (currentStep > 1) {
+        goBackStep();
+        // Push state again to keep lightbox in history
+        history.pushState({ lightbox: true, step: currentStep }, '');
+      } else {
+        // At step 1, close the lightbox
+        closeLightbox();
+      }
+      return;
+    }
+
+    // If neither is open, let browser handle normally
   });
 
   // Touch zoom state
@@ -4102,6 +4154,16 @@
       currencySelector.style.display = 'none';  // Hide currency selector for hero
       keyboardPricing.style.display = 'none';
       rugPricing.style.display = 'none';
+
+      // Hide step UI elements for clean hero lightbox
+      const stepIndicator = document.getElementById('step-indicator');
+      const step4Title = document.getElementById('step-4-title');
+      const orderSummary = document.getElementById('combined-order-summary');
+
+      if (stepIndicator) stepIndicator.style.display = 'none';
+      if (step4Title) step4Title.style.display = 'none';
+      if (orderSummary) orderSummary.style.display = 'none';
+
     } else if (isKeyboard) {
       // Keyboard-specific lightbox
       paymentButtons.style.display = 'grid';
@@ -4153,8 +4215,28 @@
     lightboxModal.classList.add('active');
     document.body.style.overflow = 'hidden';
 
-    // Always show Step 1 initially
-    showStep(1);
+    // Show appropriate step based on product type
+    if (isHero) {
+      // Hero products show Step 4 directly (where hero buttons are)
+      showStep(4);
+      // Hide back arrow in Step 4 for hero
+      const step4BackArrow = document.querySelector('#step-4 .back-arrow');
+      if (step4BackArrow) step4BackArrow.style.display = 'none';
+    } else {
+      // Regular products start at Step 1 (size selection)
+      showStep(1);
+
+      // Show step UI elements for regular products
+      const stepIndicator = document.getElementById('step-indicator');
+      const step4Title = document.getElementById('step-4-title');
+      const orderSummary = document.getElementById('combined-order-summary');
+      const step4BackArrow = document.querySelector('#step-4 .back-arrow');
+
+      if (stepIndicator) stepIndicator.style.display = 'flex';
+      if (step4Title) step4Title.style.display = 'block';
+      if (orderSummary) orderSummary.style.display = 'block';
+      if (step4BackArrow) step4BackArrow.style.display = 'inline-flex';
+    }
 
     // Set initial mobile state
     if (isMobileViewport()) {
@@ -4171,6 +4253,12 @@
       lightboxModal.classList.remove('mobile-image-mode');
       lightboxModal.classList.remove('mobile-details-mode');
     }
+
+    // Push history state for back button handling
+    if (!lightboxHistoryState) {
+      history.pushState({ lightbox: true }, '');
+      lightboxHistoryState = true;
+    }
   }
 
   function closeLightbox() {
@@ -4186,6 +4274,9 @@
     currentStep = 1;
     maxStepReached = 1;
     showStep(1);
+
+    // Reset history state flag
+    lightboxHistoryState = false;
 
     // Reset order data
     orderData = {
@@ -4217,6 +4308,32 @@
     if (submitButton) {
       submitButton.disabled = false;
       submitButton.textContent = 'SUBMIT ORDER DETAILS';
+    }
+  }
+
+  // QR Code Overlay Functions
+  function openQROverlay() {
+    const qrOverlay = document.getElementById('qrOverlay');
+    if (qrOverlay) {
+      qrOverlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      // Push history state for back button handling
+      if (!qrOverlayHistoryState) {
+        history.pushState({ qrOverlay: true }, '');
+        qrOverlayHistoryState = true;
+      }
+    }
+  }
+
+  function closeQROverlay() {
+    const qrOverlay = document.getElementById('qrOverlay');
+    if (qrOverlay) {
+      qrOverlay.classList.remove('active');
+      document.body.style.overflow = '';
+
+      // Reset history state flag
+      qrOverlayHistoryState = false;
     }
   }
 
@@ -4448,8 +4565,9 @@
 
       updatePricing(price);
 
-      // Advance to currency step
+      // Advance to currency step and show price preview
       advanceToStep(2);
+      updatePricePreview();
     });
   });
 
@@ -4540,8 +4658,9 @@
 
         updateRugPricing(price);
 
-        // Advance to currency step
+        // Advance to currency step and show price preview
         advanceToStep(2);
+        updatePricePreview();
       });
     });
   }
@@ -4615,11 +4734,47 @@
         orderData.priceConverted = convertPrice(price, selectedCurrency).price;
       }
 
-      // Pre-fill order form and advance to shipping step
-      prefillOrderForm();
-      advanceToStep(3);
+      // Show price preview (don't auto-advance anymore)
+      updatePricePreview();
     }
   });
+
+  // Update price preview when currency changes
+  function updatePricePreview() {
+    const pricePreview = document.getElementById('price-preview');
+    const pricePreviewAmount = document.getElementById('price-preview-amount');
+
+    if (!pricePreview || !pricePreviewAmount) return;
+
+    // Check the actual dropdown value (in case it persisted from previous selection)
+    const currencyDropdown = document.getElementById('currency-dropdown');
+    if (currencyDropdown && currencyDropdown.value) {
+      // Update orderData to match the dropdown
+      orderData.currency = currencyDropdown.value;
+    }
+
+    if (orderData.priceUSD > 0 && orderData.currency) {
+      const currencyInfo = exchangeRates[orderData.currency];
+      const converted = convertPrice(orderData.priceUSD, orderData.currency);
+
+      pricePreviewAmount.textContent = `${currencyInfo.symbol}${converted.price.toLocaleString('en-US')} ${currencyInfo.name}`;
+      pricePreview.style.display = 'block';
+
+      // Update orderData with converted price
+      orderData.priceConverted = converted.price;
+    } else {
+      pricePreview.style.display = 'none';
+    }
+  }
+
+  // Proceed to shipping step when Next button is clicked
+  function proceedToShipping() {
+    // Pre-fill order form
+    prefillOrderForm();
+
+    // Advance to shipping step
+    advanceToStep(3);
+  }
 
   // Handle rug size selection
   document.querySelectorAll('input[name="rug-size"]').forEach(radio => {
@@ -4633,8 +4788,9 @@
 
       updateRugPricing(price);
 
-      // Advance to currency step
+      // Advance to currency step and show price preview
       advanceToStep(2);
+      updatePricePreview();
     });
   });
 
