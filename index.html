@@ -11,14 +11,14 @@
 <style>
   :root {
     /* WPAP PALETTE */
-    --w-yellow: #FFD700;
-    --w-magenta: #FF0055;
-    --w-cyan: #00F0FF;
-    --w-purple: #8A2BE2;
-    --w-orange: #FF5722;
-    --w-lime: #CCFF00;
-    --w-dark: #111111;
-    --w-white: #ffffff;
+    --w-yellow: #FFE88A;
+    --w-magenta: #D1A700;
+    --w-cyan: #FFE88A;
+    --w-purple: #755E00;
+    --w-orange: #755E00;
+    --w-lime: #FFE88A;
+    --w-dark: #2E2610;
+    --w-white: #FFFAE6;
 
     /* Dimensions */
     --shadow-depth: 8px 8px 0px var(--w-dark);
@@ -77,7 +77,7 @@
     z-index: 100;
     width: 72px; /* 40% smaller than 120px */
     height: auto;
-    filter: drop-shadow(4px 4px 0px #cc9900);
+    filter: drop-shadow(4px 4px 0px #D1A700);
     transition: transform 0.3s ease, filter 0.3s ease;
     text-decoration: none;
   }
@@ -91,7 +91,7 @@
   @media (hover: hover) {
     .logo-corner:hover {
       transform: scale(1.05);
-      filter: drop-shadow(6px 6px 0px #b38600);
+      filter: drop-shadow(6px 6px 0px #D1A700);
     }
   }
 
@@ -669,13 +669,13 @@
   #form-success-message {
     text-align: center;
     padding: 20px;
-    background: #e8f5e9;
-    border: 3px solid #4caf50;
+    background: #FFF1B8;
+    border: 3px solid #423613;
     border-radius: 0;
   }
 
   #form-success-message h3 {
-    color: #2e7d32;
+    color: #423613;
     margin: 0 0 10px 0;
     font-family: 'Righteous', cursive;
     font-size: 1.3rem;
@@ -684,7 +684,7 @@
   #form-success-message p {
     margin: 0;
     line-height: 1.6;
-    color: #1b5e20;
+    color: #423613;
   }
 
   .payment-buttons {
@@ -718,8 +718,8 @@
   .want-button:hover {
     transform: translate(-5px, -5px);
     box-shadow: 12px 12px 0px var(--w-dark);
-    background: var(--w-yellow);
-    color: var(--w-dark);
+    background: var(--w-magenta);
+    color: var(--w-white);
   }
 
   .want-button:active {
@@ -728,25 +728,25 @@
   }
 
   .btn-mercadopago {
-    background: #009EE3;
+    background: #FFF1B8;
     border-color: var(--w-dark);
-    color: var(--w-white);
+    color: var(--w-dark);
   }
 
   .btn-mercadopago:hover {
-    background: var(--w-yellow);
-    color: var(--w-dark);
-  }
-
-  .btn-paypal {
-    background: #0070BA;
-    border-color: var(--w-dark);
+    background: var(--w-magenta);
     color: var(--w-white);
   }
 
-  .btn-paypal:hover {
-    background: var(--w-yellow);
+  .btn-paypal {
+    background: #FFF1B8;
+    border-color: var(--w-dark);
     color: var(--w-dark);
+  }
+
+  .btn-paypal:hover {
+    background: var(--w-magenta);
+    color: var(--w-white);
   }
 
   /* Instagram Icon */
@@ -883,7 +883,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(255, 215, 0, 0.9);
+    background: #FFFAE6;
     color: var(--w-dark);
     border: 3px solid var(--w-dark);
     font-size: 3rem;
@@ -1047,7 +1047,7 @@
 
   /* Sticky Note */
   .sticky-note {
-    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+    background: linear-gradient(135deg, #FFF1B8 0%, #FFF1B8 100%);
     border: 2px solid var(--w-dark);
     padding: 20px;
     margin-top: 25px;
@@ -1257,7 +1257,7 @@
       width: 48px; /* 40% smaller than 80px */
       top: 15px;
       left: 15px;
-      filter: drop-shadow(3px 3px 0px #cc9900);
+      filter: drop-shadow(3px 3px 0px #D1A700);
     }
 
     .hero-container {
@@ -1284,6 +1284,17 @@
     #contactModal .modal-box {
       width: 100vw;
       max-width: 100vw;
+    }
+
+    /* About Modal centering fix */
+    #aboutModal {
+      padding: 0 !important;
+    }
+
+    #aboutModal .modal-box {
+      width: 100vw;
+      max-width: 100vw !important;
+      padding: 40px 20px !important;
     }
 
     .lightbox-visual {
@@ -1572,7 +1583,7 @@
       width: 36px; /* 40% smaller than 60px */
       top: 10px;
       left: 10px;
-      filter: drop-shadow(2px 2px 0px #cc9900);
+      filter: drop-shadow(2px 2px 0px #D1A700);
     }
 
     .social-links {
@@ -1608,6 +1619,17 @@
     #contactModal .modal-box {
       width: 100vw;
       max-width: 100vw;
+    }
+
+    /* About Modal centering fix */
+    #aboutModal {
+      padding: 0 !important;
+    }
+
+    #aboutModal .modal-box {
+      width: 100vw;
+      max-width: 100vw !important;
+      padding: 40px 20px !important;
     }
 
     .lightbox-details {
@@ -2094,7 +2116,7 @@
   .language-switcher {
     position: fixed;
     top: 20px;
-    right: 80px;
+    right: 100px;
     z-index: 100;
     display: flex;
     align-items: center;
@@ -2140,7 +2162,7 @@
   @media (max-width: 768px) {
     .language-switcher {
       top: 10px;
-      right: 10px;
+      right: 80px;
       padding: 6px 8px;
       gap: 5px;
     }
@@ -2175,9 +2197,9 @@
   <div class="deco-shape shape-3"></div>
 
   <!-- Logo in top-left corner -->
-  <a href="#" class="logo-corner" onclick="showSection('gospel', document.querySelector('.nav-btn')); return false;">
-    <img src="Logo.png" alt="Billy The Kid">
-  </a>
+  <a href="#" class="logo-corner" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">
+  <img src="Logo.png" alt="Billy The Kid">
+</a>
 
   <!-- Instagram Icon in top-right corner -->
   <div class="social-links">
@@ -3382,6 +3404,24 @@
         <div class="card-tag">Wall #50</div>
       </div>
 
+      <div class="art-card" data-price="100" onclick="openLightbox('wall_51.jpg', 'Wall Rug #51', 'Wall/Floor Rugs')">
+        <img src="wall_51.jpg" alt="Wall Rug">
+        <div class="card-price">$100 USD</div>
+        <div class="card-tag">Wall #51</div>
+      </div>
+
+      <div class="art-card" data-price="100" onclick="openLightbox('wall_52.jpg', 'Wall Rug #52', 'Wall/Floor Rugs')">
+        <img src="wall_52.jpg" alt="Wall Rug">
+        <div class="card-price">$100 USD</div>
+        <div class="card-tag">Wall #52</div>
+      </div>
+
+      <div class="art-card card-big" data-price="180" onclick="openLightbox('wall_53.jpg', 'Wall Rug #53', 'Wall/Floor Rugs')">
+        <img src="wall_53.jpg" alt="Wall Rug">
+        <div class="card-price">$180 USD</div>
+        <div class="card-tag">Wall #53</div>
+      </div>
+
     </div>
   </section>
 
@@ -3670,7 +3710,7 @@
             <a href="https://paypal.me/billythekidrugs" target="_blank" class="want-button btn-paypal" data-i18n="lightbox.step4.paypalBtn">
               🌍 PayPal
             </a>
-            <button onclick="openQROverlay(); event.preventDefault();" class="want-button" style="background: #00D632; color: white; border: 3px solid var(--w-dark); font-family: 'Righteous', cursive; font-size: 1.1rem;" data-i18n="lightbox.step4.nequiBtn">
+            <button onclick="openQROverlay(); event.preventDefault();" class="want-button" style="background: #FFF1B8; color: #2E2610; border: 3px solid var(--w-dark); font-family: 'Righteous', cursive; font-size: 1.1rem;" data-i18n="lightbox.step4.nequiBtn">
               🇨🇴 NEQUI/BRE-B
             </button>
           </div>
@@ -3770,14 +3810,14 @@
 
 <!-- ========== ABOUT COMING SOON MODAL ========== -->
 <div class="modal-overlay" id="aboutModal">
-  <div class="modal-box" style="background: var(--w-yellow); padding: 60px 40px; text-align: center; max-width: 500px; border: 4px solid var(--w-white);">
+  <div class="modal-box" style="background: var(--w-yellow); padding: 60px 40px; text-align: center; max-width: 600px; border: 4px solid var(--w-white);">
     <div class="close-btn" onclick="closeAboutModal()">&times;</div>
     <h2 style="font-family: 'Righteous', cursive; font-size: 2.5rem; margin: 0 0 20px 0; color: var(--w-dark);" data-i18n="about.title">COMING SOON</h2>
     <p style="font-size: 1.2rem; line-height: 1.6; margin-bottom: 30px; color: var(--w-dark);" data-i18n="about.message">
       We're crafting an amazing About page to tell our story. Stay tuned!
     </p>
     <p style="font-size: 1rem; margin-bottom: 20px; color: var(--w-dark);" data-i18n="about.followText">Follow us for updates:</p>
-    <a href="https://instagram.com/billythekid.co" target="_blank" class="want-button" style="display: inline-flex; text-decoration: none; align-items: center; justify-content: center; gap: 10px;" data-i18n="about.instagram">
+    <a href="https://instagram.com/billythekid.co" target="_blank" class="want-button" style="display: inline-flex; text-decoration: none; align-items: center; justify-content: center; gap: 10px;">
       📷 @billythekid.co
     </a>
   </div>
