@@ -4222,10 +4222,10 @@
         <div class="faq-answer">
           <p data-i18n="faq.items.4.answer" data-i18n-html="true">Colombia enjoys FREE shipping! For international orders:<br><br>
           <strong>Gospel & Wall/Floor Rugs:</strong><br>
-          • Latin America & US: add $30 USD shipping fee<br>
+          • Latin America, US & Canada: add $30 USD shipping fee<br>
           • Europe & Australia: add $80 USD shipping fee<br><br>
           <strong>Keyboard Rugs:</strong><br>
-          • Latin America & US: add $25 USD shipping fee<br>
+          • Latin America, US & Canada: add $25 USD shipping fee<br>
           • Europe & Australia: add $50 USD shipping fee</p>
         </div>
       </div>
@@ -4350,6 +4350,7 @@
             <h4 data-i18n="lightbox.step2.currencyLabel">Select Currency:</h4>
             <select id="currency-dropdown" name="currency-dropdown">
               <option value="USD">USD - US Dollar ($)</option>
+              <option value="CAD">CAD - Canadian Dollar ($)</option>
               <option value="MXN">MXN - Mexican Peso ($)</option>
               <option value="BRL">BRL - Brazilian Real (R$)</option>
               <option value="ARS">ARS - Argentine Peso ($)</option>
@@ -4474,6 +4475,16 @@
           <div style="background: var(--w-yellow); padding: 20px; border: 4px solid var(--w-dark); margin-bottom: 25px;">
             <p style="margin: 0; line-height: 1.8; color: var(--w-dark); font-size: 0.95rem; text-align: center;" data-i18n="lightbox.step5.message">
               Thank you for your order! You will receive an email confirmation with the details as soon as the payment has been verified by our team. In the meantime, if you need immediate assistance please reach us at:
+            </p>
+          </div>
+
+          <!-- Order Summary for Quick Reference -->
+          <div id="step5-order-summary" style="background: var(--w-cyan); padding: 15px 20px; border: 3px solid var(--w-dark); margin-bottom: 25px;">
+            <p style="margin: 5px 0; color: var(--w-dark); font-weight: 700; text-align: center; font-size: 0.95rem;">
+              <strong><span data-i18n="lightbox.step5.yourOrder">Your Order:</span></strong> <span id="step5-product-info"></span>
+            </p>
+            <p style="margin: 5px 0; color: var(--w-dark); font-weight: 700; text-align: center; font-size: 1.1rem;">
+              <strong><span data-i18n="lightbox.step5.totalAmount">Total Amount:</span></strong> <span id="step5-total-amount"></span>
             </p>
           </div>
 
@@ -4864,7 +4875,22 @@
 
   // Payment Click Handler (for Step 5 Thank You)
   function handlePaymentClick() {
+    populateStep5Summary();
     advanceToStep(5);
+  }
+
+  // Populate Step 5 Order Summary
+  function populateStep5Summary() {
+    const productInfo = document.getElementById('step5-product-info');
+    const totalAmount = document.getElementById('step5-total-amount');
+
+    if (productInfo && totalAmount) {
+      // Format product info: "Product Name - Size"
+      productInfo.textContent = `${orderData.productName} - ${orderData.sizeLabel}`;
+
+      // Format total amount with currency symbol using existing formatCurrency function
+      totalAmount.textContent = formatCurrency(orderData.priceConverted, orderData.currency);
+    }
   }
 
   // Continue Shopping Function (closes lightbox and scrolls to top)
@@ -6011,6 +6037,7 @@
   // Currency Exchange Rates (Static)
   const exchangeRates = {
     USD: { symbol: '$', rate: 1, name: 'USD' },
+    CAD: { symbol: '$', rate: 1.37, name: 'CAD' },
     MXN: { symbol: '$', rate: 18, name: 'MXN' },
     BRL: { symbol: 'R$', rate: 5.5, name: 'BRL' },
     ARS: { symbol: '$', rate: 1450, name: 'ARS' },
@@ -6418,7 +6445,7 @@
           },
           {
             question: "What are international shipping costs?",
-            answer: "Colombia enjoys FREE shipping! For international orders:<br><br><strong>Gospel & Wall/Floor Rugs:</strong><br>• Latin America & US: add $30 USD shipping fee<br>• Europe & Australia: add $80 USD shipping fee<br><br><strong>Keyboard Rugs:</strong><br>• Latin America & US: add $25 USD shipping fee<br>• Europe & Australia: add $50 USD shipping fee"
+            answer: "Colombia enjoys FREE shipping! For international orders:<br><br><strong>Gospel & Wall/Floor Rugs:</strong><br>• Latin America, US & Canada: add $30 USD shipping fee<br>• Europe & Australia: add $80 USD shipping fee<br><br><strong>Keyboard Rugs:</strong><br>• Latin America, US & Canada: add $25 USD shipping fee<br>• Europe & Australia: add $50 USD shipping fee"
           },
           {
             question: "Do you offer refunds or exchanges?",
@@ -6478,13 +6505,21 @@
           sizeLabel: "Size:",
           priceLabel: "Price:",
           freeShippingColombia: "+ <strong>FREE</strong> shipping in Colombia (Nequi accepted)",
-          shippingLatinAmerica: "+ <strong>{price}</strong> shipping fee (Latin America & US)",
+          shippingLatinAmerica: "+ <strong>{price}</strong> shipping fee (Latin America, US & Canada)",
           shippingEurope: "+ <strong>{price}</strong> shipping fee (Europe & Australia)",
           mercadoPagoBtn: "🌍 Mercado Pago",
           paypalBtn: "🌍 PayPal",
           nequiBtn: "🇨🇴 NEQUI/BRE-B",
           customDesignBtn: "Order a Custom Design",
           browseDesignsBtn: "Browse the rest of the Designs"
+        },
+        step5: {
+          title: "Thank You!",
+          message: "Thank you for your order! You will receive an email confirmation with the details as soon as the payment has been verified by our team. In the meantime, if you need immediate assistance please reach us at:",
+          yourOrder: "Your Order:",
+          totalAmount: "Total Amount:",
+          continueBtn: "Continue Shopping",
+          closeBtn: "Close"
         }
       },
       qr: {
@@ -6518,7 +6553,7 @@
       },
       footer: {
         brandName: "BILLY THE KID",
-        tagline: "Arte Hecho a Mano",
+        tagline: "Hand-Made Artistic Rugs",
         connectHeading: "CONNECT",
         quickLinksHeading: "QUICK LINKS",
         aboutLink: "About",
@@ -6531,7 +6566,7 @@
         godBless: "God Bless!",
         shippingTime: "Shipping can take 1-2 weeks",
         chooseKeyboardFirst: "Choose your keyboard size first",
-        formError: "Error submitting form. Please try again or contact gnomehub@gmail.com"
+        formError: "Error submitting form. Please try again or contact billythekid.co@gmail.com"
       }
     },
     es: {
@@ -6560,7 +6595,7 @@
           },
           {
             question: "¿Cuáles son los costos de envío internacional?",
-            answer: "¡Colombia disfruta de envío GRATIS! Para pedidos internacionales:<br><br><strong>Alfombras Gospel y Wall/Floor:</strong><br>• Latinoamérica y EE. UU.: agregar tarifa de envío de $30 USD<br>• Europa y Australia: agregar tarifa de envío de $80 USD<br><br><strong>Alfombras Keyboard:</strong><br>• Latinoamérica y EE. UU.: agregar tarifa de envío de $25 USD<br>• Europa y Australia: agregar tarifa de envío de $50 USD"
+            answer: "¡Colombia disfruta de envío GRATIS! Para pedidos internacionales:<br><br><strong>Alfombras Gospel y Wall/Floor:</strong><br>• Latinoamérica, EE. UU. y Canadá: agregar tarifa de envío de $30 USD<br>• Europa y Australia: agregar tarifa de envío de $80 USD<br><br><strong>Alfombras Keyboard:</strong><br>• Latinoamérica, EE. UU. y Canadá: agregar tarifa de envío de $25 USD<br>• Europa y Australia: agregar tarifa de envío de $50 USD"
           },
           {
             question: "¿Ofrecen reembolsos o cambios?",
@@ -6620,13 +6655,21 @@
           sizeLabel: "Tamaño:",
           priceLabel: "Precio:",
           freeShippingColombia: "+ envío <strong>GRATIS</strong> en Colombia (se acepta Nequi)",
-          shippingLatinAmerica: "+ <strong>{price}</strong> tarifa de envío (Latinoamérica y EE. UU.)",
+          shippingLatinAmerica: "+ <strong>{price}</strong> tarifa de envío (Latinoamérica, EE. UU. y Canadá)",
           shippingEurope: "+ <strong>{price}</strong> tarifa de envío (Europa y Australia)",
           mercadoPagoBtn: "🌍 Mercado Pago",
           paypalBtn: "🌍 PayPal",
           nequiBtn: "🇨🇴 NEQUI/BRE-B",
           customDesignBtn: "Ordenar un Diseño Personalizado",
           browseDesignsBtn: "Explorar el Resto de los Diseños"
+        },
+        step5: {
+          title: "¡Gracias!",
+          message: "¡Gracias por tu pedido! Recibirás un correo de confirmación con los detalles tan pronto como el pago haya sido verificado por nuestro equipo. Mientras tanto, si necesitas asistencia inmediata, contáctanos en:",
+          yourOrder: "Tu Pedido:",
+          totalAmount: "Monto Total:",
+          continueBtn: "Continuar Comprando",
+          closeBtn: "Cerrar"
         }
       },
       qr: {
@@ -6673,7 +6716,7 @@
         godBless: "¡Que Dios te bendiga!",
         shippingTime: "El envío puede tardar 1-2 semanas",
         chooseKeyboardFirst: "Elige el tamaño de tu teclado primero",
-        formError: "Error al enviar el formulario. Por favor intenta de nuevo o contacta gnomehub@gmail.com"
+        formError: "Error al enviar el formulario. Por favor intenta de nuevo o contacta billythekid.co@gmail.com"
       }
     },
     fr: {
@@ -6769,6 +6812,14 @@
           nequiBtn: "🇨🇴 NEQUI/BRE-B",
           customDesignBtn: "Commander un Design Personnalisé",
           browseDesignsBtn: "Parcourir le Reste des Designs"
+        },
+        step5: {
+          title: "Merci !",
+          message: "Merci pour votre commande ! Vous recevrez un email de confirmation avec les détails dès que le paiement aura été vérifié par notre équipe. En attendant, si vous avez besoin d'une assistance immédiate, contactez-nous à :",
+          yourOrder: "Votre Commande :",
+          totalAmount: "Montant Total :",
+          continueBtn: "Continuer les Achats",
+          closeBtn: "Fermer"
         }
       },
       qr: {
@@ -6911,6 +6962,14 @@
           nequiBtn: "🇨🇴 NEQUI/BRE-B",
           customDesignBtn: "Encomendar um Design Personalizado",
           browseDesignsBtn: "Navegar pelos Demais Designs"
+        },
+        step5: {
+          title: "Obrigado!",
+          message: "Obrigado pelo seu pedido! Você receberá um email de confirmação com os detalhes assim que o pagamento for verificado por nossa equipe. Enquanto isso, se precisar de assistência imediata, entre em contato conosco em:",
+          yourOrder: "Seu Pedido:",
+          totalAmount: "Valor Total:",
+          continueBtn: "Continuar Comprando",
+          closeBtn: "Fechar"
         }
       },
       qr: {
