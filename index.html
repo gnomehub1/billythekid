@@ -80,6 +80,10 @@
     filter: drop-shadow(4px 4px 0px #D1A700);
     transition: transform 0.3s ease, filter 0.3s ease;
     text-decoration: none;
+    /* Remove mobile tap highlight */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    user-select: none;
   }
 
   .logo-corner img {
@@ -4318,6 +4322,10 @@
                 100% ($85 USD)
               </label>
             </div>
+            <!-- Next Button for Keyboard Size -->
+            <button id="keyboard-next-btn" onclick="proceedToStep2FromSizeSelection();" class="next-btn" style="display: none; width: 100%; background: var(--w-dark); color: var(--w-yellow); border: 3px solid var(--w-dark); padding: 15px; font-size: 1rem; font-weight: bold; font-family: 'Righteous', cursive; cursor: pointer; text-transform: uppercase; margin-top: 20px;" data-i18n="lightbox.step1.nextBtn">
+              NEXT: SELECT CURRENCY →
+            </button>
           </div>
 
           <!-- General Rug Size Options (Gospel & Wall Rugs) -->
@@ -4337,6 +4345,10 @@
                 Large - <span class="size-price">$XX USD</span>
               </label>
             </div>
+            <!-- Next Button for Rug Size -->
+            <button id="rug-next-btn" onclick="proceedToStep2FromSizeSelection();" class="next-btn" style="display: none; width: 100%; background: var(--w-dark); color: var(--w-yellow); border: 3px solid var(--w-dark); padding: 15px; font-size: 1rem; font-weight: bold; font-family: 'Righteous', cursive; cursor: pointer; text-transform: uppercase; margin-top: 20px;" data-i18n="lightbox.step1.nextBtn">
+              NEXT: SELECT CURRENCY →
+            </button>
           </div>
         </div>
 
@@ -4425,6 +4437,16 @@
           <div id="form-success-message" style="display: none;">
             <h3 style="color: var(--w-dark); text-align: center;" data-i18n="lightbox.step3.successTitle">✓ Order Details Received!</h3>
             <p style="text-align: center; margin: 10px 0;" data-i18n="lightbox.step3.successMessage">Please proceed to payment below.</p>
+
+            <!-- Navigation Buttons -->
+            <div style="display: flex; gap: 10px; margin-top: 20px; flex-direction: column;">
+              <button onclick="proceedToOrderSummary()" style="width: 100%; background: var(--w-dark); color: var(--w-yellow); border: 3px solid var(--w-dark); padding: 15px; font-size: 1rem; font-weight: bold; font-family: 'Righteous', cursive; cursor: pointer; text-transform: uppercase;" data-i18n="lightbox.step3.proceedBtn">
+                Proceed to Order Summary →
+              </button>
+              <button onclick="editShippingForm()" style="width: 100%; background: var(--w-white); color: var(--w-dark); border: 3px solid var(--w-dark); padding: 15px; font-size: 1rem; font-weight: bold; font-family: 'Righteous', cursive; cursor: pointer; text-transform: uppercase;" data-i18n="lightbox.step3.editBtn">
+                Edit Shipping Information
+              </button>
+            </div>
           </div>
         </div>
 
@@ -4471,20 +4493,20 @@
         <div class="lightbox-step" id="step-5" style="display: none;">
           <h3 style="margin-top: 0; text-align: center; font-family: 'Righteous', cursive; font-size: 1.3rem; color: var(--w-dark);" data-i18n="lightbox.step5.title">Thank You!</h3>
 
-          <!-- Yellow Confirmation Box (matching Step 4 order summary styling) -->
-          <div style="background: var(--w-yellow); padding: 20px; border: 4px solid var(--w-dark); margin-bottom: 25px;">
-            <p style="margin: 0; line-height: 1.8; color: var(--w-dark); font-size: 0.95rem; text-align: center;" data-i18n="lightbox.step5.message">
-              Thank you for your order! You will receive an email confirmation with the details as soon as the payment has been verified by our team. In the meantime, if you need immediate assistance please reach us at:
-            </p>
-          </div>
-
-          <!-- Order Summary for Quick Reference -->
+          <!-- Order Summary for Quick Reference (moved to top) -->
           <div id="step5-order-summary" style="background: var(--w-cyan); padding: 15px 20px; border: 3px solid var(--w-dark); margin-bottom: 25px;">
             <p style="margin: 5px 0; color: var(--w-dark); font-weight: 700; text-align: center; font-size: 0.95rem;">
               <strong><span data-i18n="lightbox.step5.yourOrder">Your Order:</span></strong> <span id="step5-product-info"></span>
             </p>
             <p style="margin: 5px 0; color: var(--w-dark); font-weight: 700; text-align: center; font-size: 1.1rem;">
               <strong><span data-i18n="lightbox.step5.totalAmount">Total Amount:</span></strong> <span id="step5-total-amount"></span>
+            </p>
+          </div>
+
+          <!-- Yellow Confirmation Box -->
+          <div style="background: var(--w-yellow); padding: 20px; border: 4px solid var(--w-dark); margin-bottom: 25px;">
+            <p style="margin: 0; line-height: 1.8; color: var(--w-dark); font-size: 0.95rem; text-align: center;" data-i18n="lightbox.step5.message">
+              Thank you for your order! You will receive an email confirmation with the details as soon as the payment has been verified by our team. In the meantime, if you need immediate assistance please reach us at:
             </p>
           </div>
 
@@ -4496,6 +4518,22 @@
             <p style="margin: 10px 0; color: var(--w-dark); font-weight: 700;">
               <strong>WhatsApp:</strong> <a href="https://wa.me/573202543585" target="_blank" style="color: #25D366; text-decoration: underline;">+57 320 254 3585</a>
             </p>
+          </div>
+
+          <!-- Change Payment Method Section -->
+          <div style="margin-bottom: 25px;">
+            <h4 style="text-align: center; font-family: 'Righteous', cursive; font-size: 1rem; color: var(--w-dark); margin-bottom: 15px;" data-i18n="lightbox.step5.changePaymentLabel">Change Payment Method:</h4>
+            <div class="payment-buttons">
+              <a href="https://link.mercadopago.com.co/billythekidrugs" target="_blank" class="want-button btn-mercadopago" data-i18n="lightbox.step4.mercadoPagoBtn">
+                🌍 Mercado Pago
+              </a>
+              <a href="https://paypal.me/billythekidrugs" target="_blank" class="want-button btn-paypal" data-i18n="lightbox.step4.paypalBtn">
+                🌍 PayPal
+              </a>
+              <button onclick="openQROverlay(); event.preventDefault();" class="want-button" style="background: #FFF1B8; color: #2E2610; border: 3px solid var(--w-dark); font-family: 'Righteous', cursive; font-size: 1.1rem;" data-i18n="lightbox.step4.nequiBtn">
+                🇨🇴 NEQUI/BRE-B
+              </button>
+            </div>
           </div>
 
           <!-- Action Buttons -->
@@ -4893,6 +4931,62 @@
     }
   }
 
+  // Proceed to Order Summary from Step 3 Success Message
+  function proceedToOrderSummary() {
+    populateOrderSummary();
+    advanceToStep(4);
+  }
+
+  // Edit Shipping Form - Show form again with pre-filled data
+  function editShippingForm() {
+    const orderForm = document.getElementById('order-form');
+    const successMessage = document.getElementById('form-success-message');
+    const submitBtn = orderForm.querySelector('.submit-btn');
+
+    // Hide success message and show form
+    successMessage.style.display = 'none';
+    orderForm.style.display = 'block';
+
+    // Pre-fill form fields from orderData
+    if (orderData.customerName) {
+      document.querySelector('input[name="Full_Name"]').value = orderData.customerName;
+    }
+    if (orderData.customerEmail) {
+      document.querySelector('input[name="Email"]').value = orderData.customerEmail;
+    }
+    if (orderData.customerPhone) {
+      document.querySelector('input[name="Phone"]').value = orderData.customerPhone;
+    }
+    if (orderData.customerAddress) {
+      document.querySelector('textarea[name="Address"]').value = orderData.customerAddress;
+    }
+    if (orderData.specialInstructions) {
+      document.querySelector('textarea[name="Special_Instructions"]').value = orderData.specialInstructions;
+    }
+
+    // Reset submit button
+    submitBtn.disabled = false;
+    submitBtn.textContent = submitBtn.dataset.originalText || 'SUBMIT ORDER DETAILS';
+  }
+
+  // Validate and Proceed to Step 2 from Size Selection
+  function proceedToStep2FromSizeSelection() {
+    // Check if a keyboard size is selected
+    const selectedKeyboardSize = document.querySelector('input[name="kb-size"]:checked');
+    // Check if a rug size is selected
+    const selectedRugSize = document.querySelector('input[name="rug-size"]:checked');
+
+    // If neither is selected, show error message
+    if (!selectedKeyboardSize && !selectedRugSize) {
+      alert(t('messages.selectSizeFirst'));
+      return;
+    }
+
+    // If a size is selected, proceed to Step 2
+    advanceToStep(2);
+    updatePricePreview();
+  }
+
   // Continue Shopping Function (closes lightbox and scrolls to top)
   function continueShopping() {
     closeLightbox();
@@ -4973,6 +5067,13 @@
       }
 
       const formData = new FormData(orderForm);
+
+      // Store form data in orderData for pre-fill if user goes back
+      orderData.customerName = formData.get('Full_Name');
+      orderData.customerEmail = formData.get('Email');
+      orderData.customerPhone = formData.get('Phone');
+      orderData.customerAddress = formData.get('Address');
+      orderData.specialInstructions = formData.get('Special_Instructions');
 
       // Use FormSubmit AJAX endpoint (no redirect!)
       fetch('https://formsubmit.co/ajax/gnomehub@gmail.com', {
@@ -5567,6 +5668,12 @@
     const dotsContainer = document.getElementById('carousel-dots');
     if (dotsContainer) dotsContainer.style.display = 'none';
 
+    // Hide Next buttons in Step 1
+    const keyboardNextBtn = document.getElementById('keyboard-next-btn');
+    const rugNextBtn = document.getElementById('rug-next-btn');
+    if (keyboardNextBtn) keyboardNextBtn.style.display = 'none';
+    if (rugNextBtn) rugNextBtn.style.display = 'none';
+
     // Reset step state
     currentStep = 1;
     maxStepReached = 1;
@@ -6002,6 +6109,10 @@
 
       updatePricing(price);
 
+      // Show Next button
+      const keyboardNextBtn = document.getElementById('keyboard-next-btn');
+      if (keyboardNextBtn) keyboardNextBtn.style.display = 'block';
+
       // Advance to currency step and show price preview
       advanceToStep(2);
       updatePricePreview();
@@ -6098,6 +6209,10 @@
         orderData.sizeLabel = this.closest('label').textContent.trim();
 
         updateRugPricing(price);
+
+        // Show Next button
+        const rugNextBtn = document.getElementById('rug-next-btn');
+        if (rugNextBtn) rugNextBtn.style.display = 'block';
 
         // Advance to currency step and show price preview
         advanceToStep(2);
@@ -6228,6 +6343,10 @@
       orderData.sizeLabel = this.closest('label').textContent.trim();
 
       updateRugPricing(price);
+
+      // Show Next button
+      const rugNextBtn = document.getElementById('rug-next-btn');
+      if (rugNextBtn) rugNextBtn.style.display = 'block';
 
       // Advance to currency step and show price preview
       advanceToStep(2);
@@ -6472,7 +6591,8 @@
           rugSizeLabel: "Select Rug Size:",
           sizeSmall: "Small",
           sizeMedium: "Medium",
-          sizeLarge: "Large"
+          sizeLarge: "Large",
+          nextBtn: "NEXT: SELECT CURRENCY →"
         },
         step2: {
           title: "Select Your Currency",
@@ -6496,7 +6616,9 @@
           submitBtn: "SUBMIT ORDER DETAILS",
           submittingBtn: "SUBMITTING...",
           successTitle: "✓ Order Details Received!",
-          successMessage: "Please proceed to payment below."
+          successMessage: "Please proceed to payment below.",
+          proceedBtn: "Proceed to Order Summary →",
+          editBtn: "Edit Shipping Information"
         },
         step4: {
           title: "Complete Your Order",
@@ -6504,7 +6626,7 @@
           productLabel: "Product:",
           sizeLabel: "Size:",
           priceLabel: "Price:",
-          freeShippingColombia: "+ <strong>FREE</strong> shipping in Colombia (Nequi accepted)",
+          freeShippingColombia: "+ <strong>FREE</strong> shipping in Colombia",
           shippingLatinAmerica: "+ <strong>{price}</strong> shipping fee (Latin America, US & Canada)",
           shippingEurope: "+ <strong>{price}</strong> shipping fee (Europe & Australia)",
           mercadoPagoBtn: "🌍 Mercado Pago",
@@ -6518,6 +6640,7 @@
           message: "Thank you for your order! You will receive an email confirmation with the details as soon as the payment has been verified by our team. In the meantime, if you need immediate assistance please reach us at:",
           yourOrder: "Your Order:",
           totalAmount: "Total Amount:",
+          changePaymentLabel: "Change Payment Method:",
           continueBtn: "Continue Shopping",
           closeBtn: "Close"
         }
@@ -6566,6 +6689,7 @@
         godBless: "God Bless!",
         shippingTime: "Shipping can take 1-2 weeks",
         chooseKeyboardFirst: "Choose your keyboard size first",
+        selectSizeFirst: "Please select a size first before proceeding.",
         formError: "Error submitting form. Please try again or contact billythekid.co@gmail.com"
       }
     },
@@ -6622,7 +6746,8 @@
           rugSizeLabel: "Selecciona el Tamaño de la Alfombra:",
           sizeSmall: "Pequeña",
           sizeMedium: "Mediana",
-          sizeLarge: "Grande"
+          sizeLarge: "Grande",
+          nextBtn: "SIGUIENTE: SELECCIONAR MONEDA →"
         },
         step2: {
           title: "Selecciona tu Moneda",
@@ -6646,7 +6771,9 @@
           submitBtn: "ENVIAR DETALLES DEL PEDIDO",
           submittingBtn: "ENVIANDO...",
           successTitle: "✓ ¡Detalles del Pedido Recibidos!",
-          successMessage: "Por favor procede al pago a continuación."
+          successMessage: "Por favor procede al pago a continuación.",
+          proceedBtn: "Proceder al Resumen del Pedido →",
+          editBtn: "Editar Información de Envío"
         },
         step4: {
           title: "Completa tu Pedido",
@@ -6654,7 +6781,7 @@
           productLabel: "Producto:",
           sizeLabel: "Tamaño:",
           priceLabel: "Precio:",
-          freeShippingColombia: "+ envío <strong>GRATIS</strong> en Colombia (se acepta Nequi)",
+          freeShippingColombia: "+ envío <strong>GRATIS</strong> en Colombia",
           shippingLatinAmerica: "+ <strong>{price}</strong> tarifa de envío (Latinoamérica, EE. UU. y Canadá)",
           shippingEurope: "+ <strong>{price}</strong> tarifa de envío (Europa y Australia)",
           mercadoPagoBtn: "🌍 Mercado Pago",
@@ -6668,6 +6795,7 @@
           message: "¡Gracias por tu pedido! Recibirás un correo de confirmación con los detalles tan pronto como el pago haya sido verificado por nuestro equipo. Mientras tanto, si necesitas asistencia inmediata, contáctanos en:",
           yourOrder: "Tu Pedido:",
           totalAmount: "Monto Total:",
+          changePaymentLabel: "Cambiar Método de Pago:",
           continueBtn: "Continuar Comprando",
           closeBtn: "Cerrar"
         }
@@ -6716,6 +6844,7 @@
         godBless: "¡Que Dios te bendiga!",
         shippingTime: "El envío puede tardar 1-2 semanas",
         chooseKeyboardFirst: "Elige el tamaño de tu teclado primero",
+        selectSizeFirst: "Por favor selecciona un tamaño antes de continuar.",
         formError: "Error al enviar el formulario. Por favor intenta de nuevo o contacta billythekid.co@gmail.com"
       }
     },
@@ -6772,7 +6901,8 @@
           rugSizeLabel: "Sélectionnez la Taille du Tapis :",
           sizeSmall: "Petit",
           sizeMedium: "Moyen",
-          sizeLarge: "Grand"
+          sizeLarge: "Grand",
+          nextBtn: "SUIVANT : SÉLECTIONNER LA DEVISE →"
         },
         step2: {
           title: "Sélectionnez Votre Devise",
@@ -6796,7 +6926,9 @@
           submitBtn: "SOUMETTRE LES DÉTAILS DE LA COMMANDE",
           submittingBtn: "ENVOI EN COURS...",
           successTitle: "✓ Détails de la Commande Reçus !",
-          successMessage: "Veuillez procéder au paiement ci-dessous."
+          successMessage: "Veuillez procéder au paiement ci-dessous.",
+          proceedBtn: "Passer au Récapitulatif de Commande →",
+          editBtn: "Modifier les Informations d'Expédition"
         },
         step4: {
           title: "Finalisez Votre Commande",
@@ -6804,7 +6936,7 @@
           productLabel: "Produit :",
           sizeLabel: "Taille :",
           priceLabel: "Prix :",
-          freeShippingColombia: "+ livraison <strong>GRATUITE</strong> en Colombie (Nequi accepté)",
+          freeShippingColombia: "+ livraison <strong>GRATUITE</strong> en Colombie",
           shippingLatinAmerica: "+ <strong>{price}</strong> frais de livraison (Amérique Latine et États-Unis)",
           shippingEurope: "+ <strong>{price}</strong> frais de livraison (Europe et Australie)",
           mercadoPagoBtn: "🌍 Mercado Pago",
@@ -6818,6 +6950,7 @@
           message: "Merci pour votre commande ! Vous recevrez un email de confirmation avec les détails dès que le paiement aura été vérifié par notre équipe. En attendant, si vous avez besoin d'une assistance immédiate, contactez-nous à :",
           yourOrder: "Votre Commande :",
           totalAmount: "Montant Total :",
+          changePaymentLabel: "Changer le Mode de Paiement :",
           continueBtn: "Continuer les Achats",
           closeBtn: "Fermer"
         }
@@ -6866,6 +6999,7 @@
         godBless: "Que Dieu vous bénisse !",
         shippingTime: "La livraison peut prendre 1 à 2 semaines",
         chooseKeyboardFirst: "Choisissez d'abord la taille de votre clavier",
+        selectSizeFirst: "Veuillez d'abord sélectionner une taille avant de continuer.",
         formError: "Erreur lors de la soumission du formulaire. Veuillez réessayer ou contacter gnomehub@gmail.com"
       }
     },
@@ -6922,7 +7056,8 @@
           rugSizeLabel: "Selecione o Tamanho do Tapete:",
           sizeSmall: "Pequeno",
           sizeMedium: "Médio",
-          sizeLarge: "Grande"
+          sizeLarge: "Grande",
+          nextBtn: "PRÓXIMO: SELECIONAR MOEDA →"
         },
         step2: {
           title: "Selecione Sua Moeda",
@@ -6946,7 +7081,9 @@
           submitBtn: "ENVIAR DETALHES DO PEDIDO",
           submittingBtn: "ENVIANDO...",
           successTitle: "✓ Detalhes do Pedido Recebidos!",
-          successMessage: "Por favor prossiga para o pagamento abaixo."
+          successMessage: "Por favor prossiga para o pagamento abaixo.",
+          proceedBtn: "Prosseguir para o Resumo do Pedido →",
+          editBtn: "Editar Informações de Envio"
         },
         step4: {
           title: "Complete Seu Pedido",
@@ -6954,7 +7091,7 @@
           productLabel: "Produto:",
           sizeLabel: "Tamanho:",
           priceLabel: "Preço:",
-          freeShippingColombia: "+ envio <strong>GRÁTIS</strong> na Colômbia (Nequi aceito)",
+          freeShippingColombia: "+ envio <strong>GRÁTIS</strong> na Colômbia",
           shippingLatinAmerica: "+ <strong>{price}</strong> taxa de envio (América Latina e EUA)",
           shippingEurope: "+ <strong>{price}</strong> taxa de envio (Europa e Austrália)",
           mercadoPagoBtn: "🌍 Mercado Pago",
@@ -6968,6 +7105,7 @@
           message: "Obrigado pelo seu pedido! Você receberá um email de confirmação com os detalhes assim que o pagamento for verificado por nossa equipe. Enquanto isso, se precisar de assistência imediata, entre em contato conosco em:",
           yourOrder: "Seu Pedido:",
           totalAmount: "Valor Total:",
+          changePaymentLabel: "Alterar Método de Pagamento:",
           continueBtn: "Continuar Comprando",
           closeBtn: "Fechar"
         }
@@ -7016,6 +7154,7 @@
         godBless: "Que Deus te abençoe!",
         shippingTime: "O envio pode levar 1-2 semanas",
         chooseKeyboardFirst: "Escolha o tamanho do seu teclado primeiro",
+        selectSizeFirst: "Por favor, selecione um tamanho antes de prosseguir.",
         formError: "Erro ao enviar o formulário. Por favor tente novamente ou entre em contato com gnomehub@gmail.com"
       }
     }
