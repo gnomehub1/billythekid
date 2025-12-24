@@ -793,6 +793,47 @@
     fill: var(--w-dark);
   }
 
+  /* WhatsApp Button */
+  .whatsapp-link {
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: #25D366;
+    border: 3px solid var(--w-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-depth);
+    text-decoration: none;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+  }
+
+  .whatsapp-link:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 8px 8px 0px var(--w-dark);
+    background: #1fad50;
+  }
+
+  .whatsapp-link:active {
+    transform: scale(0.95);
+  }
+
+  .whatsapp-link svg {
+    width: 32px;
+    height: 32px;
+    fill: var(--w-white);
+    transition: fill 0.3s ease;
+  }
+
+  .whatsapp-link:hover svg {
+    fill: var(--w-white);
+  }
+
   /* Mobile Toggle Button */
   .mobile-toggle-btn {
     display: none;
@@ -1606,6 +1647,19 @@
       height: 22px;
     }
 
+    .whatsapp-link {
+      width: 50px;
+      height: 50px;
+      bottom: 100px;
+      right: 15px;
+      box-shadow: 5px 5px 0px var(--w-dark);
+    }
+
+    .whatsapp-link svg {
+      width: 26px;
+      height: 26px;
+    }
+
     .modal-overlay {
       padding: 5px;
     }
@@ -2213,6 +2267,13 @@
       </svg>
     </a>
   </div>
+
+  <!-- WhatsApp Floating Button -->
+  <a href="https://wa.me/573202543585" target="_blank" class="whatsapp-link" aria-label="WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.67-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.076 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L0 24l6.304-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413"/>
+    </svg>
+  </a>
 
   <!-- Language Switcher -->
   <div class="language-switcher">
@@ -4230,6 +4291,7 @@
           <span class="step-dot" data-step="2"></span>
           <span class="step-dot" data-step="3"></span>
           <span class="step-dot" data-step="4"></span>
+          <span class="step-dot" data-step="5"></span>
         </div>
 
         <!-- STEP 1: Size Selection -->
@@ -4383,13 +4445,13 @@
           <div class="rug-pricing" id="rug-pricing" style="display: none;"></div>
 
           <div class="payment-buttons" id="payment-buttons">
-            <a href="https://link.mercadopago.com.co/billythekidrugs" target="_blank" class="want-button btn-mercadopago" data-i18n="lightbox.step4.mercadoPagoBtn">
+            <a href="https://link.mercadopago.com.co/billythekidrugs" target="_blank" class="want-button btn-mercadopago" onclick="handlePaymentClick()" data-i18n="lightbox.step4.mercadoPagoBtn">
               🌍 Mercado Pago
             </a>
-            <a href="https://paypal.me/billythekidrugs" target="_blank" class="want-button btn-paypal" data-i18n="lightbox.step4.paypalBtn">
+            <a href="https://paypal.me/billythekidrugs" target="_blank" class="want-button btn-paypal" onclick="handlePaymentClick()" data-i18n="lightbox.step4.paypalBtn">
               🌍 PayPal
             </a>
-            <button onclick="openQROverlay(); event.preventDefault();" class="want-button" style="background: #FFF1B8; color: #2E2610; border: 3px solid var(--w-dark); font-family: 'Righteous', cursive; font-size: 1.1rem;" data-i18n="lightbox.step4.nequiBtn">
+            <button onclick="handlePaymentClick(); openQROverlay(); event.preventDefault();" class="want-button" style="background: #FFF1B8; color: #2E2610; border: 3px solid var(--w-dark); font-family: 'Righteous', cursive; font-size: 1.1rem;" data-i18n="lightbox.step4.nequiBtn">
               🇨🇴 NEQUI/BRE-B
             </button>
           </div>
@@ -4400,6 +4462,38 @@
             </a>
             <button onclick="closeLightbox()" class="want-button btn-paypal" style="border: 3px solid var(--w-dark);" data-i18n="lightbox.step4.browseDesignsBtn">
               Browse the rest of the Designs
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 5: Thank You -->
+        <div class="lightbox-step" id="step-5" style="display: none;">
+          <h3 style="margin-top: 0; text-align: center; font-family: 'Righteous', cursive; font-size: 1.3rem; color: var(--w-dark);" data-i18n="lightbox.step5.title">Thank You!</h3>
+
+          <!-- Yellow Confirmation Box (matching Step 4 order summary styling) -->
+          <div style="background: var(--w-yellow); padding: 20px; border: 4px solid var(--w-dark); margin-bottom: 25px;">
+            <p style="margin: 0; line-height: 1.8; color: var(--w-dark); font-size: 0.95rem; text-align: center;" data-i18n="lightbox.step5.message">
+              Thank you for your order! You will receive an email confirmation with the details as soon as the payment has been verified by our team. In the meantime, if you need immediate assistance please reach us at:
+            </p>
+          </div>
+
+          <!-- Contact Info Box -->
+          <div style="background: var(--w-white); padding: 20px; border: 3px solid var(--w-dark); margin-bottom: 25px; text-align: center;">
+            <p style="margin: 10px 0; color: var(--w-dark); font-weight: 700;">
+              <strong>Email:</strong> <a href="mailto:billythekid.co@gmail.com" style="color: var(--w-dark); text-decoration: underline;">billythekid.co@gmail.com</a>
+            </p>
+            <p style="margin: 10px 0; color: var(--w-dark); font-weight: 700;">
+              <strong>WhatsApp:</strong> <a href="https://wa.me/573202543585" target="_blank" style="color: #25D366; text-decoration: underline;">+57 320 254 3585</a>
+            </p>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="payment-buttons" style="margin-bottom: 0;">
+            <button onclick="continueShopping()" class="want-button btn-mercadopago" style="border: 3px solid var(--w-dark);" data-i18n="lightbox.step5.continueBtn">
+              Continue Shopping
+            </button>
+            <button onclick="closeLightbox()" class="want-button btn-paypal" style="border: 3px solid var(--w-dark);" data-i18n="lightbox.step5.closeBtn">
+              Close
             </button>
           </div>
         </div>
@@ -4766,6 +4860,17 @@
     if (detailsPanel) {
       detailsPanel.scrollTop = 0;
     }
+  }
+
+  // Payment Click Handler (for Step 5 Thank You)
+  function handlePaymentClick() {
+    advanceToStep(5);
+  }
+
+  // Continue Shopping Function (closes lightbox and scrolls to top)
+  function continueShopping() {
+    closeLightbox();
+    window.scrollTo(0, 0);
   }
 
   // Form Pre-fill Functions
