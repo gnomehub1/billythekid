@@ -4788,7 +4788,13 @@
     currency: 'USD',
     priceUSD: 0,
     priceConverted: 0,
-    isKeyboard: false
+    isKeyboard: false,
+    // Country detection and shipping
+    detectedCountry: null,      // e.g., 'CO', 'US', 'GB'
+    shippingTier: null,         // 'free', 'latinAmerica', 'europe'
+    shippingFeeUSD: 0,          // Base shipping fee in USD
+    shippingFeeConverted: 0,    // Shipping fee in selected currency
+    grandTotalConverted: 0      // Product + shipping in selected currency
   };
 
   // Carousel state
@@ -4919,16 +4925,46 @@
 
   // Populate Step 5 Order Summary
   function populateStep5Summary() {
-    const productInfo = document.getElementById('step5-product-info');
-    const totalAmount = document.getElementById('step5-total-amount');
+    const summaryDiv = document.getElementById('step5-order-summary');
+    if (!summaryDiv) return;
 
-    if (productInfo && totalAmount) {
-      // Format product info: "Product Name - Size"
-      productInfo.textContent = `${orderData.productName} - ${orderData.sizeLabel}`;
+    // Recalculate shipping tier and fee based on current currency (ensures it's always accurate)
+    const countryCode = inferCountryFromCurrency(orderData.currency);
+    orderData.detectedCountry = countryCode;
+    orderData.shippingTier = getShippingTierForCountry(countryCode);
+    orderData.shippingFeeUSD = calculateShippingFee(
+      orderData.shippingTier,
+      orderData.isKeyboard
+    );
 
-      // Format total amount with currency symbol using existing formatCurrency function
-      totalAmount.textContent = formatCurrency(orderData.priceConverted, orderData.currency);
-    }
+    // Convert to selected currency and calculate grand total
+    updateShippingCalculations();
+
+    const yourOrderLabel = t('lightbox.step5.yourOrder');
+    const productPriceLabel = t('lightbox.step5.productPrice');
+    const shippingLabel = t('lightbox.step5.shipping');
+    const shippingFreeLabel = t('lightbox.step4.shippingFree');
+    const grandTotalLabel = t('lightbox.step5.grandTotal');
+
+    let shippingDisplay = orderData.shippingTier === 'free'
+      ? `<strong>${shippingFreeLabel}</strong>`
+      : formatCurrency(orderData.shippingFeeConverted, orderData.currency);
+
+    summaryDiv.innerHTML = `
+      <p style="margin: 5px 0; color: var(--w-dark); font-weight: 700; text-align: center; font-size: 0.95rem;">
+        <strong>${yourOrderLabel}</strong> ${orderData.productName} - ${orderData.sizeLabel}
+      </p>
+      <p style="margin: 5px 0; color: var(--w-dark); text-align: center; font-size: 0.9rem;">
+        ${productPriceLabel} ${formatCurrency(orderData.priceConverted, orderData.currency)}
+      </p>
+      <p style="margin: 5px 0; color: var(--w-dark); text-align: center; font-size: 0.9rem;">
+        ${shippingLabel} ${shippingDisplay}
+      </p>
+      <hr style="border: none; border-top: 2px solid var(--w-dark); margin: 8px 0;">
+      <p style="margin: 5px 0; color: var(--w-dark); font-weight: 700; text-align: center; font-size: 1.1rem;">
+        <strong>${grandTotalLabel}</strong> ${formatCurrency(orderData.grandTotalConverted, orderData.currency)}
+      </p>
+    `;
   }
 
   // Proceed to Order Summary from Step 3 Success Message
@@ -5017,29 +5053,36 @@
     const summaryContent = document.getElementById('summary-content');
     if (!summaryContent) return;
 
-    // Calculate shipping fees based on product type
-    const shipping1USD = orderData.isKeyboard ? 25 : 30; // Latin America & US
-    const shipping2USD = orderData.isKeyboard ? 50 : 80; // Europe & Australia
+    // Recalculate shipping tier and fee based on current currency (ensures it's always accurate)
+    const countryCode = inferCountryFromCurrency(orderData.currency);
+    orderData.detectedCountry = countryCode;
+    orderData.shippingTier = getShippingTierForCountry(countryCode);
+    orderData.shippingFeeUSD = calculateShippingFee(
+      orderData.shippingTier,
+      orderData.isKeyboard
+    );
 
-    const shipping1 = convertPrice(shipping1USD, orderData.currency);
-    const shipping2 = convertPrice(shipping2USD, orderData.currency);
+    // Convert to selected currency and calculate grand total
+    updateShippingCalculations();
 
-    // Use translations for labels
     const productLabel = t('lightbox.step4.productLabel');
     const sizeLabel = t('lightbox.step4.sizeLabel');
-    const priceLabel = t('lightbox.step4.priceLabel');
-    const freeShipping = t('lightbox.step4.freeShippingColombia');
-    const shippingLatinAmerica = t('lightbox.step4.shippingLatinAmerica').replace('{price}', formatCurrency(shipping1.price, orderData.currency));
-    const shippingEurope = t('lightbox.step4.shippingEurope').replace('{price}', formatCurrency(shipping2.price, orderData.currency));
+    const productPriceLabel = t('lightbox.step4.productPrice');
+    const shippingLabel = t('lightbox.step4.shipping');
+    const shippingFreeLabel = t('lightbox.step4.shippingFree');
+    const grandTotalLabel = t('lightbox.step4.grandTotal');
+
+    let shippingDisplay = orderData.shippingTier === 'free'
+      ? `<strong>${shippingFreeLabel}</strong>`
+      : formatCurrency(orderData.shippingFeeConverted, orderData.currency);
 
     summaryContent.innerHTML = `
       <p style="margin: 10px 0;"><strong>${productLabel}</strong> ${orderData.productName}</p>
       <p style="margin: 10px 0;"><strong>${sizeLabel}</strong> ${orderData.sizeLabel}</p>
-      <p style="margin: 10px 0;"><strong>${priceLabel}</strong> ${formatCurrency(orderData.priceConverted, orderData.currency)}</p>
+      <p style="margin: 10px 0;"><strong>${productPriceLabel}</strong> ${formatCurrency(orderData.priceConverted, orderData.currency)}</p>
+      <p style="margin: 10px 0;"><strong>${shippingLabel}</strong> ${shippingDisplay}</p>
       <hr style="border: none; border-top: 2px solid var(--w-dark); margin: 15px 0;">
-      <p style="margin: 5px 0;">${freeShipping}</p>
-      <p style="margin: 5px 0;">${shippingLatinAmerica}</p>
-      <p style="margin: 5px 0;">${shippingEurope}</p>
+      <p style="margin: 10px 0; font-size: 1.2rem;"><strong>${grandTotalLabel}</strong> ${formatCurrency(orderData.grandTotalConverted, orderData.currency)}</p>
     `;
   }
 
@@ -5486,6 +5529,16 @@
     orderData.productName = title;
     orderData.category = category;
     orderData.isKeyboard = category.toLowerCase().includes('keyboard');
+
+    // Initialize shipping based on default USD currency
+    const countryCode = inferCountryFromCurrency(orderData.currency);
+    orderData.detectedCountry = countryCode;
+    orderData.shippingTier = getShippingTierForCountry(countryCode);
+    orderData.shippingFeeUSD = calculateShippingFee(
+      orderData.shippingTier,
+      orderData.isKeyboard
+    );
+    updateShippingCalculations();
 
     lightboxImage.src = imageSrc;
     lightboxTitle.textContent = title;
@@ -6234,6 +6287,54 @@
     return `${info.symbol}${formattedAmount} ${info.name}`;
   }
 
+  // ========== SHIPPING CALCULATION (Currency-Based) ==========
+
+  function inferCountryFromCurrency(currency) {
+    const currencyToCountry = {
+      'USD': 'US', 'CAD': 'CA', 'MXN': 'MX', 'BRL': 'BR',
+      'ARS': 'AR', 'COP': 'CO', 'CLP': 'CL', 'PEN': 'PE',
+      'GBP': 'GB', 'EUR': 'FR'
+    };
+    return currencyToCountry[currency] || 'US';
+  }
+
+  function getShippingTierForCountry(countryCode) {
+    const shippingTiers = {
+      'free': ['CO'],
+      'latinAmerica': ['MX', 'BR', 'AR', 'CL', 'PE', 'US', 'CA',
+                       'EC', 'VE', 'UY', 'PY', 'BO', 'CR', 'PA',
+                       'GT', 'HN', 'SV', 'NI', 'DO', 'CU', 'PR'],
+      'europe': ['GB', 'DE', 'FR', 'IT', 'ES', 'PT', 'NL', 'BE',
+                 'CH', 'AT', 'SE', 'NO', 'DK', 'FI', 'IE', 'PL',
+                 'CZ', 'GR', 'RO', 'HU', 'AU', 'NZ']
+    };
+
+    for (const [tier, countries] of Object.entries(shippingTiers)) {
+      if (countries.includes(countryCode)) return tier;
+    }
+    return 'latinAmerica'; // Default
+  }
+
+  function calculateShippingFee(shippingTier, isKeyboard) {
+    const fees = {
+      'free': 0,
+      'latinAmerica': isKeyboard ? 25 : 30,
+      'europe': isKeyboard ? 50 : 80
+    };
+    return shippingTier in fees ? fees[shippingTier] : fees['latinAmerica'];
+  }
+
+  function updateShippingCalculations() {
+    // Convert shipping fee to selected currency
+    const shippingConverted = convertPrice(orderData.shippingFeeUSD, orderData.currency);
+    orderData.shippingFeeConverted = shippingConverted.price;
+
+    // Calculate grand total (product + shipping)
+    orderData.grandTotalConverted = orderData.priceConverted + orderData.shippingFeeConverted;
+  }
+
+  // ========== END SHIPPING CALCULATION ==========
+
   function updateRugPricing(priceUSD) {
     const pricingDiv = document.getElementById('rug-pricing');
     const keyboardPricingDiv = document.getElementById('keyboard-pricing');
@@ -6271,15 +6372,11 @@
     if (e.target.id === 'currency-dropdown') {
       const selectedCurrency = e.target.value;
 
-      // Store currency in orderData
-      orderData.currency = selectedCurrency;
-
       // Re-update pricing with new currency for rugs
       const selectedRugSize = document.querySelector('input[name="rug-size"]:checked');
       if (selectedRugSize) {
         const price = selectedRugSize.dataset.price;
         updateRugPricing(price);
-        orderData.priceConverted = convertPrice(price, selectedCurrency).price;
       }
 
       // Re-update pricing with new currency for keyboards
@@ -6287,25 +6384,23 @@
       if (selectedKeyboardSize) {
         const price = selectedKeyboardSize.dataset.price;
         updatePricing(price);
-        orderData.priceConverted = convertPrice(price, selectedCurrency).price;
       }
 
-      // Show price preview (don't auto-advance anymore)
+      // Update shipping and price preview (will handle currency update and shipping recalculation)
       updatePricePreview();
     }
   });
 
-  // Update price preview when currency changes
+  // Update price preview and recalculate shipping
   function updatePricePreview() {
     const pricePreview = document.getElementById('price-preview');
     const pricePreviewAmount = document.getElementById('price-preview-amount');
 
     if (!pricePreview || !pricePreviewAmount) return;
 
-    // Check the actual dropdown value (in case it persisted from previous selection)
+    // Get currency from dropdown (source of truth)
     const currencyDropdown = document.getElementById('currency-dropdown');
     if (currencyDropdown && currencyDropdown.value) {
-      // Update orderData to match the dropdown
       orderData.currency = currencyDropdown.value;
     }
 
@@ -6318,6 +6413,18 @@
 
       // Update orderData with converted price
       orderData.priceConverted = converted.price;
+
+      // Always recalculate shipping based on current currency
+      const countryCode = inferCountryFromCurrency(orderData.currency);
+      orderData.detectedCountry = countryCode;
+      orderData.shippingTier = getShippingTierForCountry(countryCode);
+      orderData.shippingFeeUSD = calculateShippingFee(
+        orderData.shippingTier,
+        orderData.isKeyboard
+      );
+
+      // Update shipping calculations (convert to selected currency and calculate grand total)
+      updateShippingCalculations();
     } else {
       pricePreview.style.display = 'none';
     }
@@ -6626,6 +6733,10 @@
           productLabel: "Product:",
           sizeLabel: "Size:",
           priceLabel: "Price:",
+          productPrice: "Product Price:",
+          shipping: "Shipping:",
+          shippingFree: "FREE",
+          grandTotal: "Grand Total:",
           freeShippingColombia: "+ <strong>FREE</strong> shipping in Colombia",
           shippingLatinAmerica: "+ <strong>{price}</strong> shipping fee (Latin America, US & Canada)",
           shippingEurope: "+ <strong>{price}</strong> shipping fee (Europe & Australia)",
@@ -6640,6 +6751,9 @@
           message: "Thank you for your order! You will receive an email confirmation with the details as soon as the payment has been verified by our team. In the meantime, if you need immediate assistance please reach us at:",
           yourOrder: "Your Order:",
           totalAmount: "Total Amount:",
+          productPrice: "Product Price:",
+          shipping: "Shipping:",
+          grandTotal: "Grand Total:",
           changePaymentLabel: "Change Payment Method:",
           continueBtn: "Continue Shopping",
           closeBtn: "Close"
@@ -6781,6 +6895,10 @@
           productLabel: "Producto:",
           sizeLabel: "Tamaño:",
           priceLabel: "Precio:",
+          productPrice: "Precio del Producto:",
+          shipping: "Envío:",
+          shippingFree: "GRATIS",
+          grandTotal: "Total General:",
           freeShippingColombia: "+ envío <strong>GRATIS</strong> en Colombia",
           shippingLatinAmerica: "+ <strong>{price}</strong> tarifa de envío (Latinoamérica, EE. UU. y Canadá)",
           shippingEurope: "+ <strong>{price}</strong> tarifa de envío (Europa y Australia)",
@@ -6795,6 +6913,9 @@
           message: "¡Gracias por tu pedido! Recibirás un correo de confirmación con los detalles tan pronto como el pago haya sido verificado por nuestro equipo. Mientras tanto, si necesitas asistencia inmediata, contáctanos en:",
           yourOrder: "Tu Pedido:",
           totalAmount: "Monto Total:",
+          productPrice: "Precio del Producto:",
+          shipping: "Envío:",
+          grandTotal: "Total General:",
           changePaymentLabel: "Cambiar Método de Pago:",
           continueBtn: "Continuar Comprando",
           closeBtn: "Cerrar"
@@ -6936,6 +7057,10 @@
           productLabel: "Produit :",
           sizeLabel: "Taille :",
           priceLabel: "Prix :",
+          productPrice: "Prix du Produit :",
+          shipping: "Livraison :",
+          shippingFree: "GRATUITE",
+          grandTotal: "Total Général :",
           freeShippingColombia: "+ livraison <strong>GRATUITE</strong> en Colombie",
           shippingLatinAmerica: "+ <strong>{price}</strong> frais de livraison (Amérique Latine et États-Unis)",
           shippingEurope: "+ <strong>{price}</strong> frais de livraison (Europe et Australie)",
@@ -6950,6 +7075,9 @@
           message: "Merci pour votre commande ! Vous recevrez un email de confirmation avec les détails dès que le paiement aura été vérifié par notre équipe. En attendant, si vous avez besoin d'une assistance immédiate, contactez-nous à :",
           yourOrder: "Votre Commande :",
           totalAmount: "Montant Total :",
+          productPrice: "Prix du Produit :",
+          shipping: "Livraison :",
+          grandTotal: "Total Général :",
           changePaymentLabel: "Changer le Mode de Paiement :",
           continueBtn: "Continuer les Achats",
           closeBtn: "Fermer"
@@ -7091,6 +7219,10 @@
           productLabel: "Produto:",
           sizeLabel: "Tamanho:",
           priceLabel: "Preço:",
+          productPrice: "Preço do Produto:",
+          shipping: "Envio:",
+          shippingFree: "GRÁTIS",
+          grandTotal: "Total Geral:",
           freeShippingColombia: "+ envio <strong>GRÁTIS</strong> na Colômbia",
           shippingLatinAmerica: "+ <strong>{price}</strong> taxa de envio (América Latina e EUA)",
           shippingEurope: "+ <strong>{price}</strong> taxa de envio (Europa e Austrália)",
@@ -7105,6 +7237,9 @@
           message: "Obrigado pelo seu pedido! Você receberá um email de confirmação com os detalhes assim que o pagamento for verificado por nossa equipe. Enquanto isso, se precisar de assistência imediata, entre em contato conosco em:",
           yourOrder: "Seu Pedido:",
           totalAmount: "Valor Total:",
+          productPrice: "Preço do Produto:",
+          shipping: "Envio:",
+          grandTotal: "Total Geral:",
           changePaymentLabel: "Alterar Método de Pagamento:",
           continueBtn: "Continuar Comprando",
           closeBtn: "Fechar"
